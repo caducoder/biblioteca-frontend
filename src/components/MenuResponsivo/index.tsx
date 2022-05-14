@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import {MdOutlineMenu} from 'react-icons/md'
+import { Link } from 'react-router-dom';
 
 const pages = ['Acervo'];
 
@@ -28,23 +29,25 @@ function MenuResponsivo() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 4,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Biblioteca
-          </Typography>
+          
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 4,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'sans-serif',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'white',
+                textDecoration: 'none'
+              }}
+            >
+              Biblioteca
+            </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -113,7 +116,9 @@ function MenuResponsivo() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button color="inherit" sx={{fontWeight: 'bold'}}>Login</Button>
+            <Link to='/login'>
+              <Button color="inherit" sx={{fontWeight: 'bold', color: 'white'}}>Login</Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>
