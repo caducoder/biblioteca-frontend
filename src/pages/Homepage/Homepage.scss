@@ -1,0 +1,48 @@
+@import '../../assets/variaveis';
+.banner {
+   align-items: center;
+   background: rgba(0, 0, 0, 0.5) url('../../assets/banner.jpg');
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   display: flex;
+   height: 400px;
+   padding: 0px $padding-horizontal;
+   background-blend-mode: darken;
+   color: #fff;
+   font-family: sans-serif;
+
+   &__title {
+      font-size: 3rem;
+      min-width: 400px;
+      width: 60%;
+   }
+
+   &__subtitle {
+      font-size: 1.4em;
+   }
+
+   &__svg {
+      transform: scale(0.8);
+   }
+
+   @media (max-width: 1280px) {
+      padding: 0 30px;
+   }
+
+   @media (max-width: 768px) {
+      padding: 0px $padding-horizontal-mobile-xsm;
+      text-align: center;
+      &__title {
+         font-size: 2.5rem;
+         width: 100%;
+         min-width: 0px;
+      }
+      &__subtitle {
+         font-size: 1.2em;
+      }
+      &__svg {
+         display: none;
+      }
+   }
+}

@@ -1,7 +1,10 @@
+import Rotas from "./routes";
+import './App.scss'
+
 function App() {
   return (
     <div className="App">
-      <h1>Biblioteca</h1>
+      <Rotas />
     </div>
   );
 }
