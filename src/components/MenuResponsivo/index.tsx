@@ -10,8 +10,14 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import {MdOutlineMenu} from 'react-icons/md'
 import { Link } from 'react-router-dom';
+import './MenuResponsivo.scss'
 
-const pages = ['Acervo'];
+const pages = [
+  {
+    name: 'Acervo',
+    to: '/acervo'
+  }
+];
 
 function MenuResponsivo() {
    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -45,7 +51,9 @@ function MenuResponsivo() {
                 textDecoration: 'none'
               }}
             >
-              Biblioteca
+              <Link className='no_style' to='/'>
+                Biblioteca
+              </Link>
             </Typography>
           
 
@@ -79,39 +87,45 @@ function MenuResponsivo() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Link to={page.to} style={{textDecoration: 'none'}}>
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Biblioteca
-          </Typography>
+          <Link to='/' className='no_style'>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'sans-serif',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Biblioteca
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
-              >
-                {page}
-              </Button>
+              <Link to={page.to} className='no_style'>
+                <Button
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
+                >
+                  {page.name}
+                </Button>
+              </Link>
             ))}
           </Box>
 

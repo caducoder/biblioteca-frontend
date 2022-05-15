@@ -5,6 +5,7 @@ import library_photo from '../../assets/imagem_biblioteca.jpg'
 import './Homepage.scss'
 import Botao from '../../components/Botao'
 import { Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 function Homepage() {
    return ( 
@@ -15,7 +16,10 @@ function Homepage() {
                   Venha explorar o incrível mundo da leitura!
                </h1>
                <p className='banner__subtitle'>Mais de 10.000 exemplares a sua disposição</p>
-               <Botao>Consultar Acervo</Botao>
+               <Link to='/acervo'>
+                  <Botao>Consultar Acervo</Botao>
+
+               </Link>
             </div>
             <WomanBookSVG className='banner__svg' />
          </section>
@@ -46,7 +50,10 @@ function Homepage() {
             <img src={EducSVG} className='acesso__svg' alt='Desenho de uma moça em pé em cima de um livro' />
             <div className='acesso__info'>
                <h3 className='acesso__info__title'>Acesse nosso acervo e faça uma reserva!</h3>
-               <Botao>Acessar Acervo</Botao>
+               <Link to='/acervo'>
+                  <Botao>Acessar Acervo</Botao>
+
+               </Link>
             </div>
          </section>
          <footer className='rodape'>

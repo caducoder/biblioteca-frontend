@@ -10,8 +10,13 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   },
 }));
 
-export default function Botao({children}:{children: string}) {
+interface Props {
+  children: string,
+  type?: "button" | "submit" | "reset" | undefined
+}
+
+export default function Botao({children, type = 'button'}: Props) {
   return (
-      <ColorButton variant="contained">{children}</ColorButton> 
+      <ColorButton type={type} variant="contained">{children}</ColorButton> 
   );
 }
