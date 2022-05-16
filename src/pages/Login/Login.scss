@@ -45,3 +45,15 @@
       }
    }
 }
+
+.errmsg {
+   color: rgb(205, 30, 30);
+   font-weight: bold;
+   background-color: rgba(242, 139, 139, 0.727);
+   margin: 10px 20px;
+   padding: 10px;
+}
+
+.offscreen {
+   display: none;
+}
