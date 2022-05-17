@@ -1,14 +1,16 @@
-import { useState, useEffect, useContext } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import { useState, useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 import { TextField, Typography, Popover } from '@mui/material';
 import Botao from '../../components/Botao';
 import {MdInfoOutline} from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 import './Login.scss'
 
 import api from '../../api/axios';
 
 function Login() {
-   const { setAuth }: any = useContext(AuthContext);
+   const navigate = useNavigate();
+   const { setAuth }: any = useAuth();
    const [email, setEmail] = useState('');
    const [senha, setSenha] = useState('');
    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -39,6 +41,7 @@ function Login() {
             setAuth({role, accessToken})
             setEmail('')
             setSenha('')
+            navigate('/dashboard')
       } catch (error: any) {
          if(!error?.response) {
             setErrMsg('No server Response')

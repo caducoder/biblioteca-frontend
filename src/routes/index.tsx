@@ -4,6 +4,12 @@ import AcervoPublico from "../pages/AcervoPublico";
 import Dashboard from '../pages/Dashboard';
 import Homepage from "../pages/Homepage";
 import Login from "../pages/Login";
+import AcervoProtegido from '../pages/AcervoProtegido'
+import Equipe from '../pages/Equipe';
+import Fichario from '../pages/Fichario';
+import Financeiro from '../pages/Financeiro';
+import RequireAuth from '../components/RequireAuth';
+import Unauthorized from '../pages/Unauthorized';
 
 function Rotas() {
   return (
@@ -13,9 +19,18 @@ function Rotas() {
         <Route path='/' element={<Homepage />} />
         <Route path='login' element={<Login />} />
         <Route path='acervo' element={<AcervoPublico />} />
+        <Route path='unauthorized' element={<Unauthorized />} />
 
         {/* Rotas privadas */}
-        <Route path='dashboard' element={<Dashboard />} />
+        <Route element={<RequireAuth allowedRoles={[2200, 2205]} />}>
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='acervo-gestao' element={<AcervoProtegido />} />
+          <Route path='fichario' element={<Fichario />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[2205]} />}>
+          <Route path='equipe' element={<Equipe />} />
+          <Route path='financeiro' element={<Financeiro />} />
+        </Route>
       </Route>
     </Routes>
   );

@@ -4,10 +4,12 @@ import './Layout.scss'
 
 function Layout() {
    return ( 
-      <main className="App">
+      <>
          <MenuResponsivo />
-         <Outlet />
-      </main>
+         <main className="App">
+            <Outlet />
+         </main>
+      </>
     );
 }
 
