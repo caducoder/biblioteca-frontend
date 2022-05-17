@@ -1,6 +1,7 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
+// função que verifica se o usuário esta logado, e verifica tbm o cargo para decidir se permite acesso as páginas ou não
 function RequireAuth({ allowedRoles }: {allowedRoles: Array<number>}) {
    const { auth }: any = useAuth()
    const location = useLocation();

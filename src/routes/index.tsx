@@ -11,6 +11,11 @@ import Financeiro from '../pages/Financeiro';
 import RequireAuth from '../components/RequireAuth';
 import Unauthorized from '../pages/Unauthorized';
 
+/*
+2200: Bibliotecario
+2205: Administrador
+*/
+
 function Rotas() {
   return (
     <Routes>

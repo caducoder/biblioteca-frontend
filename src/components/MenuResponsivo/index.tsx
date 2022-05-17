@@ -45,7 +45,7 @@ const protectedPages = [
 ]
 
 function MenuResponsivo() {
-  const { auth, setAuth }: any = useAuth();
+  const { auth, setAuth }: any = useAuth();// pegando auth e setAuth do contexto global
   const [pages, setPages] = useState(publicPages);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -79,8 +79,9 @@ function MenuResponsivo() {
     setAnchorEl(null);
   };
 
+  // função que desloga o usuário
   const handleLogout = () => {
-    setAuth({})
+    setAuth({})// apaga o conteúdo do contexto global
     handleClose()
   }
 

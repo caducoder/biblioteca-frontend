@@ -16,19 +16,22 @@ function Login() {
    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
    const [errMsg, setErrMsg] = useState('');
 
-   const handleClick = (event: any) => {
+   // função para abrir o popup de esqueci senha
+   const handleClickForgetPassword = (event: any) => {
       setAnchorEl(event.currentTarget)
    }
    
+   // função que fecha o popup
    const handleClosePopover = () => {
       setAnchorEl(null);
    };
 
    // função que sera chamada qnd o form for enviado
    const submitForm = async (ev: any) => {
-      ev.preventDefault();
+      ev.preventDefault();// previne q o formulário recarregue a página
 
       try {
+         // faz a requisição enviando as credenciais digitadas no form pro backend
          const response = await api.post('/login',
             JSON.stringify({email, senha}),
             {
@@ -36,11 +39,19 @@ function Login() {
                withCredentials: true
             })
             console.log(JSON.stringify(response?.data))
+
+            // pega o token de acesso e o cargo da resposta da api
             const accessToken = response?.data?.accessToken;
             const role = response?.data?.roles;
+
+            // adiciona o cargo e o token no contexto global
             setAuth({role, accessToken})
+
+            // limpando os campos do form
             setEmail('')
             setSenha('')
+
+            // muda para a página de dashboard, caso der sucesso no login
             navigate('/dashboard')
       } catch (error: any) {
          if(!error?.response) {
@@ -53,6 +64,7 @@ function Login() {
       }
    }
 
+   // para quando o usuario digitar, a mensagem de erro sair, caso ela esteja presente
    useEffect(() => {
       setErrMsg('')
    }, [email, senha]);
@@ -90,7 +102,7 @@ function Login() {
                   onChange={ev => setSenha(ev.target.value)}
                   required
                />
-               <button type='button' aria-describedby={id} className='login__box__form__forgetpass' onClick={handleClick}>Esqueci a senha</button>
+               <button type='button' aria-describedby={id} className='login__box__form__forgetpass' onClick={handleClickForgetPassword}>Esqueci a senha</button>
                <Popover
                   id={id}
                   open={open}
