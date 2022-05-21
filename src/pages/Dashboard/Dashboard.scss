@@ -1,0 +1,55 @@
+.relatorios__title {
+    padding: 0px 55px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container2 {
+    display: flex;
+} 
+
+.livrosCad {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    margin: 30px 125px;
+
+    &__svg {
+        width: 55%;
+    }
+}
+
+.livrosRes {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    margin: 30px 125px;
+
+    &__svg {
+        width: 55%;
+    }
+}
+
+.livrosEmp {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    margin: 30px 125px;
+
+    &__svg {
+        width: 55%;
+    }
+}
+
+.clientesCad {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    margin: 50px 605px 0px 560px;
+
+    &__svg {
+        width: 55%;
+    }
+}
