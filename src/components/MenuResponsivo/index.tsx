@@ -61,7 +61,7 @@ function MenuResponsivo() {
   
   useEffect(() => {
     // verificando se o usuário está logado para decidir se mostra a barra completa ou não
-    if(/*auth?.role*/true) {
+    if(auth?.role) {
       setPages(protectedPages)
     } else {
       setPages(publicPages)
@@ -169,9 +169,8 @@ function MenuResponsivo() {
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link to={page.to} className='no_style'>
+              <Link key={page.name} to={page.to} className='no_style'>
                 <Button
-                  key={page.name}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
                 >
