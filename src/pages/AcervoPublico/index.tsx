@@ -8,81 +8,92 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { MdReadMore } from 'react-icons/md'
+import { listarLivros, Livro } from '../../api/LivroService';
+import { useEffect, useState } from 'react';
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
+import FormControl from '@mui/material/FormControl';
 
-//function AcervoPublico() {
-   interface Column {
-   id: 'name' | 'code' | 'population' | 'size' | 'density';
+interface Column {
+   id: 'titulo' | 'autor' | 'editora' | 'estado' | 'detalhes';
    label: string;
    minWidth?: number;
    align?: 'right';
-   format?: (value: number) => string;
-   }
+}
 
-   const columns: readonly Column[] = [
-   { id: 'name', label: 'Name', minWidth: 170 },
-   { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-   {
-      id: 'population',
-      label: 'Population',
-      minWidth: 170,
-      align: 'right',
-      format: (value: number) => value.toLocaleString('en-US'),
-   },
-   {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
-      minWidth: 170,
-      align: 'right',
-      format: (value: number) => value.toLocaleString('en-US'),
-   },
-   {
-      id: 'density',
-      label: 'Density',
-      minWidth: 170,
-      align: 'right',
-      format: (value: number) => value.toFixed(2),
-   },
-   ];
+const columns: readonly Column[] = [
+   { id: 'titulo', label: 'Título', minWidth: 200 },
+   { id: 'autor', label: 'Autor', minWidth: 150 },
+   { id: 'editora', label: 'Editora', minWidth: 170 },
+   { id: 'estado', label: 'Estado', minWidth: 60, },
+   { id: 'detalhes', label: 'Detalhes', minWidth: 120, align: 'right' },
+];
 
-   interface Data {
-   name: string;
-   code: string;
-   population: number;
-   size: number;
-   density: number;
-   }
+interface Data {
+   id: number,
+   titulo: string;
+   autor: string;
+   editora: string;
+   estado: string;
+   detalhes: JSX.Element;
+}
 
-   function createData(
-   name: string,
-   code: string,
-   population: number,
-   size: number,
+function createData(
+   id: number,
+   titulo: string,
+   autor: string,
+   editora: string,
+   estado: string,
+   detalhes: JSX.Element
    ): Data {
-   const density = population / size;
-   return { name, code, population, size, density };
-   }
+   return { id, titulo, autor, editora, estado, detalhes };
+}
 
-   const rows = [
-   createData('India', 'IN', 1324171354, 3287263),
-   createData('China', 'CN', 1403500365, 9596961),
-   createData('Italy', 'IT', 60483973, 301340),
-   createData('United States', 'US', 327167434, 9833520),
-   createData('Canada', 'CA', 37602103, 9984670),
-   createData('Australia', 'AU', 25475400, 7692024),
-   createData('Germany', 'DE', 83019200, 357578),
-   createData('Ireland', 'IE', 4857000, 70273),
-   createData('Mexico', 'MX', 126577691, 1972550),
-   createData('Japan', 'JP', 126317000, 377973),
-   createData('France', 'FR', 67022000, 640679),
-   createData('United Kingdom', 'GB', 67545757, 242495),
-   createData('Russia', 'RU', 146793744, 17098246),
-   createData('Nigeria', 'NG', 200962417, 923768),
-   createData('Brazil', 'BR', 210147125, 8515767),
-   ];
+// const rows = [
+//    createData(1, 'A Revolução dos Bichos', 'George Orwell', 'Companhia das Letras', 'Disponível', <MdReadMore className='botaoDetalhes' size={30} onClick={() => console.log(1)}/> ),
+//    createData(2, 'Harry Potter', 'Alguem', 'editora', 'Emprestado', <MdReadMore className='botaoDetalhes' size={30} onClick={() => console.log(2)}/>),
+// ];
 
-   export default function StickyHeadTable() {
+export default function AcervoPublico() {
+   const [livros, setlivros] = useState<Data[]>();
+   const [livrosFiltrados, setLivrosFiltrados] = useState<Data[]>();
    const [page, setPage] = React.useState(0);
    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+   const [busca, setBusca] = useState('');
+
+   useEffect(() => {
+      const getLivros = async () => {
+         popularTabela(await listarLivros())
+      }
+
+      getLivros()
+   }, []);
+
+   const popularTabela = (livros: Array<Livro>)  => {
+      const linhas = livros.map(livro => (
+         createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro.id)}/>)
+      ))
+
+      setlivros(linhas)
+      setLivrosFiltrados(linhas)
+   }
+
+   const handleClickDetails = (id: number) => {
+      console.log(id)
+   }
+
+   const handleClickSearch = () => {
+      const livrosFilter = livros?.filter(livro => livro.titulo.toLowerCase().includes(busca.toLowerCase()))
+      setLivrosFiltrados(livrosFilter)
+   }
+
+   const handleClickClear = () => {
+      setBusca('')
+   }
 
    const handleChangePage = (event: unknown, newPage: number) => {
       setPage(newPage);
@@ -95,64 +106,97 @@ import TableRow from '@mui/material/TableRow';
 
    return (
       <>
-         <section className='title'>
+         <div className='title'>
             <h1>Nosso Acervo</h1>
-         </section>
-         <div className='group'>
-         <div className='table'>
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-               <TableContainer sx={{ maxHeight: 440 }}>
-               <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                     <TableRow>
-                     {columns.map((column) => (
-                        <TableCell
-                           key={column.id}
-                           align={column.align}
-                           style={{ minWidth: column.minWidth }}
+         </div>
+         
+         <main className='group'>
+            <div className='busca'>
+               <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
+               <InputLabel htmlFor="outlined-adornment-search">Buscar livro</InputLabel>
+               <OutlinedInput
+                  id="outlined-adornment-search"
+                  type='text'
+                  value={busca}
+                  onChange={ev => setBusca(ev.target.value)}
+                  endAdornment={
+                  <InputAdornment position="end">
+                     {busca ? 
+                        <IconButton
+                           aria-label="clear button"
+                           onClick={handleClickClear}
+                           edge="end"
                         >
-                           {column.label}
-                        </TableCell>
-                     ))}
-                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                     {rows
-                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                     .map((row) => {
-                        return (
-                           <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                           {columns.map((column) => {
-                              const value = row[column.id];
-                              return (
-                                 <TableCell key={column.id} align={column.align}>
-                                 {column.format && typeof value === 'number'
-                                    ? column.format(value)
-                                    : value}
-                                 </TableCell>
-                              );
-                           })}
-                           </TableRow>
-                        );
-                     })}
-                  </TableBody>
-               </Table>
-               </TableContainer>
-               <TablePagination
-               rowsPerPageOptions={[10, 25, 100]}
-               component="div"
-               count={rows.length}
-               rowsPerPage={rowsPerPage}
-               page={page}
-               onPageChange={handleChangePage}
-               onRowsPerPageChange={handleChangeRowsPerPage}
+                           {<MdOutlineClear />}
+                        </IconButton>
+                        : ''
+                     }
+                     
+                     <IconButton
+                        aria-label="search button"
+                        onClick={handleClickSearch}
+                        edge="end"
+                     >
+                        {<MdOutlineSearch />}
+                     </IconButton>
+                  </InputAdornment>
+                  }
+                  label="Buscar livro"
                />
-            </Paper>
-         </div>
-         </div>
+               </FormControl>
+            </div>
+            <div className='table'>
+               <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                     <TableHead>
+                        <TableRow>
+                        {columns.map((column) => (
+                           <TableCell
+                              key={column.id}
+                              align={column.align}
+                              style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
+                           >
+                              {column.label}
+                           </TableCell>
+                        ))}
+                        </TableRow>
+                     </TableHead>
+                     <TableBody>
+                        {livrosFiltrados ? livrosFiltrados
+                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                           .map((row) => {
+                              return (
+                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                 {columns.map((column) => {
+                                    const value = row[column.id];
+                                    return (
+                                       <TableCell key={column.id} align={column.align}>
+                                       {value}
+                                       </TableCell>
+                                    );
+                                 })}
+                                 </TableRow>
+                              );
+                           })
+                           : <div><p>Não foram encontrados livros</p></div>
+                        }
+                     </TableBody>
+                  </Table>
+                  </TableContainer>
+                  <TablePagination
+                     labelRowsPerPage='Livros por página:'
+                     rowsPerPageOptions={[10, 25, 50]}
+                     component="div"
+                     count={livrosFiltrados ? livrosFiltrados.length : 0}
+                     rowsPerPage={rowsPerPage}
+                     page={page}
+                     onPageChange={handleChangePage}
+                     onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+               </Paper>
+            </div>
+         </main>
       </>
    );
 }
-//}
-
-//export default AcervoPublico;

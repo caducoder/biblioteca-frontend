@@ -1,6 +1,6 @@
 import api from "../axios";
 
-interface Livro {
+export interface Livro {
     id: number,
     isbn: string,
     issn: string,
