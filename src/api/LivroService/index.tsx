@@ -38,3 +38,11 @@ export const contarReservas = () => new Promise<number> (
             .catch(error => reject(error))
     }
 )
+
+export const reservarLivro = (idLivro: number, cpf: string) => new Promise<string> (
+    (resolve, reject) => {
+        api.get(`/livros/${idLivro}/${cpf}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)

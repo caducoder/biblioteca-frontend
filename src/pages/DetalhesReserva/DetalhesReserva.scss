@@ -1,0 +1,18 @@
+.container {
+    margin: 20px 200px;
+
+    &__bread{
+        margin-bottom: 40px;
+    }
+}
+
+.detalhes {
+    display: grid;
+    grid-template: auto auto auto / auto 300px auto;
+    row-gap: 20px;
+    column-gap: 40px;
+}
+
+.reserva {
+    margin-top: 20px;
+}

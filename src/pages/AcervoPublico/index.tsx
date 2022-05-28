@@ -17,6 +17,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
+import { useNavigate } from 'react-router';
 
 interface Column {
    id: 'titulo' | 'autor' | 'editora' | 'estado' | 'detalhes';
@@ -64,6 +65,7 @@ export default function AcervoPublico() {
    const [page, setPage] = React.useState(0);
    const [rowsPerPage, setRowsPerPage] = React.useState(10);
    const [busca, setBusca] = useState('');
+   const navigate = useNavigate()
 
    useEffect(() => {
       const getLivros = async () => {
@@ -75,15 +77,15 @@ export default function AcervoPublico() {
 
    const popularTabela = (livros: Array<Livro>)  => {
       const linhas = livros.map(livro => (
-         createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro.id)}/>)
+         createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro)}/>)
       ))
 
       setlivros(linhas)
       setLivrosFiltrados(linhas)
    }
 
-   const handleClickDetails = (id: number) => {
-      console.log(id)
+   const handleClickDetails = (livro: Livro) => {
+      navigate(`livro/${livro.id}`, {state: {...livro}})
    }
 
    const handleClickSearch = () => {

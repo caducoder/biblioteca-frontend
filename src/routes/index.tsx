@@ -10,6 +10,7 @@ import Fichario from '../pages/Fichario';
 import Financeiro from '../pages/Financeiro';
 import RequireAuth from '../components/RequireAuth';
 import Unauthorized from '../pages/Unauthorized';
+import DetalhesReserva from '../pages/DetalhesReserva';
 
 /*
 2200: Bibliotecario
@@ -24,6 +25,7 @@ function Rotas() {
         <Route path='/' element={<Homepage />} />
         <Route path='login' element={<Login />} />
         <Route path='acervo' element={<AcervoPublico />} />
+        <Route path='acervo/livro/:id' element={<DetalhesReserva />} />
         <Route path='unauthorized' element={<Unauthorized />} />
 
         {/* Rotas privadas */}
