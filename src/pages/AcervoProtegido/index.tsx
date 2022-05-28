@@ -4,23 +4,26 @@ import AddSVG from '../../assets/add-circle.svg'
 import ChangesSVG from '../../assets/recent-changes.svg'
 import RemoveSVG from '../../assets/remove-circle.svg'
 import livros_foto from '../../assets/imagem_livros.jpg'
+import { Outlet, Link } from 'react-router-dom'
 
 function AcervoProtegido() {
    return ( 
       <>
-         <section className='sideNavigation'>
+         <section className='acervo_prot'>
             <div className="sidenav">
                <h3>Gerencimanento do Acervo</h3>
-               <a href="#"><img src={SearchSVG} className='search' alt='desenho de uma lupa'/>  Consultar Livro</a>
-               <a href="#"><img src={AddSVG} className='add' alt='desenho de um círculo com um mais no meio'/>  Cadastrar Livro</a>
-               <a href="#"><img src={ChangesSVG} className='changes' alt='desenho de linhas com um lápis'/>  Alterar Livro</a>
-               <a href="#"><img src={RemoveSVG} className='remove' alt='desenho de um círculo com um menos no meio'/>  Remover Livro</a>
+               <Link to='consulta'><img src={SearchSVG} className='search' alt='desenho de uma lupa'/>  Consultar Livro</Link>
+               <Link to='cadastro'><img src={AddSVG} className='add' alt='desenho de um círculo com um mais no meio'/>  Cadastrar Livro</Link>
+               <Link to='alterar'><img src={ChangesSVG} className='changes' alt='desenho de linhas com um lápis'/>  Alterar Livro</Link>
+               <Link to='remover'><img src={RemoveSVG} className='remove' alt='desenho de um círculo com um menos no meio'/>  Remover Livro</Link>
             </div>  
-         </section>
-         <section className='pageContent'>
-            <div className="pagecon">
-                  <img src={livros_foto} className='imagem' alt="Foto de uma estante de livros" />
-                  <h2>Selecione uma opção.</h2>
+            <div className='pageContent'>
+               <div className="pagecon">
+                     <img src={livros_foto} className='imagem' alt="Foto de uma estante de livros" />
+               </div>
+               <div className='conteudo'>
+                  <Outlet />
+               </div>
             </div>
          </section>
       </>
