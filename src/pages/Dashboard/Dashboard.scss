@@ -10,6 +10,17 @@
     display: flex;
 } 
 
+.flex-container3 {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    margin: 50px;
+} 
+
+.flex-container4 {
+    display: flex;
+} 
+
 .livrosCad {
     border: 2px solid black;
     padding: 20px;
@@ -47,7 +58,7 @@
     border: 2px solid black;
     padding: 20px;
     text-align: center;
-    margin: 50px 605px 0px 560px;
+    margin: 50px 200px 0px 120px;
 
     &__svg {
         width: 55%;

@@ -8,6 +8,7 @@ import { contarClientes } from '../../api/ClienteService'
 import { contarEmprestimos } from '../../api/EmprestimoService'
 import './Dashboard.scss'
 import { useState, useEffect, SetStateAction } from 'react'
+import Botao from '../../components/Botao'
 
 function Dashboard() {
    const [numeroDeLivros, setNumeroDeLivros] = useState<any>();
@@ -50,12 +51,30 @@ function Dashboard() {
                <p>Livros Emprestados: <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
             </section>
          </div>
-         <div className='flex-container2'>
-            <section className='clientesCad'>
-               <img src={UserSVG} className='clientesCad__svg' alt='desenho de dois bonecos'/>
-               <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
-            </section>
+         <div className='flex-container4'> 
+            <div className='flex-container2'>
+               <section className='clientesCad'>
+                  <img src={UserSVG} className='clientesCad__svg' alt='desenho de dois bonecos'/>
+                  <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
+               </section>
+            </div>
+            <div className='flex-container3'>
+               <h3>Ações</h3>
+               <div className='emprestimo'>            
+                     <Botao>Realizar Emprestimo</Botao>
+               </div>
+               <div className='cliente'>
+                  <Botao>Cadastrar Cliente</Botao>
+               </div>
+               <div className='devolução'>
+                  <Botao>Realizar Devolução</Botao>
+               </div>
+               <div className='reserva'>
+                  <Botao>Realizar Reserva</Botao>
+               </div>
+            </div>
          </div>
+         
       </>
     );
 }
