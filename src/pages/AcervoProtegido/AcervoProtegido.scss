@@ -1,0 +1,40 @@
+@import '../../assets/variaveis';
+
+.sidenav {
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    z-index: 1;
+    top: 69px;
+    left: 0;
+    background-color: #203088;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+  
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #C4C4C4;
+    display: block;
+}
+  
+.sidenav a:hover {
+    color: #00FFE0;
+}
+
+.sidenav h3 {
+    color: white;
+}
+
+.pagecon img {
+  margin-left: 210px;
+  width: 84.4%;
+
+}
+
+.pagecon h2 {
+    margin-left: 250px;
+    top: 120px;
+}
