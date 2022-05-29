@@ -7,7 +7,7 @@ import { contarLivros, contarReservas } from '../../api/LivroService'
 import { contarClientes } from '../../api/ClienteService'
 import { contarEmprestimos } from '../../api/EmprestimoService'
 import './Dashboard.scss'
-import { useState, useEffect, SetStateAction } from 'react'
+import { useState, useEffect } from 'react'
 import Botao from '../../components/Botao'
 
 function Dashboard() {
@@ -16,6 +16,7 @@ function Dashboard() {
    const [numeroDeEmprestimos, setNumeroDeEmprestimos] = useState<any>();
    const [numeroDeReservas, setNumeroDeReservas] = useState<any>();
 
+   //função que busca os dados toda vez que a página é acessada
    useEffect(() => {
       const getTotal = async () => {
          const [numLivros, numClientes, numEmpr, numReservas] = await Promise.all([
@@ -26,55 +27,56 @@ function Dashboard() {
          setNumeroDeEmprestimos(numEmpr)
          setNumeroDeReservas(numReservas)
       }
+
       getTotal()
    }, []);
 
    return ( 
       <>
-         <section className='relatorios__title'>
-            <Typography variant='h5'><br></br>Relatórios</Typography>
-         </section>
+         <div className='relatorios__title'>
+            <Typography variant='h4'><br></br>Relatórios</Typography>
+         </div>
 
-         <div className='flex-container'>
-            <section className='livrosCad'>
-               <img src={BooksSVG} className='livrosCad__svg' alt='desenho de dois livros'/>
+         <section className='grid-container'>
+            <div className='livrosCad'>
+               <img src={BooksSVG} className='svg' alt='desenho de dois livros'/>
                <p>Livros Cadastrados: <span className='numero'>{numeroDeLivros || 'N/A'}</span> </p>
-            </section>
+               <a href="#">Ver relatório</a>
+            </div>
 
-            <section className='livrosRes'>
-               <img src={BookmarkSVG} className='livrosRes__svg' alt='desenho de um livro com um marca página'/>
+            <div className='livrosRes'>
+               <img src={BookmarkSVG} className='svg' alt='desenho de um livro com um marca página'/>
                <p>Livros Reservados: <span className='numero'>{numeroDeReservas || 'N/A'}</span> </p>
-            </section>
+               <a href="#">Ver relatório</a>
+            </div>
 
-            <section className='livrosEmp'>
-               <img src={ReaderSVG} className='livrosEmp__svg' alt='desenho de um boneco com um livro'/>
+            <div className='livrosEmp'>
+               <img src={ReaderSVG} className='svg' alt='desenho de um boneco com um livro'/>
                <p>Livros Emprestados: <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
-            </section>
-         </div>
-         <div className='flex-container4'> 
-            <div className='flex-container2'>
-               <section className='clientesCad'>
-                  <img src={UserSVG} className='clientesCad__svg' alt='desenho de dois bonecos'/>
-                  <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
-               </section>
+               <a href="#">Ver relatório</a>
             </div>
-            <div className='flex-container3'>
+            <div className='clientesCad'>
+               <img src={UserSVG} className='svg' alt='desenho de dois bonecos'/>
+               <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
+            </div>
+            <div className='actions-box'>
                <h3>Ações</h3>
-               <div className='emprestimo'>            
+               <div className='buttons'>
+                  <div className='empr'>            
                      <Botao>Realizar Emprestimo</Botao>
-               </div>
-               <div className='cliente'>
-                  <Botao>Cadastrar Cliente</Botao>
-               </div>
-               <div className='devolução'>
-                  <Botao>Realizar Devolução</Botao>
-               </div>
-               <div className='reserva'>
-                  <Botao>Realizar Reserva</Botao>
+                  </div>
+                  <div className='clie'>
+                     <Botao>Cadastrar Cliente</Botao>
+                  </div>
+                  <div className='dev'>
+                     <Botao>Realizar Devolução</Botao>
+                  </div>
+                  <div className='res'>
+                     <Botao>Realizar Reserva</Botao>
+                  </div>
                </div>
             </div>
-         </div>
-         
+         </section>
       </>
     );
 }

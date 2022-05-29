@@ -1,68 +1,61 @@
 .relatorios__title {
-    padding: 0px 55px;
+    margin: 0 150px;
 }
 
-.flex-container {
-    display: flex;
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 80px;
+    margin: 0 150px;
+    padding: 15px 0;
+
+    // seleciona todas as divs em que o pai é o grid-container
+    &>div {
+        border: 2px solid black;
+        padding: 20px;
+        text-align: center;
+    }
 }
 
-.flex-container2 {
-    display: flex;
-} 
+.actions-box {
+    grid-area: 2 / 2 / 3 / 4;
+    text-align: left !important;
+    padding-top: 0 !important;
 
-.flex-container3 {
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-    margin: 50px;
-} 
+    &>.buttons {
+        display: grid;
+        grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+        row-gap: 25px;
+        justify-items: center;
+        padding: 0 60px;
 
-.flex-container4 {
-    display: flex;
+        div {
+            button {
+                width: 220px;
+            }
+        }
+    }
 } 
 
 .livrosCad {
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-    margin: 30px 125px;
-
-    &__svg {
-        width: 55%;
-    }
+    grid-area: 1 / 1 / 2 / 2;
 }
 
 .livrosRes {
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-    margin: 30px 125px;
-
-    &__svg {
-        width: 55%;
-    }
+    grid-area: 1 / 2 / 2 / 3;
 }
 
-.livrosEmp {
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-    margin: 30px 125px;
-
-    &__svg {
-        width: 55%;
-    }
+.livrosEmp { 
+    grid-area: 1 / 3 / 2 / 4;
 }
 
 .clientesCad {
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-    margin: 50px 200px 0px 120px;
+    grid-area: 2 / 1 / 3 / 2;
+}
 
-    &__svg {
-        width: 55%;
-    }
+.svg {
+    width: 35%;
 }
 
 .numero {
