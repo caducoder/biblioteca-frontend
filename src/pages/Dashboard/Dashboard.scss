@@ -1,18 +1,18 @@
 .relatorios__title {
-    margin: 0 150px;
+    margin: 0 190px;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 80px;
-    margin: 0 150px;
+    gap: 50px;
+    margin: 0 190px;
     padding: 15px 0;
 
     // seleciona todas as divs em que o pai é o grid-container
     &>div {
-        border: 2px solid black;
+        border: 1px solid black;
         padding: 20px;
         text-align: center;
     }
