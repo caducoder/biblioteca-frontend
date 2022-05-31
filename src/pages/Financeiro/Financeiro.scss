@@ -1,0 +1,15 @@
+.financeiro_container {
+    margin: 10px 150px;
+}
+
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &__importButton {
+        font-weight: bold;
+        align-self: center;
+    }
+}
+
