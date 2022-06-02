@@ -4,27 +4,44 @@ import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Field, Formik, useFormik } from "formik";
+import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import { uploadForm } from "../../../api/FinanceiroService";
 
 import './ImportarNotaFiscal.scss'
 
 function ImportarNotaFiscal() {
-    const handleSubmit = (values: any) => {
-        console.log(values)
+    const [file, setFile] = useState<File>();
+    const [valor, setValor] = useState('');
+    const [assunto, setAssunto] = useState('');
+    const [tipo, setTipo] = useState('');
+    
+    // função que junta as informações e envia para o backend
+    const submit = async (ev: any) => {
+        ev.preventDefault()
+        const formD = new FormData()
+        
+        formD.append('assunto', assunto)
+        formD.append('valor', valor)
+        formD.append('tipo', tipo)
+        formD.append('file', file ? file : '')
+
+        try {
+            let msg = await uploadForm(formD)
+            console.log(msg)
+        } catch (error: any) {
+            console.log('erro: ', error?.response)
+        }
+        
     }
 
-    const formik = useFormik({
-        initialValues: {
-            valor: 0,
-            tipoOperacao: '',
-            assunto: '',
-            arquivo: ''
-        },
-        validationSchema: '',
-        onSubmit: handleSubmit
-    })
-
+    // função que pega o arquivo qnd ele é selecionado
+    const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files !== null) {
+            let file = e.target.files[0]
+            setFile(file)
+        }
+    }
 
     return ( 
         <>
@@ -39,41 +56,37 @@ function ImportarNotaFiscal() {
             <section className='importContainer'>
                 <Typography variant="h4">Importação de Nota Fiscal</Typography>
                 <div className='importContainer__form'>
-                    <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={submit}>
                         <TextField
                             label="Valor"
-                            name='valor'
-                            id="outlined-start-adornment"
                             sx={{ m: 1, width: '25ch' }}
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                             }}
-                            value={formik.values.valor}
-                            onChange={formik.handleChange}
+                            value={valor}
+                            onChange={e => setValor(e.target.value)}
                             size='small'
-                            type='number'
+                            type='text'
                         />
                         <FormControl sx={{ m: 1,width: 200}} size='small'>
                             <InputLabel id="demo-simple-select-label">Tipo de Operação</InputLabel>
                             <Select
-                                name='tipoOperacao'
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={formik.values.tipoOperacao}
+                                value={tipo}
+                                onChange={e => setTipo(e.target.value)}
                                 label="Tipo de Operação"
-                                onChange={formik.handleChange}                           
+                                defaultValue=''       
                             >
                                 <MenuItem value='entrada'>Entrada</MenuItem>
-                                <MenuItem value='saída'>Saída</MenuItem>
+                                <MenuItem value='saida'>Saída</MenuItem>
                             </Select>
                         </FormControl>
                         <TextField 
                             sx={{ m: 1 , width: '96.5%'}}
-                            
                             label='Assunto'
-                            name='assunto'
-                            value={formik.values.assunto}
-                            onChange={formik.handleChange}
+                            value={assunto}
+                            onChange={e => setAssunto(e.target.value)}
                             size='small'
                             type='text'
                         />
@@ -81,21 +94,8 @@ function ImportarNotaFiscal() {
                             accept=".pdf"
                             style={{ display: 'none' }}
                             id="arquivo"
-                            name='arquivo'
                             type="file"
-                            value={formik.values.arquivo}
-                            onChange={(event) => {
-                                // const fileReader = new FileReader();
-                                // fileReader.onload = () => {
-                                //     if (fileReader.readyState === 2) {
-                                //         setFieldValue('arquivo', fileReader.);
-                                    
-                                //     }
-                                // };
-                                if(event.currentTarget.files != null) {
-                                    setFieldValue('arquivo',  event.currentTarget.files[0]);
-                                }  
-                              }}
+                            onChange={e => handleFile(e)}
                         />
                         <label htmlFor="arquivo">
                             <Button variant="contained" component="span" className="btn">
@@ -114,7 +114,3 @@ function ImportarNotaFiscal() {
 }
 
 export default ImportarNotaFiscal;
-
-function setFieldValue(arg0: string, arg1: File) {
-    throw new Error("Function not implemented.");
-}
