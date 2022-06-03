@@ -40,12 +40,13 @@ function Login() {
             })
             console.log(JSON.stringify(response?.data))
 
-            // pega o token de acesso e o cargo da resposta da api
+            // pega o token de acesso, o cargo e o nome da resposta da api
             const accessToken = response?.data?.accessToken;
             const role = response?.data?.roles;
+            const username = response?.data?.username;
 
             // adiciona o cargo e o token no contexto global
-            setAuth({role, accessToken})
+            setAuth({role, accessToken, username})
 
             // limpando os campos do form
             setEmail('')

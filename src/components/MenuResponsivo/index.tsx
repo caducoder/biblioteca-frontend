@@ -8,11 +8,11 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import {MdAccountCircle, MdOutlineMenu} from 'react-icons/md'
+import {MdAccountBox, MdOutlineMenu} from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './MenuResponsivo.scss'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 
 const publicPages = [
   {
@@ -47,10 +47,11 @@ const protectedPages = [
 function MenuResponsivo() {
   const { auth, setAuth }: any = useAuth();// pegando auth e setAuth do contexto global
   const [pages, setPages] = useState(publicPages);
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   // funções para abrir e fechar o menu caso o usuário esteja no celular
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -68,10 +69,7 @@ function MenuResponsivo() {
     }
   }, [auth]);
   
-  //------------ Icone da conta. (temporario)
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -84,7 +82,6 @@ function MenuResponsivo() {
     setAuth({})// apaga o conteúdo do contexto global
     handleClose()
   }
-
 
   return (
     <AppBar position="static" color='primary'>
@@ -184,16 +181,25 @@ function MenuResponsivo() {
             {auth?.role ? 
               (
                 <div>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <MdAccountCircle />
-                  </IconButton>
+                  <div className='user'>
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleMenu}
+                      color="inherit"
+                    >
+                      <MdAccountBox size={40}/>
+                    </IconButton>
+                    <div>
+                      <span className='user__name'>{auth.username}</span><br/>
+                      <span className='user__role'>
+                        {auth.role[0] === 2205 ? 'Administrador' : 'Bibliotecário'}
+                      </span>
+                    </div>
+                    
+                  </div>
                   <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}
@@ -209,7 +215,6 @@ function MenuResponsivo() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose}>Perfil</MenuItem>
                     <MenuItem onClick={handleLogout}>Sair</MenuItem>
                   </Menu>
                 </div>

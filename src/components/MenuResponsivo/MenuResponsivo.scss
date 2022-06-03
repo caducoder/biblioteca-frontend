@@ -3,3 +3,20 @@
    text-decoration: none;
    color: #fff;
 }
+
+.user {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   font-family: sans-serif;
+   letter-spacing: 0.5px;
+   
+   &__name{
+      font-size: 0.8em;
+   }
+
+   &__role {
+      font-size: 0.7em;
+      color: rgba(255,255,255,0.8);
+   }
+}
