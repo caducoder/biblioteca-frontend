@@ -1,4 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+import Botao from '../../components/Botao';
+import Barricada from '../../assets/barricada.png'
+import './Unauthorized.scss'
+import { Typography } from '@mui/material';
 
 function Unauthorized() {
    const navigate = useNavigate()
@@ -6,10 +10,10 @@ function Unauthorized() {
    const goBack = () => navigate(-1)
 
    return (
-      <section>
-         <h3>Você não tem permissão para acessar essa página.</h3>
-         <br />
-         <button onClick={goBack}>Voltar</button>
+      <section className='back'>
+         <Typography variant='h4'>Você não tem permissão para acessar essa página.</Typography>
+         <img src={Barricada} alt="desenho de uma barricada" />
+         <Botao onClick={goBack}>Voltar</Botao>
       </section>
    );
 }
