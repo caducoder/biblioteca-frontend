@@ -45,11 +45,15 @@ export default function TabelaSimples({ rows }: Props) {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="center">{row?.valor}</TableCell>
-              <TableCell align="center">{row?.tipo}</TableCell>
-              <TableCell align="center">{row?.assunto}</TableCell>
-              <TableCell align="center">{row?.pdf}</TableCell>
-              <TableCell align="right">{row?.datatime}</TableCell>
+              <TableCell align="center">R$ {row.valor}</TableCell>
+              <TableCell align="center">
+                <span className={row.tipo == 'saida'? 'red' : 'green'}>{row.tipo.charAt(0).toUpperCase() + row.tipo.slice(1)}</span>
+              </TableCell>
+              <TableCell align="center">{row.assunto}</TableCell>
+              <TableCell align="center">{row.pdf}</TableCell>
+              <TableCell align="right">
+                {row.datatime.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1')}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

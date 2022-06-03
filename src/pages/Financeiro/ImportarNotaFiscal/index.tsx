@@ -28,6 +28,7 @@ function ImportarNotaFiscal() {
 
         try {
             let msg = await uploadForm(formD)
+            clearForm()
             console.log(msg)
         } catch (error: any) {
             console.log('erro: ', error?.response)
@@ -41,6 +42,13 @@ function ImportarNotaFiscal() {
             let file = e.target.files[0]
             setFile(file)
         }
+    }
+
+    const clearForm = () => {
+        setValor('')
+        setTipo('')
+        setAssunto('')
+        setFile(undefined)
     }
 
     return ( 
@@ -63,6 +71,7 @@ function ImportarNotaFiscal() {
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                             }}
+                            placeholder='0.00'
                             value={valor}
                             onChange={e => setValor(e.target.value)}
                             size='small'
