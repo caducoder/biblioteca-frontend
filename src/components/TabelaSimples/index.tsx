@@ -12,8 +12,8 @@ interface Data {
   id: number,
   valor: number,
   tipo: string,
-  arquivo: string,
-  pdf: string,
+  assunto: string,
+  pdf: JSX.Element,
   datatime: string
 }
 
@@ -22,6 +22,7 @@ interface Props {
 }
 
 export default function TabelaSimples({ rows }: Props) {
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650, border: '1px solid black' }} size="medium" aria-label="a table">
@@ -30,7 +31,7 @@ export default function TabelaSimples({ rows }: Props) {
             <TableCell className='headCell'>ID</TableCell>
             <TableCell className='headCell' align="center">Valor</TableCell>
             <TableCell className='headCell' align="center">Tipo de Operação</TableCell>
-            <TableCell className='headCell' align="center">Arquivo</TableCell>
+            <TableCell className='headCell' align="center">Assunto</TableCell>
             <TableCell className='headCell' align="center">PDF</TableCell>
             <TableCell className='headCell' align="right">Data e hora</TableCell>
           </TableRow>
@@ -44,11 +45,11 @@ export default function TabelaSimples({ rows }: Props) {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="center">{row.valor}</TableCell>
-              <TableCell align="center">{row.tipo}</TableCell>
-              <TableCell align="center">{row.arquivo}</TableCell>
-              <TableCell align="center"><a href="#">{row.pdf}</a></TableCell>
-              <TableCell align="right">{row.datatime}</TableCell>
+              <TableCell align="center">{row?.valor}</TableCell>
+              <TableCell align="center">{row?.tipo}</TableCell>
+              <TableCell align="center">{row?.assunto}</TableCell>
+              <TableCell align="center">{row?.pdf}</TableCell>
+              <TableCell align="right">{row?.datatime}</TableCell>
             </TableRow>
           ))}
         </TableBody>

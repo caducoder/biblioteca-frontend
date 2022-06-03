@@ -3,24 +3,68 @@ import TabelaSimples from "../../components/TabelaSimples";
 import './Financeiro.scss'
 import { MdOutlineAddCircleOutline } from 'react-icons/md'
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { listarFinancas, Finance, buscarPdf } from "../../api/FinanceiroService";
+
+export interface Data {
+   id: number;
+   valor: number;
+   tipo: string;
+   assunto: string;
+   pdf: JSX.Element;
+   datatime: string;
+}
 
 function createData(
    id: number,
    valor: number,
    tipo: string,
-   arquivo: string,
-   pdf: string,
+   assunto: string,
+   pdf: JSX.Element,
    datatime: string
  ) {
-   return { id, valor, tipo, arquivo, pdf, datatime };
+   return { id, valor, tipo, assunto, pdf, datatime };
  }
  
- const rows = [
-   createData(1, 22.90, 'Entrada', 'compra de livros', 'Ver pdf', '21/05/2020'),
-   createData(2, 12.90, 'Saída', 'multa', 'Ver pdf', '20/09/2020'),
- ];
+// const rows2 = [
+// createData(1, 22.90, 'Entrada', 'compra de livros', 'Ver pdf', '21/05/2020'),
+// createData(2, 12.90, 'Saída', 'multa', 'Ver pdf', '20/09/2020'),
+// ];
 
 function Financeiro() {
+   const [rows, setRows] = useState<Data[]>([]);
+
+   useEffect(() => {
+      const getFinancas = async () => {
+         popularTabela(await listarFinancas())
+      }
+
+      getFinancas()
+   }, []);
+
+   const popularTabela = (financas: Array<Finance>) => {
+      const linhas = financas.map(fin => (
+         createData(fin.id, fin.valor, fin.tipoOperacao, fin.assunto, <button className='pdfButton' onClick={() => showPDF(fin.id)}>Ver pdf</button>, fin.data)
+      ))
+
+      setRows(linhas)
+   }
+
+   // função que mostra pdf em outra janela
+   const showPDF = async (id: number) => {
+      // aguarda pdf ser enviado do back
+      const data = await buscarPdf(id)
+
+      // pega o buffer de dados e cria um blob (Binary Large OBject)
+      const file = new Blob([data], {
+         type: 'application/pdf'
+      })
+
+      // cria a url e abre uma janela
+      const fileURL = window.URL.createObjectURL(file)
+      window.open(fileURL)
+   }
+
    return ( 
       <section className='financeiro_container'>
          <div className='cabecalho'>

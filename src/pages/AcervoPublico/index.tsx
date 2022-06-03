@@ -67,6 +67,7 @@ export default function AcervoPublico() {
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
 
+   // função que busca os livros toda vez q a página é acessada
    useEffect(() => {
       const getLivros = async () => {
          popularTabela(await listarLivros())
@@ -75,6 +76,7 @@ export default function AcervoPublico() {
       getLivros()
    }, []);
 
+   // preenche a tabela com os dados do livro
    const popularTabela = (livros: Array<Livro>)  => {
       const linhas = livros.map(livro => (
          createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro)}/>)
@@ -84,15 +86,18 @@ export default function AcervoPublico() {
       setLivrosFiltrados(linhas)
    }
 
+   // navega para página de detalhes ao clicar no botão de detalhes
    const handleClickDetails = (livro: Livro) => {
       navigate(`livro/${livro.id}`, {state: {...livro}})
    }
 
+   // filtra os livros de acordo com a busca ao clicar na lupa
    const handleClickSearch = () => {
       const livrosFilter = livros?.filter(livro => livro.titulo.toLowerCase().includes(busca.toLowerCase()))
       setLivrosFiltrados(livrosFilter)
    }
 
+   // limpa campo de busca
    const handleClickClear = () => {
       setBusca('')
    }
