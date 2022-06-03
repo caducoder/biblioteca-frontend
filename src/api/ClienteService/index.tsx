@@ -24,3 +24,11 @@ export const contarClientes = () => new Promise<number> (
             .catch(error => reject(error))
     }
 )
+
+export const deletarCliente = () => new Promise<string> (
+    (resolve, reject) => {
+        api.delete(`/clientes/id`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)

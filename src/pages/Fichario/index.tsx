@@ -8,9 +8,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-//import { MdReadMore } from 'react-icons/md';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { FaUserEdit } from "react-icons/fa";
+import { FaUserTimes} from "react-icons/fa";
+import { FaUserPlus } from "react-icons/fa";
 import { listarClientes, Cliente } from '../../api/ClienteService';
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -22,7 +22,7 @@ import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 
 interface Column {
-   id: 'id' | 'nome' | 'sobrenome' | 'cpf' | 'email' | 'telefone' | 'acoes';
+   id: 'id' | 'nome' | 'sobrenome' | 'cpf' | 'email' | 'telefone' | 'editar' | 'deletar';
    label: string;
    minWidth?: number;
    align?: 'right';
@@ -30,12 +30,13 @@ interface Column {
 
 const columns: readonly Column[] = [
    { id: 'id', label: 'ID', minWidth: 200 },
-   { id: 'nome', label: 'Nome', minWidth: 150 },
+   { id: 'nome', label: 'Nome', minWidth: 170 },
    { id: 'sobrenome', label: 'Sobrenome', minWidth: 170 },
-   { id: 'cpf', label: 'CPF', minWidth: 60, },
-   { id: 'email', label: 'Email', minWidth: 120, align: 'right' },
-   { id: 'telefone', label: 'Telefone', minWidth: 120, align: 'right' },
-   { id: 'acoes', label: 'Ações', minWidth: 120, align: 'right' },
+   { id: 'cpf', label: 'CPF', minWidth: 170 },
+   { id: 'email', label: 'Email', minWidth: 170 },
+   { id: 'telefone', label: 'Telefone', minWidth: 170 },
+   { id: 'editar', label: 'Editar', minWidth: 170 },
+   { id: 'deletar', label: 'Deletar', minWidth: 170 },
 ];
 
 interface Data {
@@ -45,7 +46,8 @@ interface Data {
    cpf: number;
    email: string;
    telefone: string;
-   acoes: JSX.Element;
+   editar: JSX.Element;
+   deletar: JSX.Element;
 }
 
 function createData(
@@ -55,9 +57,10 @@ function createData(
    cpf: number,
    email: string,
    telefone: string,
-   acoes: JSX.Element
+   editar: JSX.Element,
+   deletar: JSX.Element
    ): Data {
-   return { id, nome, sobrenome, cpf, email, telefone, acoes };
+   return { id, nome, sobrenome, cpf, email, telefone, editar, deletar };
 }
 
 export default function Fichario() {
@@ -78,16 +81,24 @@ export default function Fichario() {
 
    const popularTabela = (clientes: Array<Cliente>)  => {
       const linhas = clientes.map(cliente => (
-         createData(cliente.id, cliente.nome, cliente.sobrenome, cliente.cpf, cliente.email, cliente.telefone, /*<MdReadMore className='botaoDetails' size={30} onClick={() => handleClickDetails(cliente)}/> */)
+         createData(cliente.id, cliente.nome, cliente.sobrenome, cliente.cpf, cliente.email, cliente.telefone, <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(cliente)}/>, <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(cliente)}/>)
       ))
 
       setclientes(linhas)
       setClientesFiltrados(linhas)
    }
 
-   /*const handleClickDetails = (cliente: Cliente) => {
-      navigate(`cliente/${cliente.id}`, {state: {...cliente}})
-   }*/
+   const handleClickEdit = (cliente: Cliente) => {
+      //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de edição
+   }
+
+   const handleClickDelete = (cliente: Cliente) => {
+      // --chamar a função deletar cliente
+   }
+
+   const handleClickAdd = () => {
+      //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de cadastro
+   }
 
    const handleClickSearch = () => {
       const clientesFilter = clientes?.filter(cliente => cliente.nome.toLowerCase().includes(busca.toLowerCase()))
@@ -200,6 +211,10 @@ export default function Fichario() {
                </Paper>
             </div>
          </main>
+         <div className='newCliente'>
+            <h4 className='addCliente'>Adicione um novo cliente:</h4>
+            <FaUserPlus className='botaoAdd' size={30} onClick={() => handleClickAdd()}/>
+         </div>
       </>
    );
 }
