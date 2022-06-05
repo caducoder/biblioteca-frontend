@@ -1,0 +1,21 @@
+.livroBox {
+    padding: 15px;
+
+    .livro{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .acoes {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+}
