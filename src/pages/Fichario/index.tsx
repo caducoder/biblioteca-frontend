@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { FaUserEdit, FaUserTimes, FaUserPlus } from "react-icons/fa";
-import { listarClientes, Cliente } from '../../api/ClienteService';
+import { listarClientes, ICliente } from '../../api/ClienteService';
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 
 interface Column {
-   id: 'id' | 'nome' | 'sobrenome' | 'cpf' | 'email' | 'telefone' | 'acoes';
+   id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
    label: string;
    minWidth?: number;
    align?: 'right' | 'center';
@@ -29,7 +29,6 @@ interface Column {
 const columns: readonly Column[] = [
    { id: 'id', label: 'ID', minWidth: 50 },
    { id: 'nome', label: 'Nome', minWidth: 150 },
-   { id: 'sobrenome', label: 'Sobrenome', minWidth: 170 },
    { id: 'cpf', label: 'CPF', minWidth: 170 },
    { id: 'email', label: 'Email', minWidth: 170 },
    { id: 'telefone', label: 'Telefone', minWidth: 120 },
@@ -39,7 +38,6 @@ const columns: readonly Column[] = [
 interface Data {
    id: number,
    nome: string;
-   sobrenome: string;
    cpf: number;
    email: string;
    telefone: string;
@@ -49,20 +47,19 @@ interface Data {
 function createData(
    id: number,
    nome: string,
-   sobrenome: string,
    cpf: number,
    email: string,
    telefone: string,
    acoes: JSX.Element,
    ): Data {
-   return { id, nome, sobrenome, cpf, email, telefone, acoes};
+   return { id, nome, cpf, email, telefone, acoes};
 }
 
 export default function Fichario() {
    const [clientes, setclientes] = useState<Data[]>();
    const [clientesFiltrados, setClientesFiltrados] = useState<Data[]>();
    const [page, setPage] = React.useState(0);
-   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+   const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
 
@@ -74,12 +71,11 @@ export default function Fichario() {
       getClientes()
    }, []);
 
-   const popularTabela = (clientes: Array<Cliente>)  => {
+   const popularTabela = (clientes: Array<ICliente>)  => {
       const linhas = clientes.map(cliente => (
          createData(
             cliente.id, 
             cliente.nome, 
-            cliente.sobrenome, 
             cliente.cpf, 
             cliente.email, 
             cliente.telefone,
@@ -94,7 +90,7 @@ export default function Fichario() {
       setClientesFiltrados(linhas)
    }
 
-   const handleClickEdit = (cliente: Cliente) => {
+   const handleClickEdit = (cliente: ICliente) => {
       //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de edição
    }
 
@@ -168,7 +164,7 @@ export default function Fichario() {
             <div className='table'>
                <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                   <TableContainer sx={{ maxHeight: 440 }}>
-                  <Table stickyHeader aria-label="sticky table">
+                  <Table stickyHeader aria-label="sticky table" size='small'>
                      <TableHead>
                         <TableRow>
                         {columns.map((column) => (
@@ -206,7 +202,7 @@ export default function Fichario() {
                   </TableContainer>
                   <TablePagination
                      labelRowsPerPage='Clientes por página:'
-                     rowsPerPageOptions={[10, 25, 50]}
+                     rowsPerPageOptions={[5, 10, 25, 50]}
                      component="div"
                      count={clientesFiltrados ? clientesFiltrados.length : 0}
                      rowsPerPage={rowsPerPage}

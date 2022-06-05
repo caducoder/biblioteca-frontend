@@ -144,6 +144,7 @@ function MenuResponsivo() {
               ))}
             </Menu>
           </Box>
+          {/* desktop */}
           <Link to='/' className='no_style'>
             <Typography
               variant="h5"

@@ -1,6 +1,6 @@
 import api from '../axios'
 
-export interface Cliente {
+export interface ICliente {
     id: number,
     nome: string;
     sobrenome: string;
@@ -9,7 +9,7 @@ export interface Cliente {
     telefone: string;
 }
 
-export const listarClientes = () => new Promise<Cliente[]> (
+export const listarClientes = () => new Promise<ICliente[]> (
     (resolve, reject) => {
         api.get('/clientes')
             .then(response => resolve(response.data))

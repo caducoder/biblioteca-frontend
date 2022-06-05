@@ -9,6 +9,7 @@ import { contarEmprestimos } from '../../api/EmprestimoService'
 import './Dashboard.scss'
 import { useState, useEffect } from 'react'
 import Botao from '../../components/Botao'
+import { Link } from 'react-router-dom'
 
 function Dashboard() {
    const [numeroDeLivros, setNumeroDeLivros] = useState<any>();
@@ -66,7 +67,9 @@ function Dashboard() {
                      <Botao>Realizar Emprestimo</Botao>
                   </div>
                   <div className='clie'>
-                     <Botao>Cadastrar Cliente</Botao>
+                     <Link to='/fichario/cadastro-cliente'>
+                        <Botao>Cadastrar Cliente</Botao>
+                     </Link>
                   </div>
                   <div className='dev'>
                      <Botao>Realizar Devolução</Botao>
