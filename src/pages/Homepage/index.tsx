@@ -16,9 +16,8 @@ function Homepage() {
                   Venha explorar o incrível mundo da leitura!
                </h1>
                <p className='banner__subtitle'>Mais de 10.000 exemplares a sua disposição</p>
-               <Link to='/acervo'>
+               <Link to='/acervo' className='no_style'>
                   <Botao>Consultar Acervo</Botao>
-
                </Link>
             </div>
             <WomanBookSVG className='banner__svg' />
@@ -50,9 +49,8 @@ function Homepage() {
             <img src={EducSVG} className='acesso__svg' alt='Desenho de uma moça em pé em cima de um livro' />
             <div className='acesso__info'>
                <h3 className='acesso__info__title'>Acesse nosso acervo e faça uma reserva!</h3>
-               <Link to='/acervo'>
+               <Link to='/acervo' className='no_style'>
                   <Botao>Acessar Acervo</Botao>
-
                </Link>
             </div>
          </section>

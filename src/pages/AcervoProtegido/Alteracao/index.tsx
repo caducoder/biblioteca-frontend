@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { MdReadMore } from 'react-icons/md';
-import { listarLivros, Livro } from '../../../api/LivroService'
+import { listarLivros, ILivro } from '../../../api/LivroService'
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
@@ -70,7 +70,7 @@ export default function Alteracao() {
       getLivros()
    }, []);
 
-   const popularTabela = (livros: Array<Livro>)  => {
+   const popularTabela = (livros: Array<ILivro>)  => {
       const linhas = livros.map(livro => (
          createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro)}/>)
       ))
@@ -79,7 +79,7 @@ export default function Alteracao() {
       setLivrosFiltrados(linhas)
    }
 
-   const handleClickDetails = (livro: Livro) => {
+   const handleClickDetails = (livro: ILivro) => {
       navigate(`livro/${livro.id}`, {state: {...livro}})
    }
 

@@ -6,7 +6,7 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText('#4360FF'),
   backgroundColor: '#4360FF',
   '&:hover': {
-    backgroundColor: '#001fcc',
+    backgroundColor: '#001fff',
   },
 }));
 
@@ -14,18 +14,20 @@ interface Props {
   children: string,
   type?: "button" | "submit" | "reset" | undefined
   onClick?: any,
-  className?: string
+  className?: string,
+  disabled?: boolean
 }
 
-export default function Botao({children, type = 'button', onClick, className}: Props) {
+export default function Botao({children, type = 'button', onClick, className, disabled = false}: Props) {
   return (
       <ColorButton 
         type={type} 
         variant="contained" 
         onClick={onClick}
         className={className}
+        disabled={disabled}
       >
         {children}
-      </ColorButton> 
+      </ColorButton>
   );
 }

@@ -1,6 +1,6 @@
 import api from "../axios";
 
-export interface Livro {
+export interface ILivro {
     id: number,
     isbn: string,
     issn: string,
@@ -15,9 +15,17 @@ export interface Livro {
     estadoLivro: string
 }
 
-export const listarLivros = () => new Promise<Livro[]> (
+export const listarLivros = () => new Promise<ILivro[]> (
     (resolve, reject) => {
         api.get('/livros')
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+export const buscarPorCodigo = (codLivro: string) => new Promise<ILivro> (
+    (resolve, reject) => {
+        api.get(`/livros/${codLivro}`)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }

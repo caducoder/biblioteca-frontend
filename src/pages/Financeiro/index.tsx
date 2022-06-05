@@ -69,7 +69,7 @@ function Financeiro() {
       <section className='financeiro_container'>
          <div className='cabecalho'>
             <h1 className="cabecalho__title">Financeiro</h1>
-            <Link to='importar' className='cabecalho__importButton'>
+            <Link to='importar' className='cabecalho__importButton no_style'>
                <Button  
                   variant='contained' 
                   startIcon={<MdOutlineAddCircleOutline />}

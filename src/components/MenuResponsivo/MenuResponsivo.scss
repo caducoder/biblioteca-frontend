@@ -2,6 +2,13 @@
 .no_style{
    text-decoration: none;
    color: #fff;
+
+   &.hov {
+      button:hover {
+         background-color: rgba(0, 0, 0, 0.04);
+
+      }
+   }
 }
 
 .user {

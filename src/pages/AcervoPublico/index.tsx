@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { MdReadMore } from 'react-icons/md'
-import { listarLivros, Livro } from '../../api/LivroService';
+import { listarLivros, ILivro } from '../../api/LivroService';
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
@@ -77,7 +77,7 @@ export default function AcervoPublico() {
    }, []);
 
    // preenche a tabela com os dados do livro
-   const popularTabela = (livros: Array<Livro>)  => {
+   const popularTabela = (livros: Array<ILivro>)  => {
       const linhas = livros.map(livro => (
          createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro)}/>)
       ))
@@ -87,7 +87,7 @@ export default function AcervoPublico() {
    }
 
    // navega para página de detalhes ao clicar no botão de detalhes
-   const handleClickDetails = (livro: Livro) => {
+   const handleClickDetails = (livro: ILivro) => {
       navigate(`livro/${livro.id}`, {state: {...livro}})
    }
 
@@ -117,7 +117,7 @@ export default function AcervoPublico() {
             <h1>Nosso Acervo</h1>
          </div>
          
-         <main className='group'>
+         <main className='group-acervoPublico'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
                <InputLabel htmlFor="outlined-adornment-search">Buscar livro</InputLabel>
@@ -186,7 +186,7 @@ export default function AcervoPublico() {
                                  </TableRow>
                               );
                            })
-                           : <div><p>Não foram encontrados livros</p></div>
+                           : <TableRow><TableCell colSpan={5} sx={{textAlign: 'center'}}>Não foram encontrados livros</TableCell></TableRow>
                         }
                      </TableBody>
                   </Table>

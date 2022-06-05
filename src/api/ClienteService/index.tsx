@@ -25,9 +25,9 @@ export const contarClientes = () => new Promise<number> (
     }
 )
 
-export const deletarCliente = () => new Promise<string> (
+export const deletarCliente = (id: number) => new Promise (
     (resolve, reject) => {
-        api.delete(`/clientes/id`)
+        api.delete(`/clientes/${id}`)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }

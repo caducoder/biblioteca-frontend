@@ -8,9 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { FaUserEdit } from "react-icons/fa";
-import { FaUserTimes} from "react-icons/fa";
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserEdit, FaUserTimes, FaUserPlus } from "react-icons/fa";
 import { listarClientes, Cliente } from '../../api/ClienteService';
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -22,21 +20,20 @@ import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 
 interface Column {
-   id: 'id' | 'nome' | 'sobrenome' | 'cpf' | 'email' | 'telefone' | 'editar' | 'deletar';
+   id: 'id' | 'nome' | 'sobrenome' | 'cpf' | 'email' | 'telefone' | 'acoes';
    label: string;
    minWidth?: number;
-   align?: 'right';
+   align?: 'right' | 'center';
 }
 
 const columns: readonly Column[] = [
-   { id: 'id', label: 'ID', minWidth: 200 },
-   { id: 'nome', label: 'Nome', minWidth: 170 },
+   { id: 'id', label: 'ID', minWidth: 50 },
+   { id: 'nome', label: 'Nome', minWidth: 150 },
    { id: 'sobrenome', label: 'Sobrenome', minWidth: 170 },
    { id: 'cpf', label: 'CPF', minWidth: 170 },
    { id: 'email', label: 'Email', minWidth: 170 },
-   { id: 'telefone', label: 'Telefone', minWidth: 170 },
-   { id: 'editar', label: 'Editar', minWidth: 170 },
-   { id: 'deletar', label: 'Deletar', minWidth: 170 },
+   { id: 'telefone', label: 'Telefone', minWidth: 120 },
+   { id: 'acoes', label: 'Ações', minWidth: 150, align: 'center' },
 ];
 
 interface Data {
@@ -46,8 +43,7 @@ interface Data {
    cpf: number;
    email: string;
    telefone: string;
-   editar: JSX.Element;
-   deletar: JSX.Element;
+   acoes: JSX.Element;
 }
 
 function createData(
@@ -57,10 +53,9 @@ function createData(
    cpf: number,
    email: string,
    telefone: string,
-   editar: JSX.Element,
-   deletar: JSX.Element
+   acoes: JSX.Element,
    ): Data {
-   return { id, nome, sobrenome, cpf, email, telefone, editar, deletar };
+   return { id, nome, sobrenome, cpf, email, telefone, acoes};
 }
 
 export default function Fichario() {
@@ -81,7 +76,18 @@ export default function Fichario() {
 
    const popularTabela = (clientes: Array<Cliente>)  => {
       const linhas = clientes.map(cliente => (
-         createData(cliente.id, cliente.nome, cliente.sobrenome, cliente.cpf, cliente.email, cliente.telefone, <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(cliente)}/>, <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(cliente)}/>)
+         createData(
+            cliente.id, 
+            cliente.nome, 
+            cliente.sobrenome, 
+            cliente.cpf, 
+            cliente.email, 
+            cliente.telefone,
+            <div>
+               <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(cliente)}/>
+               <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(cliente.id)}/>
+            </div> 
+         )
       ))
 
       setclientes(linhas)
@@ -92,12 +98,12 @@ export default function Fichario() {
       //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de edição
    }
 
-   const handleClickDelete = (cliente: Cliente) => {
+   const handleClickDelete = (clienteId: number) => {
       // --chamar a função deletar cliente
    }
 
    const handleClickAdd = () => {
-      //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de cadastro
+      navigate('cadastro-cliente')
    }
 
    const handleClickSearch = () => {
@@ -124,7 +130,7 @@ export default function Fichario() {
             <h1>Fichário</h1>
          </div>
          
-         <main className='group'>
+         <main className='group-fichario'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
                <InputLabel htmlFor="outlined-adornment-search">Buscar cliente</InputLabel>
@@ -193,7 +199,7 @@ export default function Fichario() {
                                  </TableRow>
                               );
                            })
-                           : <div><p>Não foram encontrados clientes</p></div>
+                           : <TableRow><TableCell colSpan={7} sx={{textAlign: 'center'}}>Não foram encontrados clientes</TableCell></TableRow>
                         }
                      </TableBody>
                   </Table>
