@@ -13,7 +13,6 @@ import Unauthorized from '../pages/Unauthorized';
 import DetalhesReserva from '../pages/DetalhesReserva';
 import Consulta from '../pages/AcervoProtegido/Consulta';
 import Cadastro from '../pages/AcervoProtegido/Cadastro';
-import Alteracao from '../pages/AcervoProtegido/Alteracao';
 import Remocao from '../pages/AcervoProtegido/Remocao';
 import ImportarNotaFiscal from '../pages/Financeiro/ImportarNotaFiscal';
 import FormCadastroCliente from '../pages/Fichario/Cadastro';
@@ -41,7 +40,6 @@ function Rotas() {
             <Route path='' element={<h2>Selecione uma opção.</h2>} />
             <Route path='consulta' element={<Consulta />} />
             <Route path='cadastro' element={<Cadastro />} />
-            <Route path='alterar' element={<Alteracao />} />
             <Route path='remover' element={<Remocao />} />
           </Route>
           <Route path='fichario' element={<Fichario />} />

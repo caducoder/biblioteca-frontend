@@ -48,14 +48,14 @@ function Livro({livro, handleClickConfirm}: IProps) {
             </div>
             <div className='acoes'>
                 <Button 
-                    color='success' 
+                    color='primary' 
                     variant='contained' 
                     sx={{fontWeight: 'bold'}}
                     onClick={handleClickConfirm}
                 >
                     Confirmar
                 </Button>
-                <Button color='warning' variant='contained' sx={{fontWeight: 'bold'}}>Alterar</Button>
+                <Button color='primary' variant='contained' sx={{fontWeight: 'bold'}}>Alterar</Button>
             </div>
         </Paper>
      );
