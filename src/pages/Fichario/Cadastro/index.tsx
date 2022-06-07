@@ -2,7 +2,7 @@ import { TextField } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import * as Yup from 'yup'
-import './FormCadastroCliente.scss'
+import './CadastroCliente.scss'
 
 const CadastroClienteSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
@@ -19,7 +19,7 @@ const CadastroClienteSchema = Yup.object().shape({
     })
 })
 
-interface FormValues {
+interface ClienteFormValues {
     nome: string,
     cpf: string,
     rg: string,
@@ -35,7 +35,7 @@ interface FormValues {
 }
 
 function FormCadastroCliente() {
-    const initialValues: FormValues = {
+    const initialValues: ClienteFormValues = {
         nome: '',
         cpf: '',
         rg: '',
@@ -56,7 +56,7 @@ function FormCadastroCliente() {
     }
 
     return ( 
-        <section className='cadastroContainer'>
+        <section className='cadastroClienteContainer'>
             <h2>Formulário de Cadastro de Clientes</h2>
             <Formik
                 validateOnBlur={false}
