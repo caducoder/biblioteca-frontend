@@ -63,8 +63,10 @@ function Dashboard() {
             <div className='actions-box'>
                <h3>Ações</h3>
                <div className='buttons'>
-                  <div className='empr'>            
-                     <Botao>Realizar Emprestimo</Botao>
+                  <div className='empr'>  
+                     <Link to='/emprestimo'>
+                        <Botao>Realizar Emprestimo</Botao>
+                     </Link>          
                   </div>
                   <div className='clie'>
                      <Link to='/fichario/cadastro-cliente'>

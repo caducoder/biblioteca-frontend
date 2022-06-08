@@ -17,6 +17,14 @@ export const listarClientes = () => new Promise<ICliente[]> (
     }
 )
 
+export const buscarPorCpf = (cpf: string) => new Promise<any> (
+    (resolve, reject) => {
+        api.get(`/clientes/${cpf}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const contarClientes = () => new Promise<number> (
     (resolve, reject) => {
         api.get('/clientes/quantidade')

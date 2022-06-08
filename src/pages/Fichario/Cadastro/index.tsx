@@ -7,7 +7,7 @@ import './CadastroCliente.scss'
 const CadastroClienteSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
     cpf: Yup.string().length(11, 'Somente números, exatamente 11').required('Obrigatório'),
-    rg: Yup.string().length(8),
+    rg: Yup.string().length(8, 'Somente números, sem pontuação'),
     email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
     telefone: Yup.string(),
     endereco: Yup.object({

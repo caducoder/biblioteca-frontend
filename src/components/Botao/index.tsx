@@ -16,9 +16,12 @@ interface Props {
   onClick?: any,
   className?: string,
   disabled?: boolean
+  size?: 'small'
+  | 'medium'
+  | 'large'
 }
 
-export default function Botao({children, type = 'button', onClick, className, disabled = false}: Props) {
+export default function Botao({children, type = 'button', onClick, className, disabled = false, size='medium'}: Props) {
   return (
       <ColorButton 
         type={type} 
@@ -26,6 +29,7 @@ export default function Botao({children, type = 'button', onClick, className, di
         onClick={onClick}
         className={className}
         disabled={disabled}
+        size={size}
       >
         {children}
       </ColorButton>
