@@ -71,104 +71,124 @@ function FormCadastroCliente() {
                     errors,
                 }) => (
                     <Form noValidate onSubmit={handleSubmit}>
-                        <Field 
-                            component={TextField}
-                            name='nome'
-                            type='text'
-                            label='Nome'
-                            size='small'
-                            value={values.nome}
-                            onChange={handleChange}
-                            required
-                        />
-                        <Field 
-                            component={TextField}
-                            name='cpf'
-                            type='text'
-                            label='CPF'
-                            size='small'
-                            value={values.cpf}
-                            onChange={handleChange}
-                            required
-                        />
-                        <Field 
-                            component={TextField}
-                            name='rg'
-                            type='text'
-                            label='RG'
-                            size='small'
-                            value={values.rg}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='email'
-                            type='text'
-                            label='Email'
-                            size='small'
-                            value={values.email}
-                            onChange={handleChange}
-                            required
-                        />
-                        <Field 
-                            component={TextField}
-                            name='telefone'
-                            type='text'
-                            label='Telefone'
-                            size='small'
-                            value={values.telefone}
-                            onChange={handleChange}
-                            //placeholder='000000000'
-                        />
+                        <div className='campo01'>
+                            <div className='campoNome'> 
+                                <Field 
+                                    component={TextField}
+                                    name='nome'
+                                    type='text'
+                                    label='Nome'
+                                    size='small'
+                                    value={values.nome}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className='campoCPF'> 
+                                <Field 
+                                    component={TextField}
+                                    name='cpf'
+                                    type='text'
+                                    label='CPF'
+                                    size='small'
+                                    value={values.cpf}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <Field 
+                                component={TextField}
+                                name='rg'
+                                type='text'
+                                label='RG'
+                                size='small'
+                                value={values.rg}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='campo02'>
+                            <div className='campoEmail'> 
+                                <Field 
+                                    component={TextField}
+                                    name='email'
+                                    type='text'
+                                    label='Email'
+                                    size='small'
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <Field 
+                                component={TextField}
+                                name='telefone'
+                                type='text'
+                                label='Telefone'
+                                size='small'
+                                value={values.telefone}
+                                onChange={handleChange}
+                                //placeholder='000000000'
+                            />
+                        </div>
                         <fieldset>
                             <legend>Endereço</legend>
-                            <Field 
-                                component={TextField}
-                                name='endereco.rua'
-                                type='text'
-                                label='Rua'
-                                size='small'
-                                value={values.endereco.rua}
-                                onChange={handleChange}
-                            />
-                            <Field 
-                                component={TextField}
-                                name='endereco.numero'
-                                type='number'
-                                label='Número'
-                                size='small'
-                                value={values.endereco.numero}
-                                onChange={handleChange}
-                            />
-                            <Field 
-                                component={TextField}
-                                name='endereco.bairro'
-                                type='text'
-                                label='Bairro'
-                                size='small'
-                                value={values.endereco.bairro}
-                                onChange={handleChange}
-                            />
-                            <Field 
-                                component={TextField}
-                                name='endereco.cidade'
-                                type='text'
-                                label='Cidade'
-                                size='small'
-                                value={values.endereco.cidade}
-                                onChange={handleChange}
-                            />
-                            <Field 
-                                component={TextField}
-                                name='endereco.cep'
-                                type='text'
-                                label='CEP'
-                                size='small'
-                                value={values.endereco.cep}
-                                onChange={handleChange}
-                            />
+                            <div className='campo03'>
+                                <div className='campoRua'> 
+                                    <Field 
+                                        component={TextField}
+                                        name='endereco.rua'
+                                        type='text'
+                                        label='Rua'
+                                        size='small'
+                                        value={values.endereco.rua}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className='campoNumero'> 
+                                    <Field 
+                                        component={TextField}
+                                        name='endereco.numero'
+                                        type='number'
+                                        label='Número'
+                                        size='small'
+                                        value={values.endereco.numero}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <Field 
+                                    component={TextField}
+                                    name='endereco.bairro'
+                                    type='text'
+                                    label='Bairro'
+                                    size='small'
+                                    value={values.endereco.bairro}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className='campo04'>
+                                <div className='campoCidade'> 
+                                    <Field 
+                                        component={TextField}
+                                        name='endereco.cidade'
+                                        type='text'
+                                        label='Cidade'
+                                        size='small'
+                                        value={values.endereco.cidade}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <Field 
+                                    component={TextField}
+                                    name='endereco.cep'
+                                    type='text'
+                                    label='CEP'
+                                    size='small'
+                                    value={values.endereco.cep}
+                                    onChange={handleChange}
+                                />
+                            </div>
                         </fieldset>
-                        <Botao type='submit'>Cadastrar</Botao>
+                        <div className='botaoCadCliente'><Botao type='submit'>Cadastrar</Botao></div>
                     </Form>
                 )}
             </Formik>
