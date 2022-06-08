@@ -18,8 +18,8 @@ interface LivroFormValues {
     doi: string,
     autor: string,
     titulo: string,
-    idioma: string,
     editora: string,
+    idioma: string,
     descricao: string,
     numeroDePaginas: number | null,
     anoEdicao: number | null
@@ -32,8 +32,8 @@ function FormCadastroDeLivros() {
         doi: '',
         autor: '',
         titulo: '',
-        idioma: '',
         editora: '',
+        idioma: '',
         descricao: '',
         numeroDePaginas: null,
         anoEdicao: null
@@ -59,87 +59,125 @@ function FormCadastroDeLivros() {
                     errors,
                 }) => (
                     <Form noValidate onSubmit={handleSubmit}>
-                        <Field
-                            component={TextField}
-                            name='isbn'
-                            type='text'
-                            label='ISBN'
-                            size='small'
-                            value={values.isbn}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='issn'
-                            type='text'
-                            label='ISSN'
-                            size='small'
-                            value={values.issn}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='doi'
-                            type='text'
-                            label='DOI'
-                            size='small'
-                            value={values.doi}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='autor'
-                            type='text'
-                            label='Autor'
-                            size='small'
-                            value={values.autor}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='titulo'
-                            type='text'
-                            label='Título'
-                            size='small'
-                            value={values.titulo}
-                            onChange={handleChange}
-                        />
-                        <Field
-                            component={Select}
-                            // formHelperText={{ children: 'Test' }}
-                            id="idioma"
-                            labelId="idioma"
-                            name="idioma"
-                            label="Idioma"
-                            size='small'
-                            sx={{width: 140}}
-                        >
-                            <MenuItem value={'PORTUGUES'}>Português</MenuItem>
-                            <MenuItem value={'ESPANHOL'}>Espanhol</MenuItem>
-                        </Field>
-                        <Field 
-                            component={TextField}
-                            name='editora'
-                            type='text'
-                            label='Editora'
-                            size='small'
-                            value={values.editora}
-                            onChange={handleChange}
-                        />
-                        <Field 
-                            component={TextField}
-                            name='descricao'
-                            type='text'
-                            label='Descricao'
-                            size='small'
-                            multiline
-                            rows={4}
-                            maxRows={5}
-                            value={values.descricao}
-                            onChange={handleChange}
-                            sx={{width: 500}}
-                        />
-                        <Botao type='submit'>Cadastrar</Botao>
+                        <div className='campo1'>
+                            <div className='campoISBN'> 
+                                <Field
+                                    component={TextField}
+                                    name='isbn'
+                                    type='text'
+                                    label='ISBN'
+                                    size='small'
+                                    value={values.isbn}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className='campoISSN'> 
+                                <Field 
+                                    component={TextField}
+                                    name='issn'
+                                    type='text'
+                                    label='ISSN'
+                                    size='small'
+                                    value={values.issn}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <Field 
+                                component={TextField}
+                                name='doi'
+                                type='text'
+                                label='DOI'
+                                size='small'
+                                value={values.doi}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='campo2'>
+                            <div className='campoAutor'> 
+                                <Field 
+                                    component={TextField}
+                                    name='autor'
+                                    type='text'
+                                    label='Autor'
+                                    size='small'
+                                    value={values.autor}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className='campoTitulo'>
+                                <Field 
+                                    component={TextField}
+                                    name='titulo'
+                                    type='text'
+                                    label='Título'
+                                    size='small'
+                                    value={values.titulo}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <Field 
+                                component={TextField}
+                                name='numeroDePaginas'
+                                type='number'
+                                label='Páginas'
+                                size='small'
+                                value={values.numeroDePaginas}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='campo3'>
+                            <div className='campoEditora'>
+                                <Field 
+                                    component={TextField}
+                                    name='editora'
+                                    type='text'
+                                    label='Editora'
+                                    size='small'
+                                    value={values.editora}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className='campoAno'>
+                                <Field 
+                                    component={TextField}
+                                    name='anoEdicao'
+                                    type='text'
+                                    label='Ano'
+                                    size='small'
+                                    value={values.anoEdicao}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <Field
+                                component={Select}
+                                // formHelperText={{ children: 'Test' }}
+                                id="idioma"
+                                labelId="idioma"
+                                name="idioma"
+                                label="Idioma"
+                                size='small'
+                                sx={{width: 140}}
+                            >
+                                <MenuItem value={'PORTUGUES'}>Português</MenuItem>
+                                <MenuItem value={'ESPANHOL'}>Espanhol</MenuItem>
+                            </Field>
+                        </div>
+                        <div className='campoDescricao'> 
+                            <Field 
+                                component={TextField}
+                                name='descricao'
+                                type='text'
+                                label='Descricao'
+                                size='small'
+                                multiline
+                                rows={4}
+                                maxRows={5}
+                                value={values.descricao}
+                                onChange={handleChange}
+                                sx={{width: 500}}
+                            />
+                        </div>
+                        <div className='botaoCadLivro'><Botao type='submit'>Cadastrar</Botao></div>
                     </Form>
                 )}
             </Formik>
