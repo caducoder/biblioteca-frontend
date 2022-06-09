@@ -1,0 +1,49 @@
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px; 
+    margin-bottom: 0px;
+}
+
+.group-equipe {
+    border: 1px solid gray;
+    margin: 0 90px;
+    padding: 30px;
+    text-align: center;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.botaoEdit {
+    cursor: pointer;
+    padding: 2px;
+    color: #4360FF;
+}
+
+.botaoDelete {
+    cursor: pointer;
+    padding: 2px;
+    color: #4360FF;
+}
+
+.newFuncionario {
+    display: flex;
+}
+
+.botaoAdd {
+    cursor: pointer;
+    color: #4360FF;
+    margin-left: 10px;
+
+}
+
+.addFuncionario {
+    margin-left: 90px;
+    margin-top: 5px;
+}
