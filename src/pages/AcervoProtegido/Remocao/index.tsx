@@ -8,19 +8,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { MdReadMore } from 'react-icons/md';
-import { listarLivros, ILivro } from '../../../api/LivroService'
+import { listarLivros, ILivro, removerLivro } from '../../../api/LivroService'
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
+import {MdOutlineSearch, MdOutlineClear, MdDelete} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
+import ModalConfirmar from '../../../components/ModalConfirmar'
 
 interface Column {
-   id: 'titulo' | 'autor' | 'editora' | 'estado' | 'detalhes';
+   id: 'titulo' | 'autor' | 'editora' | 'estado' | 'remover';
    label: string;
    minWidth?: number;
    align?: 'right';
@@ -31,7 +31,7 @@ const columns: readonly Column[] = [
    { id: 'autor', label: 'Autor', minWidth: 150 },
    { id: 'editora', label: 'Editora', minWidth: 170 },
    { id: 'estado', label: 'Estado', minWidth: 60, },
-   { id: 'detalhes', label: 'Detalhes', minWidth: 120, align: 'right' },
+   { id: 'remover', label: 'Remover', minWidth: 120, align: 'right' },
 ];
 
 interface Data {
@@ -40,7 +40,7 @@ interface Data {
    autor: string;
    editora: string;
    estado: string;
-   detalhes: JSX.Element;
+   remover: JSX.Element;
 }
 
 function createData(
@@ -49,9 +49,9 @@ function createData(
    autor: string,
    editora: string,
    estado: string,
-   detalhes: JSX.Element
+   remover: JSX.Element
    ): Data {
-   return { id, titulo, autor, editora, estado, detalhes };
+   return { id, titulo, autor, editora, estado, remover };
 }
 
 export default function Remocao() {
@@ -61,6 +61,14 @@ export default function Remocao() {
    const [rowsPerPage, setRowsPerPage] = React.useState(5);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
+   const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
+   const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
+   const handleClose = () => setOpenConfirmModal({open: false, id: null})
+
+   const handleRemoveConfirm = (id: number) => {
+      removerLivro(id)
+      handleClose()
+   }
 
    useEffect(() => {
       const getLivros = async () => {
@@ -68,19 +76,19 @@ export default function Remocao() {
       }
 
       getLivros()
-   }, []);
+   }, [handleRemoveConfirm]);
 
    const popularTabela = (livros: Array<ILivro>)  => {
       const linhas = livros.map(livro => (
-         createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdReadMore className='botaoDetalhes' size={30} onClick={() => handleClickDetails(livro)}/>)
+         createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdDelete className='botaoRemover' size={20} onClick={() => handleClickRemove(livro.id)}/>)
       ))
 
       setlivros(linhas)
       setLivrosFiltrados(linhas)
    }
 
-   const handleClickDetails = (livro: ILivro) => {
-      navigate(`livro/${livro.id}`, {state: {...livro}})
+   const handleClickRemove = (id: number) => {
+      handleOpen(id)
    }
 
    const handleClickSearch = () => {
@@ -143,7 +151,7 @@ export default function Remocao() {
             <div className='table'>
                <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                   <TableContainer sx={{ maxHeight: 440 }}>
-                  <Table stickyHeader aria-label="sticky table">
+                  <Table stickyHeader aria-label="sticky table" size='small'>
                      <TableHead>
                         <TableRow>
                         {columns.map((column) => (
@@ -191,6 +199,14 @@ export default function Remocao() {
                   />
                </Paper>
             </div>
+            <ModalConfirmar 
+               title='Excluir livro'
+               message='Tem certeza que quer excluir o livro selecionado?' 
+               open={openConfirmModal}
+               handleOpen={handleOpen} 
+               handleClose={handleClose}
+               onConfirm={handleRemoveConfirm}
+            />
         </main>
       </>
    );

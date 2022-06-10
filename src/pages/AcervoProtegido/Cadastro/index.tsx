@@ -4,43 +4,57 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
 import Botao from '../../../components/Botao';
 import MenuItem from '@mui/material/MenuItem';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { cadastrarLivro } from '../../../api/LivroService';
 
 const CadastroLivroSchema = Yup.object().shape({
-    isbn: Yup.string(),
-    issn: Yup.string(),
-    doi: Yup.string(),
+    isbn: Yup.string().min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Obrigatório'),
+    issn: Yup.string().nullable(),
+    doi: Yup.string().optional().nullable(),
+    autor: Yup.string(),
+    titulo: Yup.string().required('Obrigatório'),
+    editora: Yup.string().nullable(),
+    idioma: Yup.mixed().oneOf(['PORTUGUES', 'ESPANHOL', 'INGLES']).required('Obrigatório'),
+    descricao: Yup.string().nullable(),
+    numeroDePaginas: Yup.number().min(1, 'Deve ser um número positivo'),
+    anoEdicao: Yup.number().min(1, 'Deve ser um número positivo').required('Obrigatório')
 })
 
 interface LivroFormValues {
     isbn: string,
     issn: string,
-    doi: string,
+    doi: string | null,
     autor: string,
     titulo: string,
-    editora: string,
+    editora: string | null,
     idioma: string,
-    descricao: string,
-    numeroDePaginas: number | null,
-    anoEdicao: number | null
+    descricao: string | null,
+    numeroDePaginas: number | undefined,
+    anoEdicao: number | undefined,
+    estadoLivro: string
 }
 
 function FormCadastroDeLivros() {
     const initialValues: LivroFormValues = {
         isbn: '',
         issn: '',
-        doi: '',
+        doi: null,
         autor: '',
         titulo: '',
-        editora: '',
+        editora: null,
         idioma: '',
-        descricao: '',
-        numeroDePaginas: null,
-        anoEdicao: null
+        descricao: null,
+        numeroDePaginas: undefined,
+        anoEdicao: undefined,
+        estadoLivro: 'DISPONIVEL'
     }
 
-    const enviarDados = (dados: LivroFormValues) => {
-        console.log(dados)
+    const enviarDados = async (dados: any) => {
+        try {
+            const response = await cadastrarLivro(dados)
+            console.log(response)
+        } catch (error: any) {
+            console.log("ERRO: ", error?.response?.data)
+        }
     }
 
     return (
@@ -141,7 +155,7 @@ function FormCadastroDeLivros() {
                                 <Field 
                                     component={TextField}
                                     name='anoEdicao'
-                                    type='text'
+                                    type='number'
                                     label='Ano'
                                     size='small'
                                     value={values.anoEdicao}
@@ -160,6 +174,7 @@ function FormCadastroDeLivros() {
                             >
                                 <MenuItem value={'PORTUGUES'}>Português</MenuItem>
                                 <MenuItem value={'ESPANHOL'}>Espanhol</MenuItem>
+                                <MenuItem value={'INGLES'}>Inglês</MenuItem>
                             </Field>
                         </div>
                         <div className='campoDescricao'> 
@@ -174,9 +189,10 @@ function FormCadastroDeLivros() {
                                 maxRows={5}
                                 value={values.descricao}
                                 onChange={handleChange}
-                                sx={{width: 500}}
+                                sx={{width: 650}}
                             />
                         </div>
+                        <input type="hidden" name="estadoLivro" value={values.estadoLivro} />
                         <div className='botaoCadLivro'><Botao type='submit'>Cadastrar</Botao></div>
                     </Form>
                 )}

@@ -15,6 +15,14 @@ export interface ILivro {
     estadoLivro: string
 }
 
+export const cadastrarLivro = (livro: ILivro) => new Promise<string> (
+    (resolve, reject) => {
+        api.post(`/livros`, livro)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const listarLivros = () => new Promise<ILivro[]> (
     (resolve, reject) => {
         api.get('/livros')
@@ -50,6 +58,14 @@ export const contarReservas = () => new Promise<number> (
 export const reservarLivro = (idLivro: number, cpf: string) => new Promise<string> (
     (resolve, reject) => {
         api.get(`/livros/${idLivro}/${cpf}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+export const removerLivro = (idLivro: number)  => new Promise (
+    (resolve, reject) => {
+        api.delete(`/livros/${idLivro}`)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }

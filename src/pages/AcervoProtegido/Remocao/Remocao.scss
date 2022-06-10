@@ -12,7 +12,12 @@
     text-align: center;
 }
 
-.botaoDetalhes {
+.botaoRemover {
     cursor: pointer;
     padding: 2px;
+    transition: 0.2s all;
+
+    &:hover {
+        color: rgb(255, 62, 62);
+    }
 }

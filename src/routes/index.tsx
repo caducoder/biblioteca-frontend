@@ -17,6 +17,7 @@ import Remocao from '../pages/AcervoProtegido/Remocao';
 import ImportarNotaFiscal from '../pages/Financeiro/ImportarNotaFiscal';
 import FormCadastroCliente from '../pages/Fichario/Cadastro';
 import Emprestimo from '../pages/Emprestimo';
+import FormCadastroFuncionario from '../pages/Equipe/Cadastro';
 
 /*
 2200: Bibliotecario
@@ -49,6 +50,7 @@ function Rotas() {
         </Route>
         <Route element={<RequireAuth allowedRoles={[2205]} />}>
           <Route path='equipe' element={<Equipe />} />
+          <Route path='equipe/cadastro-funcionario' element={<FormCadastroFuncionario />} />
           <Route path='financeiro' element={<Financeiro />} />
           <Route path='financeiro/importar' element={<ImportarNotaFiscal />} />
         </Route>
