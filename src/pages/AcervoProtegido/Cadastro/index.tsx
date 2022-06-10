@@ -10,7 +10,7 @@ const CadastroLivroSchema = Yup.object().shape({
     isbn: Yup.string().min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Obrigatório'),
     issn: Yup.string().nullable(),
     doi: Yup.string().optional().nullable(),
-    autor: Yup.string(),
+    autor: Yup.string().required('Obrigatório'),
     titulo: Yup.string().required('Obrigatório'),
     editora: Yup.string().nullable(),
     idioma: Yup.mixed().oneOf(['PORTUGUES', 'ESPANHOL', 'INGLES']).required('Obrigatório'),
@@ -34,28 +34,30 @@ interface LivroFormValues {
 }
 
 function FormCadastroDeLivros() {
-    const initialValues: LivroFormValues = {
+    let initialValues: LivroFormValues = {
         isbn: '',
         issn: '',
-        doi: null,
+        doi: '',
         autor: '',
         titulo: '',
-        editora: null,
+        editora: '',
         idioma: '',
-        descricao: null,
+        descricao: '',
         numeroDePaginas: undefined,
         anoEdicao: undefined,
         estadoLivro: 'DISPONIVEL'
     }
 
-    const enviarDados = async (dados: any) => {
+    const enviarDados = async (dados: any, {resetForm}: any) => {
         try {
             const response = await cadastrarLivro(dados)
             console.log(response)
+            resetForm({})
         } catch (error: any) {
             console.log("ERRO: ", error?.response?.data)
         }
     }
+
 
     return (
         <section className='cadastroLivroContainer'>
@@ -164,7 +166,6 @@ function FormCadastroDeLivros() {
                             </div>
                             <Field
                                 component={Select}
-                                // formHelperText={{ children: 'Test' }}
                                 id="idioma"
                                 labelId="idioma"
                                 name="idioma"
@@ -186,7 +187,6 @@ function FormCadastroDeLivros() {
                                 size='small'
                                 multiline
                                 rows={4}
-                                maxRows={5}
                                 value={values.descricao}
                                 onChange={handleChange}
                                 sx={{width: 650}}

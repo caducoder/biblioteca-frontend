@@ -1,5 +1,4 @@
 import './Remocao.scss'
-import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,15 +8,14 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { listarLivros, ILivro, removerLivro } from '../../../api/LivroService'
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear, MdDelete} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
-import { useNavigate } from 'react-router';
-import ModalConfirmar from '../../../components/ModalConfirmar'
+import ModalConfirmar from '../../../components/ModalConfirmar';
 
 interface Column {
    id: 'titulo' | 'autor' | 'editora' | 'estado' | 'remover';
@@ -55,18 +53,19 @@ function createData(
 }
 
 export default function Remocao() {
-   const [livros, setlivros] = useState<Data[]>();
-   const [livrosFiltrados, setLivrosFiltrados] = useState<Data[]>();
-   const [page, setPage] = React.useState(0);
-   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+   const [livros, setlivros] = useState<Data[]>([]);
+   const [livrosFiltrados, setLivrosFiltrados] = useState<Data[]>([]);
+   const [page, setPage] = useState(0);
+   const [rowsPerPage, setRowsPerPage] = useState(5);
    const [busca, setBusca] = useState('');
-   const navigate = useNavigate()
    const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
 
    const handleRemoveConfirm = (id: number) => {
       removerLivro(id)
+      const newList = livrosFiltrados.filter(livro => livro.id !== id)
+      setLivrosFiltrados(newList)
       handleClose()
    }
 
@@ -76,7 +75,7 @@ export default function Remocao() {
       }
 
       getLivros()
-   }, [handleRemoveConfirm]);
+   }, []);
 
    const popularTabela = (livros: Array<ILivro>)  => {
       const linhas = livros.map(livro => (
@@ -92,7 +91,7 @@ export default function Remocao() {
    }
 
    const handleClickSearch = () => {
-      const livrosFilter = livros?.filter(livro => livro.titulo.toLowerCase().includes(busca.toLowerCase()))
+      const livrosFilter = livros.filter(livro => livro.titulo.toLowerCase().includes(busca.toLowerCase()))
       setLivrosFiltrados(livrosFilter)
    }
 
@@ -191,7 +190,7 @@ export default function Remocao() {
                      labelRowsPerPage='Livros por página:'
                      rowsPerPageOptions={[5, 10, 15]}
                      component="div"
-                     count={livrosFiltrados ? livrosFiltrados.length : 0}
+                     count={livrosFiltrados.length}
                      rowsPerPage={rowsPerPage}
                      page={page}
                      onPageChange={handleChangePage}

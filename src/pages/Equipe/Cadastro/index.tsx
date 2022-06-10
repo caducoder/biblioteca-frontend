@@ -1,16 +1,17 @@
-import { TextField } from 'formik-mui';
+import { TextField, Select } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
-import * as Yup from 'yup'
-import './CadastroFuncionario.scss'
+import * as Yup from 'yup';
+import './CadastroFuncionario.scss';
+import MenuItem from '@mui/material/MenuItem';
 
-const CadastroClienteSchema = Yup.object().shape({
+const CadastroFuncionarioSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
-    cpf: Yup.string().length(11, 'Somente números, exatamente 11').required('Obrigatório'),
+    cpf: Yup.string().length(11, 'Somente números, sem pontuação').required('Obrigatório'),
     rg: Yup.string().length(8, 'Somente números, sem pontuação'),
     email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
     telefone: Yup.string(),
-    tipo: Yup.string(),
+    tipo: Yup.string().required('Obrigatório'),
     senha: Yup.string().min(8, 'deve ter pelo menos 8 caracteres').required('Obrigatório'),
     endereco: Yup.object({
         rua: Yup.string(),
@@ -58,7 +59,6 @@ function FormCadastroFuncionario() {
 
     const enviarDados = (values: any) => {
         console.log(values)
-        
     }
 
     return ( 
@@ -68,7 +68,7 @@ function FormCadastroFuncionario() {
                 validateOnBlur={false}
                 initialValues={initialValues}
                 onSubmit={enviarDados}
-                validationSchema={CadastroClienteSchema}
+                validationSchema={CadastroFuncionarioSchema}
             >
                 {({
                     handleSubmit,
@@ -137,21 +137,24 @@ function FormCadastroFuncionario() {
                                     //placeholder='000000000'
                                 />
                             </div>
-                            <Field 
-                                component={TextField}
-                                name='tipo'
-                                type='text'
-                                label='Tipo'
+                            <Field
+                                component={Select}
+                                id="tipo"
+                                labelId="tipo"
+                                name="tipo"
+                                label="Tipo"
                                 size='small'
-                                value={values.tipo}
-                                onChange={handleChange}
-                            />
+                                sx={{width: 150}}
+                            >
+                                <MenuItem value={'bibliotecario'}>Bibliotecário</MenuItem>
+                                <MenuItem value={'admin'}>Administrador</MenuItem>
+                            </Field>
                         </div>
                         <div className='campoSenha'> 
                             <Field 
                                 component={TextField}
                                 name='senha'
-                                type='text'
+                                type='password'
                                 label='Senha'
                                 size='small'
                                 value={values.senha}

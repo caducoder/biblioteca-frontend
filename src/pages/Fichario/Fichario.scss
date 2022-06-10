@@ -20,16 +20,15 @@
     text-align: center;
 }
 
-.botaoEdit {
+.botao {
     cursor: pointer;
-    padding: 2px;
+    padding: 4px;
     color: #4360FF;
-}
 
-.botaoDelete {
-    cursor: pointer;
-    padding: 2px;
-    color: #4360FF;
+    &:hover {
+        color: #2243ff;
+        // background: rgba(0,0,0,0.3);
+    }
 }
 
 .newCliente {

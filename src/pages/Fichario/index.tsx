@@ -1,5 +1,4 @@
-import './Fichario.scss'
-import * as React from 'react';
+import './Fichario.scss';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,15 +8,16 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { FaUserEdit, FaUserTimes, FaUserPlus } from "react-icons/fa";
-import { listarClientes, ICliente } from '../../api/ClienteService';
-import { useEffect, useState } from 'react';
+import { listarClientes, ICliente, deletarCliente } from '../../api/ClienteService';
+import { useEffect, useState, ChangeEvent } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
+import { MdOutlineSearch, MdOutlineClear } from 'react-icons/md';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
+import ModalConfirmar from '../../components/ModalConfirmar';
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
@@ -27,7 +27,7 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-   { id: 'id', label: 'ID', minWidth: 50 },
+   { id: 'id', label: 'ID', minWidth: 30 },
    { id: 'nome', label: 'Nome', minWidth: 150 },
    { id: 'cpf', label: 'CPF', minWidth: 170 },
    { id: 'email', label: 'Email', minWidth: 170 },
@@ -56,12 +56,22 @@ function createData(
 }
 
 export default function Fichario() {
-   const [clientes, setclientes] = useState<Data[]>();
-   const [clientesFiltrados, setClientesFiltrados] = useState<Data[]>();
-   const [page, setPage] = React.useState(0);
-   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+   const [clientes, setclientes] = useState<Data[]>([]);
+   const [clientesFiltrados, setClientesFiltrados] = useState<Data[]>([]);
+   const [page, setPage] = useState(0);
+   const [rowsPerPage, setRowsPerPage] = useState(5);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
+   const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
+   const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
+   const handleClose = () => setOpenConfirmModal({open: false, id: null})
+
+   const handleRemoveConfirm = (id: number) => {
+      deletarCliente(id)
+      const newList = clientesFiltrados.filter(cliente => cliente.id !== id)
+      setClientesFiltrados(newList)
+      handleClose()
+   }
 
    useEffect(() => {
       const getClientes = async () => {
@@ -80,8 +90,8 @@ export default function Fichario() {
             cliente.email, 
             cliente.telefone,
             <div>
-               <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(cliente)}/>
-               <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(cliente.id)}/>
+               <FaUserEdit className='botao Edit' size={30} onClick={() => handleClickEdit(cliente)}/>
+               <FaUserTimes className='botao Delete' size={30} onClick={() => handleClickDelete(cliente.id)}/>
             </div> 
          )
       ))
@@ -91,11 +101,11 @@ export default function Fichario() {
    }
 
    const handleClickEdit = (cliente: ICliente) => {
-      //navigate(`cliente/${cliente.id}`, {state: {...cliente}}) --vai ser rota para pág de edição
+      navigate(`cliente/${cliente.id}`, {state: {...cliente}})
    }
 
    const handleClickDelete = (clienteId: number) => {
-      // --chamar a função deletar cliente
+      handleOpen(clienteId)
    }
 
    const handleClickAdd = () => {
@@ -115,7 +125,7 @@ export default function Fichario() {
       setPage(newPage);
    };
 
-   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+   const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
       setRowsPerPage(+event.target.value);
       setPage(0);
    };
@@ -204,7 +214,7 @@ export default function Fichario() {
                      labelRowsPerPage='Clientes por página:'
                      rowsPerPageOptions={[5, 10, 25, 50]}
                      component="div"
-                     count={clientesFiltrados ? clientesFiltrados.length : 0}
+                     count={clientesFiltrados.length}
                      rowsPerPage={rowsPerPage}
                      page={page}
                      onPageChange={handleChangePage}
@@ -217,6 +227,14 @@ export default function Fichario() {
             <h4 className='addCliente'>Adicione um novo cliente:</h4>
             <FaUserPlus className='botaoAdd' size={30} onClick={() => handleClickAdd()}/>
          </div>
+         <ModalConfirmar 
+            title='Excluir cliente'
+            message='Tem certeza que quer excluir o cliente selecionado?' 
+            open={openConfirmModal}
+            handleOpen={handleOpen} 
+            handleClose={handleClose}
+            onConfirm={handleRemoveConfirm}
+         />
       </>
    );
 }
