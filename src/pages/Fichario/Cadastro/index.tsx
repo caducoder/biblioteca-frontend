@@ -4,10 +4,10 @@ import Botao from '../../../components/Botao';
 import * as Yup from 'yup'
 import './CadastroCliente.scss'
 
-const CadastroClienteSchema = Yup.object().shape({
+export const CadastroClienteSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
     cpf: Yup.string().length(11, 'Somente números, exatamente 11').required('Obrigatório'),
-    rg: Yup.string().length(8, 'Somente números, sem pontuação'),
+    rg: Yup.string().length(9, 'Somente números, sem pontuação').nullable(),
     email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
     telefone: Yup.string(),
     endereco: Yup.object({
@@ -19,10 +19,11 @@ const CadastroClienteSchema = Yup.object().shape({
     })
 })
 
-interface ClienteFormValues {
+export interface ClienteFormValues {
+    id?: number;
     nome: string,
     cpf: string,
-    rg: string,
+    rg?: string,
     email: string,
     telefone: string,
     endereco: {

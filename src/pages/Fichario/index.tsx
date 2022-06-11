@@ -38,7 +38,7 @@ const columns: readonly Column[] = [
 interface Data {
    id: number,
    nome: string;
-   cpf: number;
+   cpf: string;
    email: string;
    telefone: string;
    acoes: JSX.Element;
@@ -47,7 +47,7 @@ interface Data {
 function createData(
    id: number,
    nome: string,
-   cpf: number,
+   cpf: string,
    email: string,
    telefone: string,
    acoes: JSX.Element,
@@ -66,6 +66,25 @@ export default function Fichario() {
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
 
+   // mock para teste
+   const mock = createData(
+      99,
+      'Teste',
+      '11122233344',
+      'user@gmail.com',
+      '21988887777',
+      <div>
+         <FaUserEdit className='botao Edit' size={30} onClick={() => handleClickEdit({
+            id: 99,
+            nome: 'Teste',
+            cpf: '11122233344',
+            email: 'user@gmail.com',
+            telefone: '21988887777'
+         })}/>
+         <FaUserTimes className='botao Delete' size={30} onClick={() => handleClickDelete(99)}/>
+      </div>
+   )
+
    const handleRemoveConfirm = (id: number) => {
       deletarCliente(id)
       const newList = clientesFiltrados.filter(cliente => cliente.id !== id)
@@ -75,7 +94,7 @@ export default function Fichario() {
 
    useEffect(() => {
       const getClientes = async () => {
-         popularTabela(await listarClientes())
+         popularTabela([mock]/*await listarClientes()*/)
       }
 
       getClientes()
@@ -101,7 +120,7 @@ export default function Fichario() {
    }
 
    const handleClickEdit = (cliente: ICliente) => {
-      navigate(`cliente/${cliente.id}`, {state: {...cliente}})
+      navigate(`cliente/${cliente.id}`)
    }
 
    const handleClickDelete = (clienteId: number) => {

@@ -3,10 +3,17 @@ import api from '../axios'
 export interface ICliente {
     id: number,
     nome: string;
-    sobrenome: string;
-    cpf: number;
+    cpf: string;
+    rg?: string,
     email: string;
     telefone: string;
+    endereco?: {
+        rua: string,
+        numero: number,
+        bairro: string,
+        cidade: string,
+        cep: string
+    }
 }
 
 export const listarClientes = () => new Promise<ICliente[]> (
@@ -25,9 +32,25 @@ export const buscarPorCpf = (cpf: string) => new Promise<any> (
     }
 )
 
+export const buscarPorId = (id: number) => new Promise<ICliente> (
+    (resolve, reject) => {
+        api.get(`/clientes/cl/${id}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const contarClientes = () => new Promise<number> (
     (resolve, reject) => {
         api.get('/clientes/quantidade')
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+export const alterarCliente = (cliente: ICliente) => new Promise (
+    (resolve, reject) => {
+        api.put('/clientes', cliente)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }
