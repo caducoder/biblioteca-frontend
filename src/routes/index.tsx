@@ -19,6 +19,7 @@ import FormCadastroCliente from '../pages/Fichario/Cadastro';
 import Emprestimo from '../pages/Emprestimo';
 import FormCadastroFuncionario from '../pages/Equipe/Cadastro';
 import FormEdicaoCliente from '../pages/Fichario/Edicao';
+import Relatorios from '../pages/Relatorios';
 
 /*
 2200: Bibliotecario
@@ -39,6 +40,7 @@ function Rotas() {
         {/* Rotas privadas */}
         <Route element={<RequireAuth allowedRoles={[2200, 2205]} />}>
           <Route path='dashboard' element={<Dashboard />} />
+          <Route path='relatorios' element={<Relatorios />} />
           <Route path='acervo-gestao' element={<AcervoProtegido />} >
             <Route path='' element={<h2>Selecione uma opção.</h2>} />
             <Route path='consulta' element={<Consulta />} />

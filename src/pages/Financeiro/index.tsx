@@ -22,14 +22,10 @@ function createData(
    assunto: string,
    pdf: JSX.Element,
    datatime: string
- ) {
+   ) {
    return { id, valor, tipo, assunto, pdf, datatime };
- }
+}
  
-// const rows2 = [
-// createData(1, 22.90, 'Entrada', 'compra de livros', 'Ver pdf', '21/05/2020'),
-// createData(2, 12.90, 'Saída', 'multa', 'Ver pdf', '20/09/2020'),
-// ];
 
 function Financeiro() {
    const [rows, setRows] = useState<Data[]>([]);

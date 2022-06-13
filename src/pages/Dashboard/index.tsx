@@ -35,26 +35,26 @@ function Dashboard() {
    return ( 
       <>
          <div className='relatorios__title'>
-            <Typography variant='h4'><br></br>Relatórios</Typography>
+            <Typography variant='h4'><br />Dashboard</Typography>
          </div>
 
          <section className='grid-container'>
             <div className='livrosCad'>
                <img src={BooksSVG} className='svg' alt='desenho de dois livros'/>
                <p>Livros Cadastrados: <span className='numero'>{numeroDeLivros || 'N/A'}</span> </p>
-               <a href="#">Ver relatório</a>
+               {/* <a href="#">Ver relatório</a> */}
             </div>
 
             <div className='livrosRes'>
                <img src={BookmarkSVG} className='svg' alt='desenho de um livro com um marca página'/>
                <p>Livros Reservados: <span className='numero'>{numeroDeReservas || 'N/A'}</span> </p>
-               <a href="#">Ver relatório</a>
+               {/* <a href="#">Ver relatório</a> */}
             </div>
 
             <div className='livrosEmp'>
                <img src={ReaderSVG} className='svg' alt='desenho de um boneco com um livro'/>
                <p>Livros Emprestados: <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
-               <a href="#">Ver relatório</a>
+               {/* <a href="#">Ver relatório</a> */}
             </div>
             <div className='clientesCad'>
                <img src={UserSVG} className='svg' alt='desenho de dois bonecos'/>
@@ -69,15 +69,17 @@ function Dashboard() {
                      </Link>          
                   </div>
                   <div className='clie'>
-                     <Link to='/fichario/cadastro-cliente'>
-                        <Botao>Cadastrar Cliente</Botao>
+                     <Link to='/relatorios'>
+                        <Botao>Relatórios</Botao>
                      </Link>
                   </div>
                   <div className='dev'>
                      <Botao>Realizar Devolução</Botao>
                   </div>
                   <div className='res'>
-                     <Botao>Realizar Reserva</Botao>
+                     <Link to='/acervo'>
+                        <Botao>Realizar Reserva</Botao>
+                     </Link>
                   </div>
                </div>
             </div>

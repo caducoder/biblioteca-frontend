@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './TabelaSimples.scss'
+import format from 'date-fns/format';
 
 interface Data {
   id: number,
@@ -52,7 +53,7 @@ export default function TabelaSimples({ rows }: Props) {
               <TableCell align="center">{row.assunto}</TableCell>
               <TableCell align="center">{row.pdf}</TableCell>
               <TableCell align="right">
-                {row.datatime.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1')}
+                {format(new Date(row.datatime), 'dd/MM/yyyy')}
               </TableCell>
             </TableRow>
           ))}
