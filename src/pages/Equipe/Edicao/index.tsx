@@ -1,47 +1,23 @@
+import './EdicaoFuncionario.scss'
 import { TextField, Select } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
-import * as Yup from 'yup';
-import './CadastroFuncionario.scss';
+import { useNavigate, useParams } from 'react-router';
+import {FuncionarioFormValues, CadastroFuncionarioSchema} from '../Cadastro'
+import { alterarFuncionario, buscarPorId, IFuncionario } from '../../../api/FuncionarioService';
+import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
+import Alert from '@mui/material/Alert';
 
-export const CadastroFuncionarioSchema = Yup.object().shape({
-    nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
-    cpf: Yup.string().length(11, 'Somente números, sem pontuação').required('Obrigatório'),
-    rg: Yup.string().length(8, 'Somente números, sem pontuação'),
-    email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
-    telefone: Yup.string(),
-    tipo: Yup.string().required('Obrigatório'),
-    senha: Yup.string().min(8, 'deve ter pelo menos 8 caracteres').required('Obrigatório'),
-    endereco: Yup.object({
-        rua: Yup.string(),
-        bairro: Yup.string(),
-        numero: Yup.number(),
-        cidade: Yup.string().min(3),
-        cep: Yup.string()
-    })
-})
+function FormEdicaoFuncionario() {
+    const navigate = useNavigate()
+    const [funcionario, setFuncionario] = useState<IFuncionario>();
+    const { id: idFuncionario }: any = useParams()
+    const [success, setSuccess] = useState(false);
+    const [msg, setMsg] = useState('');
 
-export interface FuncionarioFormValues {
-    id?: number;
-    nome: string,
-    cpf: string,
-    rg?: string,
-    email: string,
-    telefone: string,
-    tipo: string,
-    senha: string,
-    endereco: {
-        rua: string,
-        bairro: string,
-        numero: number | null,
-        cidade: string,
-        cep: string
-    }
-}
-
-function FormCadastroFuncionario() {
-    const initialValues: FuncionarioFormValues = {
+    let initialValues: FuncionarioFormValues = {
+        id: undefined,
         nome: '',
         cpf: '',
         rg: '',
@@ -58,17 +34,59 @@ function FormCadastroFuncionario() {
         }
     }
 
-    const enviarDados = (values: any) => {
-        console.log(values)
+    const preencherForm = (funcionario: IFuncionario) => {
+        initialValues.id = funcionario.id
+        initialValues.nome = funcionario.nome || ''
+        initialValues.cpf = funcionario.cpf || ''
+        initialValues.rg = funcionario.rg || ''
+        initialValues.email = funcionario.email || ''
+        initialValues.telefone = funcionario.telefone || ''
+        initialValues.tipo = funcionario.tipo || ''
+        initialValues.senha = funcionario.senha || ''
+        initialValues.endereco.rua = funcionario.endereco?.rua || ''
+        initialValues.endereco.bairro = funcionario.endereco?.bairro || ''
+        initialValues.endereco.cidade = funcionario.endereco?.cidade || ''
+        initialValues.endereco.numero = funcionario.endereco?.numero || null
+        initialValues.endereco.cep = funcionario.endereco?.cep || ''
     }
 
-    return ( 
-        <section className='cadastroFuncionarioContainer'>
-            <h2>Formulário de Cadastro de Funcionários</h2>
+    useEffect(() => {
+        const getFuncionario = async () => {
+            const funcionario = await buscarPorId(idFuncionario)
+
+            setFuncionario(funcionario)
+            preencherForm(funcionario)
+        }
+
+        getFuncionario()
+    }, []);
+
+    
+
+    const enviarDadosModificados = async (dados: any) => {
+        try {
+            let response: any = await alterarFuncionario(dados)
+            setMsg(response)
+            setSuccess(true)
+
+            setTimeout(() => {
+                navigate('/equipe')
+            }, 1500)
+        } catch (error: any) {
+            console.log(error?.response?.data)
+        }
+    }
+
+    return (
+        <section className='edicaoFuncionarioContainer'>
+            {success && 
+                <Alert severity="success">{msg}</Alert>
+            }
+            <h3>Editar Funcionario</h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
-                onSubmit={enviarDados}
+                onSubmit={enviarDadosModificados}
                 validationSchema={CadastroFuncionarioSchema}
             >
                 {({
@@ -220,12 +238,16 @@ function FormCadastroFuncionario() {
                                 />
                             </div>
                         </fieldset>
-                        <div className='botaoCadFuncionario'><Botao type='submit'>Cadastrar</Botao></div>
+                        
+                        <div className='botoes'>
+                            <Botao type='submit'>Salvar</Botao>
+                            <Botao onClick={() => navigate(-1)}>Cancelar</Botao>
+                        </div>
                     </Form>
                 )}
             </Formik>
         </section>
-     );
+    );
 }
 
-export default FormCadastroFuncionario;
+export default FormEdicaoFuncionario;
