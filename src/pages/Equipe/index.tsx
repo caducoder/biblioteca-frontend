@@ -39,7 +39,7 @@ const columns: readonly Column[] = [
 interface Data {
    id: number,
    nome: string;
-   cpf: number;
+   cpf: string;
    email: string;
    telefone: string;
    tipo: string;
@@ -50,7 +50,7 @@ interface Data {
 function createData(
    id: number,
    nome: string,
-   cpf: number,
+   cpf: string,
    email: string,
    telefone: string,
    tipo: string,

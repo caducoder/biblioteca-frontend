@@ -1,39 +1,21 @@
-import './CadastroLivro.scss'
+import './EdicaoLivro.scss'
 import { TextField, Select } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup'
 import Botao from '../../../components/Botao';
+import { useNavigate, useParams } from 'react-router';
+import {LivroFormValues, CadastroLivroSchema} from '../Cadastro'
+import { alterarLivro, buscarPorCodigo, ILivro } from '../../../api/LivroService';
+import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import { cadastrarLivro } from '../../../api/LivroService';
+import Alert from '@mui/material/Alert';
 
-export const CadastroLivroSchema = Yup.object().shape({
-    isbn: Yup.string().min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Obrigatório'),
-    issn: Yup.string().nullable(),
-    doi: Yup.string().optional().nullable(),
-    autor: Yup.string().required('Obrigatório'),
-    titulo: Yup.string().required('Obrigatório'),
-    editora: Yup.string().nullable(),
-    idioma: Yup.mixed().oneOf(['PORTUGUES', 'ESPANHOL', 'INGLES']).required('Obrigatório'),
-    descricao: Yup.string().nullable(),
-    numeroDePaginas: Yup.number().min(1, 'Deve ser um número positivo'),
-    anoEdicao: Yup.number().min(1, 'Deve ser um número positivo').required('Obrigatório')
-})
+function FormEdicaoLivro() {
+    const navigate = useNavigate()
+    const [livro, setLivro] = useState<ILivro>();
+    const { isbn: isbnLivro }: any = useParams()
+    const [success, setSuccess] = useState(false);
+    const [msg, setMsg] = useState('');
 
-export interface LivroFormValues {
-    isbn: string,
-    issn: string,
-    doi: string | null,
-    autor: string,
-    titulo: string,
-    editora: string | null,
-    idioma: string,
-    descricao: string | null,
-    numeroDePaginas: number | undefined,
-    anoEdicao: number | undefined,
-    estadoLivro: string
-}
-
-function FormCadastroDeLivros() {
     let initialValues: LivroFormValues = {
         isbn: '',
         issn: '',
@@ -43,29 +25,62 @@ function FormCadastroDeLivros() {
         editora: '',
         idioma: '',
         descricao: '',
-        numeroDePaginas: undefined,
-        anoEdicao: undefined,
-        estadoLivro: 'DISPONIVEL'
+        numeroDePaginas: 0,
+        anoEdicao: 0,
+        estadoLivro: '',
     }
 
-    const enviarDados = async (dados: any, {resetForm}: any) => {
+    const preencherForm = (livro: ILivro) => {
+        initialValues.isbn = livro.isbn || ''
+        initialValues.issn = livro.issn || ''
+        initialValues.doi = livro.doi || ''
+        initialValues.autor = livro.autor || ''
+        initialValues.titulo = livro.titulo || ''
+        initialValues.editora = livro.editora || ''
+        initialValues.idioma = livro.idioma || ''
+        initialValues.descricao = livro.descricao|| ''
+        initialValues.numeroDePaginas = livro.numeroDePaginas 
+        initialValues.anoEdicao = livro.anoEdicao 
+        initialValues.estadoLivro = livro.estadoLivro || ''
+    }
+
+    useEffect(() => {
+        const getLivro = async () => {
+            const livro = await buscarPorCodigo(isbnLivro)
+
+            setLivro(livro)
+            preencherForm(livro)
+        }
+
+        getLivro()
+    }, []);
+
+    
+
+    const enviarDadosModificados = async (dados: any) => {
         try {
-            const response = await cadastrarLivro(dados)
-            console.log(response)
-            resetForm({})
+            let response: any = await alterarLivro(dados)
+            setMsg(response)
+            setSuccess(true)
+
+            setTimeout(() => {
+                navigate('/acervoProtegido')
+            }, 1500)
         } catch (error: any) {
-            console.log("ERRO: ", error?.response?.data)
+            console.log(error?.response?.data)
         }
     }
 
-
     return (
-        <section className='cadastroLivroContainer'>
-            <h2>Cadastro de livros</h2>
+        <section className='edicaoLivroContainer'>
+            {success && 
+                <Alert severity="success">{msg}</Alert>
+            }
+            <h3>Editar Livro</h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
-                onSubmit={enviarDados}
+                onSubmit={enviarDadosModificados}
                 validationSchema={CadastroLivroSchema}
             >
                 {({
@@ -193,12 +208,15 @@ function FormCadastroDeLivros() {
                             />
                         </div>
                         <input type="hidden" name="estadoLivro" value={values.estadoLivro} />
-                        <div className='botaoCadLivro'><Botao type='submit'>Cadastrar</Botao></div>
+                        <div className='botoes'>
+                            <Botao type='submit'>Salvar</Botao>
+                            <Botao onClick={() => navigate(-1)}>Cancelar</Botao>
+                        </div>
                     </Form>
                 )}
             </Formik>
         </section>
-     );
+    );
 }
 
-export default FormCadastroDeLivros;
+export default FormEdicaoLivro;

@@ -20,6 +20,7 @@ import Emprestimo from '../pages/Emprestimo';
 import FormCadastroFuncionario from '../pages/Equipe/Cadastro';
 import FormEdicaoCliente from '../pages/Fichario/Edicao';
 import FormEdicaoFuncionario from '../pages/Equipe/Edicao';
+//import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
 
 /*
 2200: Bibliotecario
