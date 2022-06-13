@@ -20,6 +20,8 @@ import Emprestimo from '../pages/Emprestimo';
 import FormCadastroFuncionario from '../pages/Equipe/Cadastro';
 import FormEdicaoCliente from '../pages/Fichario/Edicao';
 import Relatorios from '../pages/Relatorios';
+import FormEdicaoFuncionario from '../pages/Equipe/Edicao';
+//import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
 
 /*
 2200: Bibliotecario
@@ -55,6 +57,7 @@ function Rotas() {
         <Route element={<RequireAuth allowedRoles={[2205]} />}>
           <Route path='equipe' element={<Equipe />} />
           <Route path='equipe/cadastro-funcionario' element={<FormCadastroFuncionario />} />
+          <Route path='equipe/funcionario/:id' element={<FormEdicaoFuncionario />} />
           <Route path='financeiro' element={<Financeiro />} />
           <Route path='financeiro/importar' element={<ImportarNotaFiscal />} />
         </Route>

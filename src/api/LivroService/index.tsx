@@ -39,6 +39,14 @@ export const buscarPorCodigo = (codLivro: string) => new Promise<ILivro> (
     }
 )
 
+export const alterarLivro = (livro: ILivro) => new Promise (
+    (resolve, reject) => {
+        api.put('/livros', livro)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const contarLivros = () => new Promise<number> (
     (resolve, reject) => {
         api.get('/livros/quantidade')
