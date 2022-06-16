@@ -1,4 +1,5 @@
 import { Button, Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { ILivro } from '../../api/LivroService';
 import './Livro.scss'
 
@@ -55,7 +56,9 @@ function Livro({livro, handleClickConfirm}: IProps) {
                 >
                     Confirmar
                 </Button>
-                <Button color='primary' variant='contained' sx={{fontWeight: 'bold'}}>Alterar</Button>
+                <Link to={`/acervo-gestao/edicao/${livro.isbn}`}>
+                    <Button color='primary' variant='contained' sx={{fontWeight: 'bold'}}>Alterar</Button>
+                </Link>
             </div>
         </Paper>
      );

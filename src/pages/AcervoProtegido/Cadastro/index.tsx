@@ -20,6 +20,7 @@ export const CadastroLivroSchema = Yup.object().shape({
 })
 
 export interface LivroFormValues {
+    id?: number,
     isbn: string,
     issn: string,
     doi: string | null,

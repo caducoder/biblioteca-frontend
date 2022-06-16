@@ -17,6 +17,7 @@ function FormEdicaoLivro() {
     const [msg, setMsg] = useState('');
 
     let initialValues: LivroFormValues = {
+        id: undefined,
         isbn: '',
         issn: '',
         doi: '',
@@ -31,6 +32,7 @@ function FormEdicaoLivro() {
     }
 
     const preencherForm = (livro: ILivro) => {
+        initialValues.id = livro.id
         initialValues.isbn = livro.isbn || ''
         initialValues.issn = livro.issn || ''
         initialValues.doi = livro.doi || ''
@@ -59,12 +61,12 @@ function FormEdicaoLivro() {
 
     const enviarDadosModificados = async (dados: any) => {
         try {
-            let response: any = await alterarLivro(dados)
-            setMsg(response)
+            let response = await alterarLivro(dados)
+            setMsg('Livro alterado com sucesso!')
             setSuccess(true)
 
             setTimeout(() => {
-                navigate('/acervoProtegido')
+                navigate('/acervo-gestao/consulta')
             }, 1500)
         } catch (error: any) {
             console.log(error?.response?.data)

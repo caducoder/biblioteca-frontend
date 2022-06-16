@@ -22,7 +22,7 @@ import FormEdicaoCliente from '../pages/Fichario/Edicao';
 import Relatorios from '../pages/Relatorios';
 import FormEdicaoFuncionario from '../pages/Equipe/Edicao';
 import Devolucao from '../pages/Devolucao';
-//import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
+import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
 
 /*
 2200: Bibliotecario
@@ -48,6 +48,7 @@ function Rotas() {
             <Route path='' element={<h2>Selecione uma opção.</h2>} />
             <Route path='consulta' element={<Consulta />} />
             <Route path='cadastro' element={<Cadastro />} />
+            <Route path='edicao/:isbn' element={<FormEdicaoLivro />} />
             <Route path='remover' element={<Remocao />} />
           </Route>
           <Route path='fichario' element={<Fichario />} />
