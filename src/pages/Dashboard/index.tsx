@@ -68,13 +68,15 @@ function Dashboard() {
                         <Botao>Realizar Emprestimo</Botao>
                      </Link>          
                   </div>
+                  <div className='dev'>
+                     <Link to='/devolucao'>
+                        <Botao>Devolução/Renovação</Botao>
+                     </Link>
+                  </div>
                   <div className='clie'>
                      <Link to='/relatorios'>
                         <Botao>Relatórios</Botao>
                      </Link>
-                  </div>
-                  <div className='dev'>
-                     <Botao>Realizar Devolução</Botao>
                   </div>
                   <div className='res'>
                      <Link to='/acervo'>

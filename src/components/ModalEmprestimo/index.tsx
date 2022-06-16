@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { FaTimes } from 'react-icons/fa';
@@ -35,6 +35,10 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
     const msg = await realizarEmprestimo(idCliente, codigoLivro)
     setResponseMsg(msg)
   }
+
+  useEffect(() => {
+    setResponseMsg('')
+  }, [codigoLivro]);
 
   return (
     <div>

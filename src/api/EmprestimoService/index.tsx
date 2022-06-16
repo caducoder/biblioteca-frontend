@@ -1,8 +1,34 @@
 import api from "../axios";
+import { ILivro } from "../LivroService";
+
+export interface IEmprestimo {
+    id: number,
+    nomeLivro: string,
+    emprestadoEm: string,
+    dataDevolucao: string,
+    livro: ILivro
+}
 
 export const realizarEmprestimo = (idCliente: number, codLivro: string) => new Promise<string> (
     (resolve, reject) => {
         api.get(`/emprestimo/${idCliente}/${codLivro}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+export const realizarDevolucao = (codLivro: string) => new Promise<string> (
+    (resolve, reject) => {
+        api.get(`/emprestimo/devolucao/${codLivro}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+
+export const getEmprestimo = (codLivro: string) => new Promise<IEmprestimo> (
+    (resolve, reject) => {
+        api.get(`/emprestimo/${codLivro}`)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }

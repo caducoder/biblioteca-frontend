@@ -4,19 +4,13 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { buscarPorCpf } from "../../api/ClienteService";
-import { ILivro } from "../../api/LivroService";
 import Botao from "../../components/Botao";
 import EmprestimosCliente from "./EmprestimosCliente";
 import { isPast } from 'date-fns'
 import ModalEmprestimo from "../../components/ModalEmprestimo";
+import { IEmprestimo } from "../../api/EmprestimoService";
+import { formatDate } from "../../utils/dateUtils";
 
-interface IEmprestimo {
-    id: number,
-    nomeLivro: string,
-    emprestadoEm: string,
-    dataDevolucao: string,
-    livro: ILivro
-}
 
 export interface DataEmpr {
     id: number,
@@ -66,10 +60,6 @@ function Emprestimo() {
         setEmprestimos(rows)
     }
 
-    // função que formata a data de yyyy-MM-dd para dd/MM/yyyy
-    const formatDate = (data: string) => {
-        return data.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1')
-    }
 
     const verificaEstado = (dataDevolucao: string): JSX.Element => {
         // se a data de devolução for menor q a data de hoje, está atrasado

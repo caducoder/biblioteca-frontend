@@ -94,7 +94,7 @@ export default function Fichario() {
 
    useEffect(() => {
       const getClientes = async () => {
-         popularTabela([mock]/*await listarClientes()*/)
+         popularTabela(await listarClientes())
       }
 
       getClientes()

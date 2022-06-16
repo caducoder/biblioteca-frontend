@@ -21,6 +21,7 @@ import FormCadastroFuncionario from '../pages/Equipe/Cadastro';
 import FormEdicaoCliente from '../pages/Fichario/Edicao';
 import Relatorios from '../pages/Relatorios';
 import FormEdicaoFuncionario from '../pages/Equipe/Edicao';
+import Devolucao from '../pages/Devolucao';
 //import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
 
 /*
@@ -53,6 +54,7 @@ function Rotas() {
           <Route path='fichario/cadastro-cliente' element={<FormCadastroCliente />} />
           <Route path='fichario/cliente/:id' element={<FormEdicaoCliente />} />
           <Route path='emprestimo' element={<Emprestimo />} />
+          <Route path='devolucao' element={<Devolucao />} />
         </Route>
         <Route element={<RequireAuth allowedRoles={[2205]} />}>
           <Route path='equipe' element={<Equipe />} />
