@@ -33,11 +33,15 @@ function Relatorios() {
     if(tipo) {
         setTipoRelatorio(tipo);
         const response = await getRelatorio(tipo);
-        const rows = response.map(row => (
-            createData(row.id, row.idUsuario, row.idCliente, row.idLivro, row.tipoMovimentacao, row.dataHora)
-        )).reverse()
+        if(response.length > 0) {
+          const rows = response.map(row => (
+              createData(row.id, row.idUsuario, row.idCliente, row.idLivro, row.tipoMovimentacao, row.dataHora)
+          )).reverse()
 
-        setListaDados(rows)
+          setListaDados(rows)
+        } else {
+          setMsg(`Não há registros de ${tipo}s.`)
+        }
     }
   };
 

@@ -17,6 +17,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
+import Typography from '@mui/material/Typography';
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'tipo' | 'senha' | 'acoes';
@@ -120,7 +121,7 @@ export default function Equipe() {
    return (
       <>
          <div className='title'>
-            <h1>Equipe</h1>
+            <Typography variant='h2'>Equipe</Typography>
          </div>
 
          <main className='group-equipe'>

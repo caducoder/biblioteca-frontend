@@ -18,6 +18,7 @@ import { MdOutlineSearch, MdOutlineClear } from 'react-icons/md';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 import ModalConfirmar from '../../components/ModalConfirmar';
+import Typography from '@mui/material/Typography';
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
@@ -152,7 +153,7 @@ export default function Fichario() {
    return (
       <>
          <div className='title'>
-            <h1>Fichário</h1>
+            <Typography variant='h2'>Fichário</Typography>
          </div>
          
          <main className='group-fichario'>
