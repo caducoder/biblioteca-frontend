@@ -2,15 +2,15 @@ import api from '../axios'
 
 export interface IFuncionario {
     id: number,
-    nome: string;
-    sobrenome: string;
-    cpf: string;
+    nome: string,
+    cpf: string,
     rg?: string,
-    email: string;
-    telefone: string;
-    tipo: string;
-    senha: string;
-    endereco?: {
+    email: string,
+    telefone: string,
+    tipo?: string,
+    senha: string,
+    salario?: string,
+    endereco: {
         rua: string,
         numero: number,
         bairro: string,
@@ -18,6 +18,14 @@ export interface IFuncionario {
         cep: string
     }
 }
+
+export const cadastrarFuncionario = (funcionario: IFuncionario, isAdmin: boolean) => new Promise (
+    (resolve, reject) => {
+        api.post(`/${isAdmin ? 'admin' : 'bibliotecarios'}`, funcionario)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
 
 export const listarFuncionarios = () => new Promise<any[]> (
     (resolve, reject) => {

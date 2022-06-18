@@ -3,7 +3,10 @@ import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import * as Yup from 'yup';
 import './CadastroFuncionario.scss';
-import MenuItem from '@mui/material/MenuItem';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { ChangeEvent, useState } from 'react';
+import { cadastrarFuncionario, IFuncionario } from '../../../api/FuncionarioService';
 
 export const CadastroFuncionarioSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
@@ -11,7 +14,6 @@ export const CadastroFuncionarioSchema = Yup.object().shape({
     rg: Yup.string().length(8, 'Somente números, sem pontuação'),
     email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
     telefone: Yup.string(),
-    tipo: Yup.string().required('Obrigatório'),
     senha: Yup.string().min(8, 'deve ter pelo menos 8 caracteres').required('Obrigatório'),
     endereco: Yup.object({
         rua: Yup.string(),
@@ -23,31 +25,30 @@ export const CadastroFuncionarioSchema = Yup.object().shape({
 })
 
 export interface FuncionarioFormValues {
-    id?: number;
+    id?: number,
     nome: string,
     cpf: string,
     rg?: string,
     email: string,
     telefone: string,
-    tipo: string,
     senha: string,
     endereco: {
         rua: string,
         bairro: string,
-        numero: number | null,
+        numero: number,
         cidade: string,
         cep: string
     }
 }
 
 function FormCadastroFuncionario() {
+    const [isAdmin, setIsAdmin] = useState(false);
     const initialValues: FuncionarioFormValues = {
         nome: '',
         cpf: '',
         rg: '',
         email: '',
         telefone: '',
-        tipo: '',
         senha: '',
         endereco: {
             rua: '',
@@ -58,8 +59,19 @@ function FormCadastroFuncionario() {
         }
     }
 
-    const enviarDados = (values: any) => {
-        console.log(values)
+    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setIsAdmin(event.target.checked);
+      };
+
+    const enviarDados = async (funcionario: any, {resetForm}: any) => {
+        
+        try {
+            const resp = await cadastrarFuncionario(funcionario, isAdmin);
+            console.log(resp)
+            resetForm({})
+        } catch (error: any) {
+            console.log(error?.response)
+        }
     }
 
     return ( 
@@ -138,20 +150,7 @@ function FormCadastroFuncionario() {
                                     //placeholder='000000000'
                                 />
                             </div>
-                            <Field
-                                component={Select}
-                                id="tipo"
-                                labelId="tipo"
-                                name="tipo"
-                                label="Tipo"
-                                size='small'
-                                sx={{width: 150}}
-                            >
-                                <MenuItem value={'bibliotecario'}>Bibliotecário</MenuItem>
-                                <MenuItem value={'admin'}>Administrador</MenuItem>
-                            </Field>
-                        </div>
-                        <div className='campoSenha'> 
+                            <div className='campoTelefone'> 
                             <Field 
                                 component={TextField}
                                 name='senha'
@@ -161,6 +160,11 @@ function FormCadastroFuncionario() {
                                 value={values.senha}
                                 onChange={handleChange}
                             />
+                        </div>
+                        
+                        </div>
+                        <div className='admCheckbox'>
+                            <FormControlLabel control={<Checkbox checked={isAdmin} onChange={handleCheckboxChange} />} label="Administrador" />
                         </div>
                         <fieldset>
                             <legend>Endereço</legend>

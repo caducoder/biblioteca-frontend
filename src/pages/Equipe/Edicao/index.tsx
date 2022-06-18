@@ -23,7 +23,6 @@ function FormEdicaoFuncionario() {
         rg: '',
         email: '',
         telefone: '',
-        tipo: '',
         senha: '',
         endereco: {
             rua: '',
