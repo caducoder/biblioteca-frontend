@@ -8,19 +8,22 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FaUserEdit, FaUserTimes, FaUserPlus } from "react-icons/fa";
-import { listarFuncionarios, IFuncionario } from '../../api/FuncionarioService';
+import { listarFuncionarios, IFuncionario, deletarFuncionario } from '../../api/FuncionarioService';
 import { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
+import { CgPassword } from 'react-icons/cg'
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 import Typography from '@mui/material/Typography';
+import ModalConfirmar from '../../components/ModalConfirmar';
+import { Tooltip } from '@mui/material';
 
 interface Column {
-   id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'tipo' | 'senha' | 'acoes';
+   id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
    label: string;
    minWidth?: number;
    align?: 'right' | 'center';
@@ -32,20 +35,16 @@ const columns: readonly Column[] = [
    { id: 'cpf', label: 'CPF', minWidth: 170 },
    { id: 'email', label: 'Email', minWidth: 170 },
    { id: 'telefone', label: 'Telefone', minWidth: 120 },
-   { id: 'tipo', label: 'Tipo', minWidth: 120 },
-   { id: 'senha', label: 'Senha', minWidth: 120 },
    { id: 'acoes', label: 'Ações', minWidth: 150, align: 'center' },
 ];
 
 interface Data {
    id: number,
-   nome: string;
-   cpf: string;
-   email: string;
-   telefone: string;
-   tipo: string;
-   senha: string;
-   acoes: JSX.Element;
+   nome: string,
+   cpf: string,
+   email: string,
+   telefone: string,
+   acoes: JSX.Element
 }
 
 function createData(
@@ -54,22 +53,32 @@ function createData(
    cpf: string,
    email: string,
    telefone: string,
-   tipo: string,
-   senha: string,
    acoes: JSX.Element,
    ): Data {
-   return { id, nome, cpf, email, telefone, tipo, senha, acoes};
+   return { id, nome, cpf, email, telefone, acoes};
 }
 
 export default function Equipe() {
-   const [funcionarios, setfuncionarios] = useState<Data[]>();
-   const [funcionariosFiltrados, setFuncionariosFiltrados] = useState<Data[]>();
+   const [funcionarios, setfuncionarios] = useState<Data[]>([]);
+   const [funcionariosFiltrados, setFuncionariosFiltrados] = useState<Data[]>([]);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
+   const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
+   const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
+   const handleClose = () => setOpenConfirmModal({open: false, id: null})
+
+   const handleRemoveConfirm = (id: number) => {
+      deletarFuncionario(id)
+      const newList = funcionariosFiltrados.filter(cliente => cliente.id !== id)
+      setFuncionariosFiltrados(newList)
+      handleClose()
+   }
 
    useEffect(() => {
       const getFuncionarios= async () => {
-         popularTabela(await listarFuncionarios())
+         const list = await listarFuncionarios()
+         const arrBiblioAdmin = list[0].concat(list[1])
+         popularTabela(arrBiblioAdmin)
       }
 
       getFuncionarios()
@@ -83,11 +92,25 @@ export default function Equipe() {
             funcionario.cpf, 
             funcionario.email, 
             funcionario.telefone,
-            funcionario.tipo,
-            funcionario.senha,
             <div>
-               <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(funcionario)}/>
-               <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(funcionario.id)}/>
+               <Tooltip title='Editar'>
+                  <IconButton>
+                     <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(funcionario)}/>
+
+                  </IconButton>
+               </Tooltip>
+               <Tooltip title='Deletar'>
+                  <IconButton>
+                     <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(funcionario.id)}/>
+
+                  </IconButton>
+               </Tooltip>
+               <Tooltip title='Mudar senha'>
+                  <IconButton>
+                     <CgPassword className='botaoDelete' size={30} onClick={() => console.log('Ir pra tela de mudanca de senha')} />
+
+                  </IconButton>
+               </Tooltip>
             </div> 
          )
       ))
@@ -98,11 +121,11 @@ export default function Equipe() {
    }
 
    const handleClickEdit = (funcionario: IFuncionario) => {
-      // --vai ser rota para pág de edição
+      navigate(`funcionario/${funcionario.cpf}`)
    }
 
    const handleClickDelete = (funcionarioId: number) => {
-      // --chamar a função deletar funcionario
+      handleOpen(funcionarioId)
    }
 
    const handleClickAdd = () => {
@@ -192,7 +215,7 @@ export default function Equipe() {
                                  </TableRow>
                               );
                            })
-                           : <TableRow><TableCell colSpan={7} sx={{textAlign: 'center'}}>Não foram encontrados funcionários</TableCell></TableRow>
+                           : <TableRow><TableCell colSpan={6} sx={{textAlign: 'center'}}>Não foram encontrados funcionários</TableCell></TableRow>
                         }  
                      </TableBody>
                      </Table>
@@ -204,6 +227,14 @@ export default function Equipe() {
          <h4 className='addFuncionario'>Adicione um novo funcionário:</h4>
          <FaUserPlus className='botaoAdd' size={30} onClick={() => handleClickAdd()}/>
       </div>
+         <ModalConfirmar 
+            title='Excluir funcionário'
+            message='Tem certeza que quer excluir o funcionário selecionado?' 
+            open={openConfirmModal}
+            handleOpen={handleOpen} 
+            handleClose={handleClose}
+            onConfirm={handleRemoveConfirm}
+         />
       </>
    );
 }

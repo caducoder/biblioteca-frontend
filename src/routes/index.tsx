@@ -60,7 +60,7 @@ function Rotas() {
         <Route element={<RequireAuth allowedRoles={[2205]} />}>
           <Route path='equipe' element={<Equipe />} />
           <Route path='equipe/cadastro-funcionario' element={<FormCadastroFuncionario />} />
-          <Route path='equipe/funcionario/:id' element={<FormEdicaoFuncionario />} />
+          <Route path='equipe/funcionario/:cpf' element={<FormEdicaoFuncionario />} />
           <Route path='financeiro' element={<Financeiro />} />
           <Route path='financeiro/importar' element={<ImportarNotaFiscal />} />
         </Route>

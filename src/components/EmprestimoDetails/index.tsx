@@ -65,6 +65,7 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
     const calcularMulta = () => {
         const dias = +diasAtrasados.split(' ')[0]
         const multa = dias * MULTA_DIARIA
+
         setMulta(multa.toFixed(2))
         setOpenPagmDialog(true);
     }
@@ -108,7 +109,7 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
             </Paper>
             <ConfirmacaoPagamentoPopup 
                 title='Confirmar pagamento da multa?'
-                message={`Total: R$ ${multa}. Após confirmar, não é possível desfazer essa ação.`}
+                message={<span>Total: R$ <span className='valor'>{multa}</span>. Após confirmar, não é possível desfazer essa ação.</span>}
                 onConfirm={confirmaPagamento} 
                 handleClose={handleClose} 
                 open={openPagmDialog}
@@ -121,7 +122,7 @@ export default EmprestimoDetails;
 
 interface IProps {
     title: string,
-    message: string,
+    message: JSX.Element,
     open: boolean,
     handleClose: () => void,
     onConfirm: () => void

@@ -19,7 +19,7 @@ export interface IFuncionario {
     }
 }
 
-export const listarFuncionarios = () => new Promise<IFuncionario[]> (
+export const listarFuncionarios = () => new Promise<any[]> (
     (resolve, reject) => {
         api.get('/funcionarios')
             .then(response => resolve(response.data))
@@ -35,14 +35,7 @@ export const buscarPorCpf = (cpf: string) => new Promise<any> (
     }
 )
 
-export const buscarPorId = (id: number) => new Promise<IFuncionario> (
-    (resolve, reject) => {
-        api.get(`/funcionarios/fu/${id}`)
-            .then(response => resolve(response.data))
-            .catch(error => reject(error))
-    }
-)
-
+// fazer endpoint no backend
 export const alterarFuncionario = (funcionario: IFuncionario) => new Promise (
     (resolve, reject) => {
         api.put('/funcionarios', funcionario)

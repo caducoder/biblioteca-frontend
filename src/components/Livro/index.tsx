@@ -56,7 +56,7 @@ function Livro({livro, handleClickConfirm}: IProps) {
                 >
                     Confirmar
                 </Button>
-                <Link to={`/acervo-gestao/edicao/${livro.isbn}`}>
+                <Link to={`/acervo-gestao/edicao/${livro.isbn || livro.issn}`}>
                     <Button color='primary' variant='contained' sx={{fontWeight: 'bold'}}>Alterar</Button>
                 </Link>
             </div>

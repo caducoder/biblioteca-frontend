@@ -18,6 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
+import { Typography } from '@mui/material';
 
 interface Column {
    id: 'titulo' | 'autor' | 'editora' | 'estado' | 'detalhes';
@@ -114,7 +115,7 @@ export default function AcervoPublico() {
    return (
       <>
          <div className='title'>
-            <h1>Nosso Acervo</h1>
+            <Typography variant='h2'>Nosso Acervo</Typography>
          </div>
          
          <main className='group-acervoPublico'>

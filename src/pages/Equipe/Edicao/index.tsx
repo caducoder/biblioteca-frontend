@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import { useNavigate, useParams } from 'react-router';
 import {FuncionarioFormValues, CadastroFuncionarioSchema} from '../Cadastro'
-import { alterarFuncionario, buscarPorId, IFuncionario } from '../../../api/FuncionarioService';
+import { alterarFuncionario, buscarPorCpf, IFuncionario } from '../../../api/FuncionarioService';
 import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
@@ -12,7 +12,7 @@ import Alert from '@mui/material/Alert';
 function FormEdicaoFuncionario() {
     const navigate = useNavigate()
     const [funcionario, setFuncionario] = useState<IFuncionario>();
-    const { id: idFuncionario }: any = useParams()
+    const { cpf: CpfFuncionario }: any = useParams()
     const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState('');
 
@@ -41,18 +41,17 @@ function FormEdicaoFuncionario() {
         initialValues.rg = funcionario.rg || ''
         initialValues.email = funcionario.email || ''
         initialValues.telefone = funcionario.telefone || ''
-        initialValues.tipo = funcionario.tipo || ''
-        initialValues.senha = funcionario.senha || ''
+        initialValues.senha = ''
         initialValues.endereco.rua = funcionario.endereco?.rua || ''
         initialValues.endereco.bairro = funcionario.endereco?.bairro || ''
         initialValues.endereco.cidade = funcionario.endereco?.cidade || ''
-        initialValues.endereco.numero = funcionario.endereco?.numero || null
+        initialValues.endereco.numero = funcionario.endereco?.numero || 0
         initialValues.endereco.cep = funcionario.endereco?.cep || ''
     }
 
     useEffect(() => {
         const getFuncionario = async () => {
-            const funcionario = await buscarPorId(idFuncionario)
+            const funcionario = await buscarPorCpf(CpfFuncionario)
 
             setFuncionario(funcionario)
             preencherForm(funcionario)
@@ -60,8 +59,6 @@ function FormEdicaoFuncionario() {
 
         getFuncionario()
     }, []);
-
-    
 
     const enviarDadosModificados = async (dados: any) => {
         try {
@@ -156,20 +153,7 @@ function FormEdicaoFuncionario() {
                                     //placeholder='000000000'
                                 />
                             </div>
-                            <Field
-                                component={Select}
-                                id="tipo"
-                                labelId="tipo"
-                                name="tipo"
-                                label="Tipo"
-                                size='small'
-                                sx={{width: 150}}
-                            >
-                                <MenuItem value={'bibliotecario'}>Bibliotecário</MenuItem>
-                                <MenuItem value={'admin'}>Administrador</MenuItem>
-                            </Field>
-                        </div>
-                        <div className='campoSenha'> 
+                            <div className='campoTelefone'> 
                             <Field 
                                 component={TextField}
                                 name='senha'
@@ -180,6 +164,8 @@ function FormEdicaoFuncionario() {
                                 onChange={handleChange}
                             />
                         </div>
+                        </div>
+                        
                         <fieldset>
                             <legend>Endereço</legend>
                             <div className='campo03'>
