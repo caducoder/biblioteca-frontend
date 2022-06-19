@@ -41,7 +41,7 @@ function FormEdicaoCliente() {
         initialValues.endereco.rua = cliente.endereco?.rua || ''
         initialValues.endereco.bairro = cliente.endereco?.bairro || ''
         initialValues.endereco.cidade = cliente.endereco?.cidade || ''
-        initialValues.endereco.numero = cliente.endereco?.numero || null
+        initialValues.endereco.numero = cliente.endereco?.numero || 0
         initialValues.endereco.cep = cliente.endereco?.cep || ''
     }
 

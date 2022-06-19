@@ -94,18 +94,18 @@ export default function Equipe() {
             funcionario.telefone,
             <div>
                <Tooltip title='Editar'>
-                  <IconButton>
-                     <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(funcionario)}/>
+                  <IconButton onClick={() => handleClickEdit(funcionario)}>
+                     <FaUserEdit className='botaoEdit' size={30} />
                   </IconButton>
                </Tooltip>
                <Tooltip title='Deletar'>
-                  <IconButton>
-                     <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(funcionario.id)}/>
+                  <IconButton onClick={() => handleClickDelete(funcionario.id)}>
+                     <FaUserTimes className='botaoDelete' size={30} />
                   </IconButton>
                </Tooltip>
                <Tooltip title='Mudar senha'>
-                  <IconButton>
-                     <CgPassword className='botaoDelete' size={30} onClick={() => console.log('Ir pra tela de mudanca de senha')} />
+                  <IconButton onClick={() => console.log('Ir pra tela de mudanca de senha')}>
+                     <CgPassword className='botaoDelete' size={30} />
                   </IconButton>
                </Tooltip>
             </div> 

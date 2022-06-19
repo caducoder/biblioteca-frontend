@@ -3,26 +3,41 @@ import { TextField, Select } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import { useNavigate, useParams } from 'react-router';
-import {FuncionarioFormValues, CadastroFuncionarioSchema} from '../Cadastro'
+import { FuncionarioFormValues } from '../Cadastro'
 import { alterarFuncionario, buscarPorCpf, IFuncionario } from '../../../api/FuncionarioService';
 import { useState, useEffect } from 'react';
-import Alert from '@mui/material/Alert';
+import Alert, { AlertColor } from '@mui/material/Alert';
+import * as Yup from 'yup';
+
+export const EdicaoFuncionarioSchema = Yup.object().shape({
+    nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
+    cpf: Yup.string().length(11, 'Somente números, sem pontuação').required('Obrigatório'),
+    rg: Yup.string().length(8, 'Somente números, sem pontuação'),
+    email: Yup.string().email('Precisa ser um email válido').required('Obrigatório'),
+    telefone: Yup.string(),
+    endereco: Yup.object({
+        rua: Yup.string(),
+        bairro: Yup.string(),
+        numero: Yup.number(),
+        cidade: Yup.string().min(3),
+        cep: Yup.string()
+    })
+})
 
 function FormEdicaoFuncionario() {
     const navigate = useNavigate()
     const [funcionario, setFuncionario] = useState<IFuncionario>();
     const { cpf: CpfFuncionario }: any = useParams()
-    const [success, setSuccess] = useState(false);
-    const [msg, setMsg] = useState('');
+    const [feedback, setFeedback] = useState(false)
+    const [msg, setMsg] = useState({resp: '', severity: ''})
 
-    let initialValues: FuncionarioFormValues = {
+    const initialValues: FuncionarioFormValues = {
         id: undefined,
         nome: '',
         cpf: '',
         rg: '',
         email: '',
         telefone: '',
-        senha: '',
         endereco: {
             rua: '',
             bairro: '',
@@ -39,7 +54,6 @@ function FormEdicaoFuncionario() {
         initialValues.rg = funcionario.rg || ''
         initialValues.email = funcionario.email || ''
         initialValues.telefone = funcionario.telefone || ''
-        initialValues.senha = ''
         initialValues.endereco.rua = funcionario.endereco?.rua || ''
         initialValues.endereco.bairro = funcionario.endereco?.bairro || ''
         initialValues.endereco.cidade = funcionario.endereco?.cidade || ''
@@ -59,30 +73,32 @@ function FormEdicaoFuncionario() {
     }, []);
 
     const enviarDadosModificados = async (dados: any) => {
+        console.log(dados)
         try {
-            let response: any = await alterarFuncionario(dados)
-            setMsg(response)
-            setSuccess(true)
+            const response = await alterarFuncionario(dados)
+            setMsg({resp: response, severity: 'success'})
+            setFeedback(true)
 
             setTimeout(() => {
                 navigate('/equipe')
             }, 1500)
         } catch (error: any) {
-            console.log(error?.response?.data)
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
         }
     }
 
     return (
         <section className='edicaoFuncionarioContainer'>
-            {success && 
-                <Alert severity="success">{msg}</Alert>
+            {feedback && 
+                <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
             }
             <h3>Editar Funcionario</h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
                 onSubmit={enviarDadosModificados}
-                validationSchema={CadastroFuncionarioSchema}
+                validationSchema={EdicaoFuncionarioSchema}
             >
                 {({
                     handleSubmit,
@@ -90,7 +106,7 @@ function FormEdicaoFuncionario() {
                     values,
                     errors,
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                         <div className='campo01'>
                             <div className='campoNome'> 
                                 <Field 
@@ -151,17 +167,6 @@ function FormEdicaoFuncionario() {
                                     //placeholder='000000000'
                                 />
                             </div>
-                            <div className='campoTelefone'> 
-                            <Field 
-                                component={TextField}
-                                name='senha'
-                                type='password'
-                                label='Senha'
-                                size='small'
-                                value={values.senha}
-                                onChange={handleChange}
-                            />
-                        </div>
                         </div>
                         
                         <fieldset>

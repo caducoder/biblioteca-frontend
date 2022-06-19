@@ -110,8 +110,12 @@ export default function Fichario() {
             cliente.email, 
             cliente.telefone,
             <div>
-               <FaUserEdit className='botao Edit' size={30} onClick={() => handleClickEdit(cliente)}/>
-               <FaUserTimes className='botao Delete' size={30} onClick={() => handleClickDelete(cliente.id)}/>
+               <IconButton onClick={() => handleClickEdit(cliente)}>
+                  <FaUserEdit className='botao Edit' size={30} />
+               </IconButton>
+               <IconButton onClick={() => handleClickDelete(cliente.id)}>
+                  <FaUserTimes className='botao Delete' size={30} />
+               </IconButton>
             </div> 
          )
       ))

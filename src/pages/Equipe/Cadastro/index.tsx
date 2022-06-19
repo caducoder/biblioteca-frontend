@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { ChangeEvent, useState } from 'react';
 import { cadastrarFuncionario, IFuncionario } from '../../../api/FuncionarioService';
+import { Alert, AlertColor } from '@mui/material';
 
 export const CadastroFuncionarioSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
@@ -31,7 +32,7 @@ export interface FuncionarioFormValues {
     rg?: string,
     email: string,
     telefone: string,
-    senha: string,
+    senha?: string,
     endereco: {
         rua: string,
         bairro: string,
@@ -43,6 +44,8 @@ export interface FuncionarioFormValues {
 
 function FormCadastroFuncionario() {
     const [isAdmin, setIsAdmin] = useState(false);
+    const [feedback, setFeedback] = useState(false)
+    const [msg, setMsg] = useState({resp: '', severity: ''})
     const initialValues: FuncionarioFormValues = {
         nome: '',
         cpf: '',
@@ -67,9 +70,12 @@ function FormCadastroFuncionario() {
         
         try {
             const resp = await cadastrarFuncionario(funcionario, isAdmin);
-            console.log(resp)
+            setMsg({resp: resp, severity: 'success'})
+            setFeedback(true)
             resetForm({})
         } catch (error: any) {
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
             console.log(error?.response)
         }
     }
@@ -77,6 +83,7 @@ function FormCadastroFuncionario() {
     return ( 
         <section className='cadastroFuncionarioContainer'>
             <h2>Formulário de Cadastro de Funcionários</h2>
+            {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -89,7 +96,7 @@ function FormCadastroFuncionario() {
                     values,
                     errors,
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                         <div className='campo01'>
                             <div className='campoNome'> 
                                 <Field 

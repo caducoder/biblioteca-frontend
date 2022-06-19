@@ -5,10 +5,20 @@ import * as Yup from 'yup'
 import Botao from '../../../components/Botao';
 import MenuItem from '@mui/material/MenuItem';
 import { cadastrarLivro } from '../../../api/LivroService';
+import { useState } from 'react';
+import { Alert, AlertColor } from '@mui/material';
 
 export const CadastroLivroSchema = Yup.object().shape({
-    isbn: Yup.string().min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Obrigatório'),
-    issn: Yup.string().nullable(),
+    isbn: Yup.string().when('issn', {
+        is: ((issn: string) => !issn || issn == ''),
+        then: Yup.string()
+            .min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Pelo menos um é obrigatório.')
+    }),
+    issn:  Yup.string().when('isbn', {
+        is: ((isbn: string) => !isbn || isbn == ''),
+        then: Yup.string()
+            .required('Pelo menos um é obrigatório.')
+    }),
     doi: Yup.string().optional().nullable(),
     autor: Yup.string().required('Obrigatório'),
     titulo: Yup.string().required('Obrigatório'),
@@ -17,7 +27,7 @@ export const CadastroLivroSchema = Yup.object().shape({
     descricao: Yup.string().nullable(),
     numeroDePaginas: Yup.number().min(1, 'Deve ser um número positivo'),
     anoEdicao: Yup.number().min(1, 'Deve ser um número positivo').required('Obrigatório')
-})
+}, [['isbn', 'issn']])
 
 export interface LivroFormValues {
     id?: number,
@@ -35,6 +45,8 @@ export interface LivroFormValues {
 }
 
 function FormCadastroDeLivros() {
+    const [feedback, setFeedback] = useState(false);
+    const [msg, setMsg] = useState({resp: '', severity: ''});
     let initialValues: LivroFormValues = {
         isbn: '',
         issn: '',
@@ -52,10 +64,12 @@ function FormCadastroDeLivros() {
     const enviarDados = async (dados: any, {resetForm}: any) => {
         try {
             const response = await cadastrarLivro(dados)
-            console.log(response)
+            setMsg({resp: response, severity: 'success'})
+            setFeedback(true)
             resetForm({})
         } catch (error: any) {
-            console.log("ERRO: ", error?.response?.data)
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
         }
     }
 
@@ -63,6 +77,7 @@ function FormCadastroDeLivros() {
     return (
         <section className='cadastroLivroContainer'>
             <h2>Cadastro de livros</h2>
+            {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -75,7 +90,7 @@ function FormCadastroDeLivros() {
                     values,
                     errors,
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                         <div className='campo1'>
                             <div className='campoISBN'> 
                                 <Field

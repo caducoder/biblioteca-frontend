@@ -19,7 +19,7 @@ export interface IFuncionario {
     }
 }
 
-export const cadastrarFuncionario = (funcionario: IFuncionario, isAdmin: boolean) => new Promise (
+export const cadastrarFuncionario = (funcionario: IFuncionario, isAdmin: boolean) => new Promise<string> (
     (resolve, reject) => {
         api.post(`/${isAdmin ? 'admin' : 'bibliotecarios'}`, funcionario)
             .then(response => resolve(response.data))
@@ -43,8 +43,7 @@ export const buscarPorCpf = (cpf: string) => new Promise<any> (
     }
 )
 
-// fazer endpoint no backend
-export const alterarFuncionario = (funcionario: IFuncionario) => new Promise (
+export const alterarFuncionario = (funcionario: IFuncionario) => new Promise<string> (
     (resolve, reject) => {
         api.put('/funcionarios', funcionario)
             .then(response => resolve(response.data))
