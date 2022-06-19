@@ -96,19 +96,16 @@ export default function Equipe() {
                <Tooltip title='Editar'>
                   <IconButton>
                      <FaUserEdit className='botaoEdit' size={30} onClick={() => handleClickEdit(funcionario)}/>
-
                   </IconButton>
                </Tooltip>
                <Tooltip title='Deletar'>
                   <IconButton>
                      <FaUserTimes className='botaoDelete' size={30} onClick={() => handleClickDelete(funcionario.id)}/>
-
                   </IconButton>
                </Tooltip>
                <Tooltip title='Mudar senha'>
                   <IconButton>
                      <CgPassword className='botaoDelete' size={30} onClick={() => console.log('Ir pra tela de mudanca de senha')} />
-
                   </IconButton>
                </Tooltip>
             </div> 

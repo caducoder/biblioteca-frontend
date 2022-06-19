@@ -12,7 +12,7 @@ function FormEdicaoCliente() {
     const navigate = useNavigate()
     const [cliente, setCliente] = useState<ICliente>();
     const { id: idCliente }: any = useParams()
-    const [success, setSuccess] = useState(false);
+    const [feedback, setFeedback] = useState(false);
     const [msg, setMsg] = useState('');
 
     let initialValues: ClienteFormValues = {
@@ -62,7 +62,7 @@ function FormEdicaoCliente() {
         try {
             let response: any = await alterarCliente(dados)
             setMsg(response)
-            setSuccess(true)
+            setFeedback(true)
 
             setTimeout(() => {
                 navigate('/fichario')
@@ -74,7 +74,7 @@ function FormEdicaoCliente() {
 
     return (
         <section className='edicaoClienteContainer'>
-            {success && 
+            {feedback && 
                 <Alert severity="success">{msg}</Alert>
             }
             <h3>Editar Cliente</h3>

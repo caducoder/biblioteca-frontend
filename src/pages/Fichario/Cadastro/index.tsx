@@ -3,6 +3,9 @@ import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import * as Yup from 'yup'
 import './CadastroCliente.scss'
+import { cadastrarCliente } from '../../../api/ClienteService';
+import { useState } from 'react';
+import { Alert, AlertColor } from '@mui/material';
 
 export const CadastroClienteSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
@@ -36,6 +39,8 @@ export interface ClienteFormValues {
 }
 
 function FormCadastroCliente() {
+    const [feedback, setFeedback] = useState(false);
+    const [msg, setMsg] = useState({resp: '', severity: ''});
     const initialValues: ClienteFormValues = {
         nome: '',
         cpf: '',
@@ -51,14 +56,24 @@ function FormCadastroCliente() {
         }
     }
 
-    const enviarDados = (values: any) => {
-        console.log(values)
+    const enviarDados = async (dados: any, {resetForm}: any) => {
+        try {
+            const resp = await cadastrarCliente(dados)
+            
+            setMsg({resp: resp, severity: 'success'})
+            setFeedback(true)
+            resetForm({})
+        } catch (error: any) {
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
+        }
         
     }
 
     return ( 
         <section className='cadastroClienteContainer'>
             <h2>Formulário de Cadastro de Clientes</h2>
+            {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -71,7 +86,7 @@ function FormCadastroCliente() {
                     values,
                     errors,
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                         <div className='campo01'>
                             <div className='campoNome'> 
                                 <Field 

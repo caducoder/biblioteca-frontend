@@ -16,6 +16,14 @@ export interface ICliente {
     }
 }
 
+export const cadastrarCliente = (cliente: ICliente) => new Promise<string> (
+    (resolve, reject) => {
+        api.post('/clientes', cliente)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const listarClientes = () => new Promise<ICliente[]> (
     (resolve, reject) => {
         api.get('/clientes')

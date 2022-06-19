@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router';
 import {FuncionarioFormValues, CadastroFuncionarioSchema} from '../Cadastro'
 import { alterarFuncionario, buscarPorCpf, IFuncionario } from '../../../api/FuncionarioService';
 import { useState, useEffect } from 'react';
-import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
 
 function FormEdicaoFuncionario() {
