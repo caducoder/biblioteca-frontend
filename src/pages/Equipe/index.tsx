@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router';
 import Typography from '@mui/material/Typography';
 import ModalConfirmar from '../../components/ModalConfirmar';
 import { Tooltip } from '@mui/material';
+import ModalTrocarSenha from '../../components/ModalTrocarSenha';
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
@@ -66,6 +67,9 @@ export default function Equipe() {
    const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
+   const [openChangePasswModal, setChangePasswModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
+   const handleOpenChangePass = (id: number) => setChangePasswModal({open: true, id: id})
+   const handleCloseChangePass = () => setChangePasswModal({open: false, id: null})
 
    const handleRemoveConfirm = (id: number) => {
       deletarFuncionario(id)
@@ -95,24 +99,23 @@ export default function Equipe() {
             <div>
                <Tooltip title='Editar'>
                   <IconButton onClick={() => handleClickEdit(funcionario)}>
-                     <FaUserEdit className='botaoEdit' size={30} />
+                     <FaUserEdit className='botao' size={30} />
                   </IconButton>
                </Tooltip>
                <Tooltip title='Deletar'>
                   <IconButton onClick={() => handleClickDelete(funcionario.id)}>
-                     <FaUserTimes className='botaoDelete' size={30} />
+                     <FaUserTimes className='botao' size={30} />
                   </IconButton>
                </Tooltip>
                <Tooltip title='Mudar senha'>
-                  <IconButton onClick={() => console.log('Ir pra tela de mudanca de senha')}>
-                     <CgPassword className='botaoDelete' size={30} />
+                  <IconButton onClick={() => handleOpenChangePass(funcionario.id)}>
+                     <CgPassword className='botao' size={30} />
                   </IconButton>
                </Tooltip>
             </div> 
          )
       ))
 
-      
       setfuncionarios(linhas)
       setFuncionariosFiltrados(linhas)
    }
@@ -231,6 +234,11 @@ export default function Equipe() {
             handleOpen={handleOpen} 
             handleClose={handleClose}
             onConfirm={handleRemoveConfirm}
+         />
+         <ModalTrocarSenha 
+            open={openChangePasswModal}
+            handleClose={handleCloseChangePass}
+            handleOpen={handleOpenChangePass}
          />
       </>
    );

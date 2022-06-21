@@ -51,6 +51,20 @@ export const alterarFuncionario = (funcionario: IFuncionario) => new Promise<str
     }
 )
 
+export const alterarSenha = (id: number, newPass: string) => new Promise<string> (
+    (resolve, reject) => {
+        api.post(`/funcionarios/${id}`, newPass, {
+            headers: {
+                'Content-Length': 0,
+                'Content-Type': 'text/plain'
+            },
+           responseType: 'text'
+        })
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const deletarFuncionario = (id: number) => new Promise (
     (resolve, reject) => {
         api.delete(`/funcionarios/${id}`)
