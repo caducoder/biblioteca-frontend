@@ -20,6 +20,7 @@ import Botao from "../Botao";
 import { MdDone } from 'react-icons/md';
 import Alert from '@mui/material/Alert';
 import './EmprestimoDetails.scss'
+import ModalRenovacao from '../ModalRenovacao';
 
 interface IPropsEmpr {
   emprestimo: IEmprestimo,
@@ -32,12 +33,22 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
     const [diasAtrasados, setDiasAtrasados] = useState<string>('');
     const [multa, setMulta] = useState('');
     const [pagmRealizado, setPagmRealizado] = useState(true);
-    const [openPagmDialog, setOpenPagmDialog] = useState(false);
     const [status, setStatus] = useState<JSX.Element>();
     const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState('');
+    const [openPagmDialog, setOpenPagmDialog] = useState(false);
+    const [openRenovacaoModal, setOpenRenovacaoModal] = useState<{open: boolean, codLivro: string}>({open: false, codLivro: ''});
+    
+    const handleCloseRenovacaoModal = () => setOpenRenovacaoModal({open: false, codLivro: ''})
+    const handleOpenRenovacaoModal = (codLivro: string) => {
+      setOpenRenovacaoModal({open: true, codLivro: codLivro})
+    }
 
-    const handleClose = () => setOpenPagmDialog(false);
+    const handleClickRenovar = () => {
+      handleOpenRenovacaoModal(emprestimo.livro.isbn || emprestimo.livro.issn)
+    }
+
+    const handleClosePagmDialog = () => setOpenPagmDialog(false);
 
     const confirmaPagamento = () => {
         setStatus(<span className='pagOk green'>Pagamento realizado <span className='doneIcon'><MdDone size={20} color='green'/></span></span>)
@@ -70,6 +81,7 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
         setOpenPagmDialog(true);
     }
 
+
     useEffect(() => {
         let days = ''
         if (isPast(dataDevl) && !isToday(dataDevl)) {
@@ -77,12 +89,14 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
         } else {
             days = '0';
         }
+
         if(days != '0'){
             setStatus(<span className='red'>Pagamento pendente</span>)
             setPagmRealizado(false)
         } else {
             setStatus(<span className='green'>Regular</span>)
         }
+        
         setDiasAtrasados(days)
     }, []);
 
@@ -105,14 +119,20 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
               <div><span className='bold'>Status:</span> {status}</div>
               <div className='devlBtn'>
                   <Botao disabled={!pagmRealizado} onClick={confirmaDevolucao}>Confirmar Devolução</Botao>
+                  <Botao disabled={!pagmRealizado} onClick={handleClickRenovar}>Renovar Empréstimo</Botao>
               </div>
             </Paper>
             <ConfirmacaoPagamentoPopup 
                 title='Confirmar pagamento da multa?'
                 message={<span>Total: R$ <span className='valor'>{multa}</span>. Após confirmar, não é possível desfazer essa ação.</span>}
                 onConfirm={confirmaPagamento} 
-                handleClose={handleClose} 
+                handleClose={handleClosePagmDialog} 
                 open={openPagmDialog}
+            />
+            <ModalRenovacao 
+              open={openRenovacaoModal}
+              handleClose={handleCloseRenovacaoModal}
+              emprestimo={emprestimo}
             />
         </section>
      );

@@ -1,0 +1,17 @@
+.tabela-renovacao {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    
+    tr {
+        td{
+            padding: 5px;
+            border: 1px solid #000;
+        }
+    }
+}
+
+.link_imprimir {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

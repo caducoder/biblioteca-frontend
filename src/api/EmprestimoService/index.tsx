@@ -3,7 +3,7 @@ import { ILivro } from "../LivroService";
 
 export interface IEmprestimo {
     id: number,
-    nomeLivro: string,
+    nomeCliente: string,
     emprestadoEm: string,
     dataDevolucao: string,
     livro: ILivro
@@ -12,6 +12,14 @@ export interface IEmprestimo {
 export const realizarEmprestimo = (idCliente: number, codLivro: string) => new Promise<string> (
     (resolve, reject) => {
         api.get(`/emprestimo/${idCliente}/${codLivro}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
+export const renovarEmprestimo = (codLivro: string) => new Promise<IEmprestimo> (
+    (resolve, reject) => {
+        api.get(`/emprestimo/renovar/${codLivro}`)
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     }

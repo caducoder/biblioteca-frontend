@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
@@ -48,12 +49,14 @@ function Devolucao() {
                     <p>
                         Ou insira-o no campo abaixo:
                     </p>
-                    {/* fazer validação do cógigo inserido */}
-                    <input 
+                    {/* fazer validação do código inserido */}
+                    <TextField
                         className="codLivro_input"
+                        variant="standard"
                         type="text" 
                         value={codigoLivro} 
                         onChange={e => setCodigoLivro(e.target.value)} 
+                        size='small'
                         required
                     />
                     <Botao size="small" onClick={buscarEmprestimo} className='buscarBtn'>Buscar</Botao>
