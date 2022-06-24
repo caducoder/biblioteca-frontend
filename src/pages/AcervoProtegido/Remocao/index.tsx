@@ -115,7 +115,7 @@ export default function Remocao() {
         <main className='group-remocao'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-               <InputLabel htmlFor="outlined-adornment-search">Digite a ISBN</InputLabel>
+               <InputLabel htmlFor="outlined-adornment-search">Título do livro</InputLabel>
                <OutlinedInput
                   id="outlined-adornment-search"
                   type='text'

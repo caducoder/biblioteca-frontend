@@ -1,10 +1,10 @@
-import { Button, Input, InputLabel, MenuItem, Select } from "@mui/material";
+import { Alert, AlertColor, Button, Input, InputLabel, MenuItem, Select } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { uploadForm } from "../../../api/FinanceiroService";
 
@@ -15,6 +15,8 @@ function ImportarNotaFiscal() {
     const [valor, setValor] = useState('');
     const [assunto, setAssunto] = useState('');
     const [tipo, setTipo] = useState('');
+    const [feedback, setFeedback] = useState(false)
+    const [msg, setMsg] = useState({resp: '', severity: ''})
     
     // função que junta as informações e envia para o backend
     const submit = async (ev: any) => {
@@ -28,10 +30,13 @@ function ImportarNotaFiscal() {
 
         try {
             let msg = await uploadForm(formD)
+            setMsg({resp: msg, severity: 'success'})
+            setFeedback(true)
             clearForm()
             console.log(msg)
         } catch (error: any) {
-            console.log('erro: ', error?.response)
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
         }
         
     }
@@ -51,6 +56,12 @@ function ImportarNotaFiscal() {
         setFile(undefined)
     }
 
+    useEffect(() => {
+        setTimeout(() => (
+            setFeedback(false)
+        ), 2000)
+    }, [clearForm]);
+
     return ( 
         <>
             <div className="bread">
@@ -64,6 +75,9 @@ function ImportarNotaFiscal() {
             <section className='importContainer'>
                 <Typography variant="h4">Importação de Nota Fiscal</Typography>
                 <div className='importContainer__form'>
+                {feedback && 
+                    <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
+                }
                     <form onSubmit={submit}>
                         <TextField
                             label="Valor"
@@ -78,10 +92,10 @@ function ImportarNotaFiscal() {
                             type='text'
                         />
                         <FormControl sx={{ m: 1,width: 200}} size='small'>
-                            <InputLabel id="demo-simple-select-label">Tipo de Operação</InputLabel>
+                            <InputLabel id="simple-select-label">Tipo de Operação</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="simple-select-label"
+                                id="simple-select"
                                 value={tipo}
                                 onChange={e => setTipo(e.target.value)}
                                 label="Tipo de Operação"

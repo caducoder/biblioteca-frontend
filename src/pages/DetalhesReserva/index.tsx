@@ -13,7 +13,7 @@ function DetalhesReserva() {
     const {state: livro}: any = useLocation()
     const [msg, setMsg] = useState('');
     const [sucesso, setSucesso] = useState(false);
-    const [err, setErr] = useState(false);
+    const [err, setErr] = useState({err: false, msg: ''});
     const [cpf, setCpf] = useState('');
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -23,11 +23,15 @@ function DetalhesReserva() {
     const indisponivel = livro.estadoLivro === "RESERVADO" || livro.estadoLivro === "EMPRESTADO"
 
     const handleClickReservar = async (cpf: string) => {
-        if(cpf.length < 11){
-            setErr(true)
+        if(cpf.match(/[a-zA-Z]+/gm)) {
+            setErr({err: true, msg: 'Apenas números'})
             return;
         }
-
+        if(cpf.length !== 11 ){
+            setErr({err:true, msg: 'CPF deve conter 11 números'})
+            return;
+        }
+        
         try {
             const response = await reservarLivro(livro.id, cpf)
             setSucesso(true)
@@ -41,7 +45,7 @@ function DetalhesReserva() {
     }
 
     useEffect(() => {
-        setErr(false)
+        setErr({err: false, msg: ''})
     }, [cpf]);
 
     return ( 
@@ -96,8 +100,8 @@ function DetalhesReserva() {
             </div>
             <div className='reserva'>
                 <TextField
-                    error={err}
-                    helperText="Somente números"
+                    error={err.err}
+                    helperText={err.msg}
                     label="Seu CPF"
                     size='small'
                     value={cpf}

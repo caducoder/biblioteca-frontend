@@ -58,10 +58,10 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
 
     const confirmaDevolucao = async () => {
         try {
-          const response = await realizarDevolucao(emprestimo.livro.isbn)
+          const response = await realizarDevolucao(emprestimo.livro.isbn || emprestimo.livro.issn)
           setMsg(response)
           setSuccess(true)
-          console.log(response)
+          
           setTimeout(() => {
             setEmprestimo(null)
           }, 2000)

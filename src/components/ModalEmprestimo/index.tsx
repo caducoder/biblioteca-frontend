@@ -66,7 +66,7 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
             {text: 'Comprovante de Empréstimo', style: 'subheader', alignment: 'center' as Alignment, fontSize: 15, color: '#666'},
             '\n',
             {text: [
-                {text: 'Leitor: ', bold: true},`${emprestimo.nomeCliente || 'N/A'}\n`,
+                {text: 'Leitor(a): ', bold: true},`${emprestimo.nomeCliente}\n`,
                 {text: 'Livro: ', bold: true}, `${emprestimo.livro.titulo}\n`,
                 {text: 'Data de Empréstimo: ', bold: true},`${formatDate(emprestimo.emprestadoEm)}\n`,
                 {text: 'Data de Devolução: ', bold: true},`${formatDate(emprestimo.dataDevolucao)}\n`,
