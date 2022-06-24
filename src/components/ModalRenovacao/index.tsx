@@ -6,12 +6,12 @@ import { addDays, format } from 'date-fns'
 import './ModalRenovacao.scss'
 import Botao from "../Botao";
 import { formatDate } from "../../utils/dateUtils";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import { PageOrientation, PageSize, Alignment} from "pdfmake/interfaces";
 import { useState } from "react";
 import Alert, { AlertColor } from "@mui/material/Alert";
 import pt from "date-fns/locale/pt";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { PageSize, Alignment} from "pdfmake/interfaces";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const style = {
