@@ -7,7 +7,7 @@ function Layout() {
       <>
          <MenuResponsivo />
          <main className="App">
-            {/* as rotas que estiverem dentro da rota q tem o layout, vão ser renderizadas nesse outlet */}
+            {/* as páginas que estiverem dentro da rota q tem o layout, vão ser renderizadas nesse outlet */}
             <Outlet />
          </main>
       </>

@@ -21,26 +21,25 @@ function Login() {
       setAnchorEl(event.currentTarget)
    }
    
-   // função que fecha o popup
+   // função que fecha o popup, quando clica fora do popup
    const handleClosePopover = () => {
       setAnchorEl(null);
    };
 
-   // função que sera chamada qnd o form for enviado
+   // função que sera chamada quando o form for enviado
    const submitForm = async (ev: any) => {
       ev.preventDefault();// previne q o formulário recarregue a página
 
       try {
-         // faz a requisição enviando as credenciais digitadas no form pro backend
+         // faz a requisição enviando as credenciais digitadas no form pro servidor
          const response = await api.post('/login',
             JSON.stringify({email, senha}),
             {
                headers: {'Content-Type': 'application/json'},
                withCredentials: true
             })
-            console.log(JSON.stringify(response?.data))
 
-            // pega o token de acesso, o cargo e o nome da resposta da api
+            // pega o token de acesso, o cargo e o nome do usuário da resposta da api
             const accessToken = response?.data?.accessToken;
             const role = response?.data?.roles;
             const username = response?.data?.username;
@@ -103,7 +102,14 @@ function Login() {
                   onChange={ev => setSenha(ev.target.value)}
                   required
                />
-               <button type='button' aria-describedby={id} className='login__box__form__forgetpass' onClick={handleClickForgetPassword}>Esqueci a senha</button>
+               <button 
+                  type='button' 
+                  aria-describedby={id} 
+                  className='login__box__form__forgetpass' 
+                  onClick={handleClickForgetPassword}
+               >
+                  Esqueci a senha
+               </button>
                <Popover
                   id={id}
                   open={open}
@@ -119,7 +125,6 @@ function Login() {
                <Botao type='submit'>Login</Botao>
             </form>
          </div>
-         
       </section>
     );
 }

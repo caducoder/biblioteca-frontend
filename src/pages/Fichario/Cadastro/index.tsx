@@ -7,6 +7,7 @@ import { cadastrarCliente } from '../../../api/ClienteService';
 import { useState } from 'react';
 import { Alert, AlertColor } from '@mui/material';
 
+// esquema de validação do cadastro de clientes
 export const CadastroClienteSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
     cpf: Yup.string().length(11, 'Somente números, exatamente 11').required('Obrigatório'),
@@ -87,8 +88,8 @@ function FormCadastroCliente() {
                     errors,
                 }) => (
                     <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
-                        <div className='campo01'>
-                            <div className='campoNome'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='nome'
@@ -100,7 +101,7 @@ function FormCadastroCliente() {
                                     required
                                 />
                             </div>
-                            <div className='campoCPF'> 
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='cpf'
@@ -122,8 +123,8 @@ function FormCadastroCliente() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className='campo02'>
-                            <div className='campoEmail'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='email'
@@ -143,13 +144,12 @@ function FormCadastroCliente() {
                                 size='small'
                                 value={values.telefone}
                                 onChange={handleChange}
-                                //placeholder='000000000'
                             />
                         </div>
                         <fieldset>
                             <legend>Endereço</legend>
-                            <div className='campo03'>
-                                <div className='campoRua'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.rua'
@@ -160,7 +160,7 @@ function FormCadastroCliente() {
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className='campoNumero'> 
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.numero'
@@ -181,8 +181,8 @@ function FormCadastroCliente() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className='campo04'>
-                                <div className='campoCidade'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.cidade'

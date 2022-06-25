@@ -1,5 +1,5 @@
 import './EdicaoFuncionario.scss'
-import { TextField, Select } from 'formik-mui';
+import { TextField } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
 import { useNavigate, useParams } from 'react-router';
@@ -47,6 +47,7 @@ function FormEdicaoFuncionario() {
         }
     }
 
+    // preenche o formulário com os dados vindos do servidor
     const preencherForm = (funcionario: IFuncionario) => {
         initialValues.id = funcionario.id
         initialValues.nome = funcionario.nome || ''
@@ -61,6 +62,7 @@ function FormEdicaoFuncionario() {
         initialValues.endereco.cep = funcionario.endereco?.cep || ''
     }
 
+    // efeito que busca os dados do funcionario pelo cpf para preencher o formulário
     useEffect(() => {
         const getFuncionario = async () => {
             const funcionario = await buscarPorCpf(CpfFuncionario)
@@ -73,15 +75,15 @@ function FormEdicaoFuncionario() {
     }, []);
 
     const enviarDadosModificados = async (dados: any) => {
-        console.log(dados)
         try {
             const response = await alterarFuncionario(dados)
             setMsg({resp: response, severity: 'success'})
             setFeedback(true)
-
+            
+            // volta para a página da equipe dps de 2 segundos
             setTimeout(() => {
                 navigate('/equipe')
-            }, 1500)
+            }, 2000)
         } catch (error: any) {
             setMsg({resp: error?.response?.data, severity: 'error'})
             setFeedback(true)
@@ -164,7 +166,6 @@ function FormEdicaoFuncionario() {
                                     size='small'
                                     value={values.telefone}
                                     onChange={handleChange}
-                                    //placeholder='000000000'
                                 />
                             </div>
                         </div>

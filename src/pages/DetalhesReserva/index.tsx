@@ -23,27 +23,32 @@ function DetalhesReserva() {
     const indisponivel = livro.estadoLivro === "RESERVADO" || livro.estadoLivro === "EMPRESTADO"
 
     const handleClickReservar = async (cpf: string) => {
+        // verifica se existe letra no cpf
         if(cpf.match(/[a-zA-Z]+/gm)) {
             setErr({err: true, msg: 'Apenas números'})
             return;
         }
+        // verifica tamanho do cpf
         if(cpf.length !== 11 ){
             setErr({err:true, msg: 'CPF deve conter 11 números'})
             return;
         }
         
         try {
+            // faz requisição de reserva e aguarda resposta
             const response = await reservarLivro(livro.id, cpf)
             setSucesso(true)
             setMsg(response)
             handleOpen()
         } catch (error: any) {
+            // caso de erro, seta a mensagem de erro e abre o modal
             setSucesso(false)
             setMsg(error.response.data)
             handleOpen()
         }
     }
 
+    // efeito que tira o erro ao editar o cpf
     useEffect(() => {
         setErr({err: false, msg: ''})
     }, [cpf]);

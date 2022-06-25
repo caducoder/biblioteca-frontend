@@ -1,14 +1,13 @@
-import { TextField, Select } from 'formik-mui';
+import * as Yup from 'yup';
+import { ChangeEvent, useState } from 'react';
+import { TextField } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
-import * as Yup from 'yup';
+import { Alert, AlertColor, Checkbox, FormControlLabel } from '@mui/material';
+import { cadastrarFuncionario } from '../../../api/FuncionarioService';
 import './CadastroFuncionario.scss';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { ChangeEvent, useState } from 'react';
-import { cadastrarFuncionario, IFuncionario } from '../../../api/FuncionarioService';
-import { Alert, AlertColor } from '@mui/material';
 
+// esquema de validação do cadastro de funcionário
 export const CadastroFuncionarioSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
     cpf: Yup.string().length(11, 'Somente números, sem pontuação').required('Obrigatório'),
@@ -62,12 +61,13 @@ function FormCadastroFuncionario() {
         }
     }
 
+    // marca se é administrador ou não de acordo com o checkbox
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         setIsAdmin(event.target.checked);
-      };
+    };
 
+    // envia os dados para o servidor
     const enviarDados = async (funcionario: any, {resetForm}: any) => {
-        
         try {
             const resp = await cadastrarFuncionario(funcionario, isAdmin);
             setMsg({resp: resp, severity: 'success'})
@@ -76,7 +76,6 @@ function FormCadastroFuncionario() {
         } catch (error: any) {
             setMsg({resp: error?.response?.data, severity: 'error'})
             setFeedback(true)
-            console.log(error?.response)
         }
     }
 
@@ -97,8 +96,8 @@ function FormCadastroFuncionario() {
                     errors,
                 }) => (
                     <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
-                        <div className='campo01'>
-                            <div className='campoNome'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='nome'
@@ -110,7 +109,7 @@ function FormCadastroFuncionario() {
                                     required
                                 />
                             </div>
-                            <div className='campoCPF'> 
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='cpf'
@@ -132,8 +131,8 @@ function FormCadastroFuncionario() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className='campo02'>
-                            <div className='campoEmail'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='email'
@@ -145,7 +144,7 @@ function FormCadastroFuncionario() {
                                     required
                                 />
                             </div>
-                            <div className='campoTelefone'> 
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='telefone'
@@ -154,10 +153,9 @@ function FormCadastroFuncionario() {
                                     size='small'
                                     value={values.telefone}
                                     onChange={handleChange}
-                                    //placeholder='000000000'
                                 />
                             </div>
-                            <div className='campoTelefone'> 
+                            <div className='margin-r-45'> 
                             <Field 
                                 component={TextField}
                                 name='senha'
@@ -175,8 +173,8 @@ function FormCadastroFuncionario() {
                         </div>
                         <fieldset>
                             <legend>Endereço</legend>
-                            <div className='campo03'>
-                                <div className='campoRua'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.rua'
@@ -187,7 +185,7 @@ function FormCadastroFuncionario() {
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className='campoNumero'> 
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.numero'
@@ -208,8 +206,8 @@ function FormCadastroFuncionario() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className='campo04'>
-                                <div className='campoCidade'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.cidade'

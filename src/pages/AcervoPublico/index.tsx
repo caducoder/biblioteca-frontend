@@ -1,5 +1,4 @@
 import './AcervoPublico.scss'
-import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { MdReadMore } from 'react-icons/md'
 import { listarLivros, ILivro } from '../../api/LivroService';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -55,16 +54,11 @@ function createData(
    return { id, titulo, autor, editora, estado, detalhes };
 }
 
-// const rows = [
-//    createData(1, 'A Revolução dos Bichos', 'George Orwell', 'Companhia das Letras', 'Disponível', <MdReadMore className='botaoDetalhes' size={30} onClick={() => console.log(1)}/> ),
-//    createData(2, 'Harry Potter', 'Alguem', 'editora', 'Emprestado', <MdReadMore className='botaoDetalhes' size={30} onClick={() => console.log(2)}/>),
-// ];
-
 export default function AcervoPublico() {
    const [livros, setlivros] = useState<Data[]>();
    const [livrosFiltrados, setLivrosFiltrados] = useState<Data[]>();
-   const [page, setPage] = React.useState(0);
-   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+   const [page, setPage] = useState(0);
+   const [rowsPerPage, setRowsPerPage] = useState(10);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
 
@@ -107,7 +101,7 @@ export default function AcervoPublico() {
       setPage(newPage);
    };
 
-   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+   const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
       setRowsPerPage(+event.target.value);
       setPage(0);
    };

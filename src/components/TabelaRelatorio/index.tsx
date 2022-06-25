@@ -93,6 +93,7 @@ function TabelaRelatorio({ rows }: IProps) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  // função que lida com a mudança de página na tabela
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
@@ -177,7 +178,5 @@ function TabelaRelatorio({ rows }: IProps) {
     </TableContainer>
   );
 }
-
-
 
 export default TabelaRelatorio;

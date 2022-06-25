@@ -57,42 +57,26 @@ function createData(
 }
 
 export default function Fichario() {
+   const navigate = useNavigate()
    const [clientes, setclientes] = useState<Data[]>([]);
    const [clientesFiltrados, setClientesFiltrados] = useState<Data[]>([]);
    const [page, setPage] = useState(0);
    const [rowsPerPage, setRowsPerPage] = useState(5);
    const [busca, setBusca] = useState('');
-   const navigate = useNavigate()
    const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
 
-   // mock para teste
-   const mock = createData(
-      99,
-      'Teste',
-      '11122233344',
-      'user@gmail.com',
-      '21988887777',
-      <div>
-         <FaUserEdit className='botao Edit' size={30} onClick={() => handleClickEdit({
-            id: 99,
-            nome: 'Teste',
-            cpf: '11122233344',
-            email: 'user@gmail.com',
-            telefone: '21988887777'
-         })}/>
-         <FaUserTimes className='botao Delete' size={30} onClick={() => handleClickDelete(99)}/>
-      </div>
-   )
-
+   // deleta cliente ao confirmar
    const handleRemoveConfirm = (id: number) => {
       deletarCliente(id)
+      // remove cliente da lista
       const newList = clientesFiltrados.filter(cliente => cliente.id !== id)
       setClientesFiltrados(newList)
       handleClose()
    }
 
+   // efeito que busca clientes toda vez que acessar a página
    useEffect(() => {
       const getClientes = async () => {
          popularTabela(await listarClientes())
@@ -125,22 +109,27 @@ export default function Fichario() {
    }
 
    const handleClickEdit = (cliente: ICliente) => {
+      // navega para página de edição do cliente ao clicar no ícone de editar
       navigate(`cliente/${cliente.id}`)
    }
 
    const handleClickDelete = (clienteId: number) => {
+      // abre modal de confirmação de remoção ao clicar no icone de remover
       handleOpen(clienteId)
    }
 
    const handleClickAdd = () => {
+      // navega para página de cadastro ao clicar no icone de adicionar cadastro
       navigate('cadastro-cliente')
    }
 
+   // função que filtra a lista de cliente pelo nome
    const handleClickSearch = () => {
       const clientesFilter = clientes?.filter(cliente => cliente.nome.toLowerCase().includes(busca.toLowerCase()))
       setClientesFiltrados(clientesFilter)
    }
 
+   // limpa campo de busca
    const handleClickClear = () => {
       setBusca('')
    }
@@ -198,7 +187,7 @@ export default function Fichario() {
             <div className='table'>
                <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                   <TableContainer sx={{ maxHeight: 440 }}>
-                  <Table stickyHeader aria-label="sticky table" size='small'>
+                  <Table stickyHeader aria-label="tabela de clientes" size='small'>
                      <TableHead>
                         <TableRow>
                         {columns.map((column) => (

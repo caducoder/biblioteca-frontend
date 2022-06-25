@@ -56,7 +56,7 @@ export const contarClientes = () => new Promise<number> (
     }
 )
 
-export const alterarCliente = (cliente: ICliente) => new Promise (
+export const alterarCliente = (cliente: ICliente) => new Promise<string> (
     (resolve, reject) => {
         api.put('/clientes', cliente)
             .then(response => resolve(response.data))

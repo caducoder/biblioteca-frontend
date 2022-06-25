@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-        main: '#4360FF',
+        main: '#4360FF',// cor para o botão
     },
   },
 });

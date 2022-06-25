@@ -57,8 +57,7 @@ function FormEdicaoLivro() {
         getLivro()
     }, []);
 
-    
-
+    // envia as alterações pro servidor
     const enviarDadosModificados = async (dados: any) => {
         try {
             let response = await alterarLivro(dados)

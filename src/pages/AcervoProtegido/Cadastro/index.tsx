@@ -8,6 +8,7 @@ import { cadastrarLivro } from '../../../api/LivroService';
 import { useState } from 'react';
 import { Alert, AlertColor } from '@mui/material';
 
+// esquema de validação do cadastro do livro
 export const CadastroLivroSchema = Yup.object().shape({
     isbn: Yup.string().when('issn', {
         is: ((issn: string) => !issn || issn == ''),
@@ -61,6 +62,7 @@ function FormCadastroDeLivros() {
         estadoLivro: 'DISPONIVEL'
     }
 
+    // função que envia os dados do livro para o servidor
     const enviarDados = async (dados: any, {resetForm}: any) => {
         try {
             const response = await cadastrarLivro(dados)
@@ -72,7 +74,6 @@ function FormCadastroDeLivros() {
             setFeedback(true)
         }
     }
-
 
     return (
         <section className='cadastroLivroContainer'>

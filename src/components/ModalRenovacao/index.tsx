@@ -24,24 +24,24 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
   
-  interface IProps {
-      open: {open: boolean, codLivro: string | undefined},
-      handleClose: () => void,
-      onConfirm?: (codLivro: string) => void,
-      emprestimo: IEmprestimo
-  }
+interface IProps {
+    open: {open: boolean, codLivro: string | undefined},
+    handleClose: () => void,
+    onConfirm?: (codLivro: string) => void,
+    emprestimo: IEmprestimo
+}
 
 function ModalRenovacao({ open, handleClose, emprestimo}: IProps) {
     const [feedback, setFeedback] = useState(false)
     const [msg, setMsg] = useState({resp: '', severity: ''})
     const [linkImpressao, setLinkImpressao] = useState(false);
     const [newEmprestimo, setNewEmprestimo] = useState<IEmprestimo>();
-    console.log(emprestimo)
 
     const confirmaRenovacao = async () => {
         try {
+            // faz requisição para o servidor
             const novoEmpr = await renovarEmprestimo(emprestimo.livro.isbn || emprestimo.livro.issn)
             setNewEmprestimo(novoEmpr)
             setMsg({resp: 'Empréstimo renovado com sucesso!', severity: 'success'})
@@ -54,6 +54,7 @@ function ModalRenovacao({ open, handleClose, emprestimo}: IProps) {
     }
 
     const gerarComprovante = () => {
+        // estrutura o pdf do comprovante
         let docDefinition = {
             pageSize: 'A4' as PageSize,
 

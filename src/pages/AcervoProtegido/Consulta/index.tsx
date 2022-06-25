@@ -16,8 +16,10 @@ export default function Consulta() {
    const [msg, setMsg] = useState('');
    const navigate = useNavigate()
 
+   // função que dispara a busca pelo código do livro
    const handleClickSearch = async () => {
       try {
+         // faz a requisição ao servidor e aguarda resposta
          const livro = await buscarPorCodigo(busca)
          setLivro(livro)
       } catch (error) {
@@ -30,6 +32,7 @@ export default function Consulta() {
       handleClickClear()
    }
 
+   // limpa o campo de busca e tira o livro
    const handleClickClear = () => {
       setLivro(undefined)
       setBusca('')
@@ -76,7 +79,6 @@ export default function Consulta() {
                </FormControl>
             </div>
             {livro ? <Livro livro={livro} handleClickConfirm={handleClickConfirm}/> : <p>{msg}</p>}
-            
          </main>
       </>
    );

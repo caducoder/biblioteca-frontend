@@ -59,16 +59,22 @@ export default function Remocao() {
    const [rowsPerPage, setRowsPerPage] = useState(5);
    const [busca, setBusca] = useState('');
    const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
+
+   // abre o modal passando o id do livro
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
 
+   // ao confirmar a remoção, envia requisição para o servidor com o id do livro a ser removido
    const handleRemoveConfirm = (id: number) => {
       removerLivro(id)
+      // filtra lista tirando livro que foi removido
       const newList = livrosFiltrados.filter(livro => livro.id !== id)
       setLivrosFiltrados(newList)
+
       handleClose()
    }
 
+   // efeito que busca os livros toda vez que a página é renderizada
    useEffect(() => {
       const getLivros = async () => {
          popularTabela(await listarLivros())
@@ -77,6 +83,7 @@ export default function Remocao() {
       getLivros()
    }, []);
 
+   // popula a tabela com os dados vindos do servidor
    const popularTabela = (livros: Array<ILivro>)  => {
       const linhas = livros.map(livro => (
          createData(livro.id, livro.titulo, livro.autor, livro.editora, livro.estadoLivro, <MdDelete className='botaoRemover' size={20} onClick={() => handleClickRemove(livro.id)}/>)
@@ -86,15 +93,18 @@ export default function Remocao() {
       setLivrosFiltrados(linhas)
    }
 
+   // abre janela de confirmação de remoção ao clicar no ícone de excluir
    const handleClickRemove = (id: number) => {
       handleOpen(id)
    }
 
+   // filtra os livros de acordo com o título buscado
    const handleClickSearch = () => {
       const livrosFilter = livros.filter(livro => livro.titulo.toLowerCase().includes(busca.toLowerCase()))
       setLivrosFiltrados(livrosFilter)
    }
 
+   // limpa campo de busca
    const handleClickClear = () => {
       setBusca('')
    }

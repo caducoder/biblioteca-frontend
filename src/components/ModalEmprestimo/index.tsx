@@ -44,6 +44,7 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
 
   const emprestar = async () => {
     try {
+      // faz requisição para o servidor
       const msg = await realizarEmprestimo(idCliente, codigoLivro)
       setMsg({resp: msg, severity: 'success'})
       setLinkImpressao(true)
@@ -57,6 +58,7 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
   const gerarComprovante = async () => {
     const emprestimo = await getEmprestimo(codigoLivro)
 
+    // estrutura o pdf do comprovante
     let docDefinition = {
         pageSize: 'A4' as PageSize,
 
@@ -81,8 +83,9 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
     }
     pdfMake.createPdf(docDefinition).print();
     handleClose()
-}
+  }
 
+  // efeito que tira o feedback e o link de impressão, quando a variavel codigoLivro for alterada
   useEffect(() => {
     setFeedback(false)
     setLinkImpressao(false)
@@ -109,8 +112,8 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
               value={codigoLivro} 
               onChange={e => setCodigoLivro(e.target.value)} 
             />
-            {feedback && 
-                <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
+            {// caso feedback for true, mostra alerta com a respota do servidor
+              feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
             }
             {linkImpressao && <span className="link_imprimir" onClick={gerarComprovante}>Imprimir Comprovante</span>}
             <Botao size='small' className='scanCodeBox__btn' onClick={emprestar}>Confirmar</Botao>

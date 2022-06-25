@@ -6,14 +6,14 @@ import { useNavigate, useParams } from 'react-router';
 import {ClienteFormValues, CadastroClienteSchema} from '../Cadastro'
 import { alterarCliente, buscarPorId, ICliente } from '../../../api/ClienteService';
 import { useState, useEffect } from 'react';
-import Alert from '@mui/material/Alert';
+import Alert, { AlertColor } from '@mui/material/Alert';
 
 function FormEdicaoCliente() {
     const navigate = useNavigate()
     const [cliente, setCliente] = useState<ICliente>();
     const { id: idCliente }: any = useParams()
     const [feedback, setFeedback] = useState(false);
-    const [msg, setMsg] = useState('');
+    const [msg, setMsg] = useState({resp: '', severity: ''})
 
     let initialValues: ClienteFormValues = {
         id: undefined,
@@ -45,6 +45,7 @@ function FormEdicaoCliente() {
         initialValues.endereco.cep = cliente.endereco?.cep || ''
     }
 
+    // busca dados do cliente pelo id para preencher o formulário de edição
     useEffect(() => {
         const getCliente = async () => {
             const cliente = await buscarPorId(idCliente)
@@ -60,22 +61,24 @@ function FormEdicaoCliente() {
 
     const enviarDadosModificados = async (dados: any) => {
         try {
-            let response: any = await alterarCliente(dados)
-            setMsg(response)
+            const response = await alterarCliente(dados)
+            setMsg({resp: response, severity: 'success'})
             setFeedback(true)
 
+            // navega para o fichário após 2 segundos
             setTimeout(() => {
                 navigate('/fichario')
-            }, 1500)
+            }, 2000)
         } catch (error: any) {
-            console.log(error?.response?.data)
+            setMsg({resp: error?.response?.data, severity: 'error'})
+            setFeedback(true)
         }
     }
 
     return (
         <section className='edicaoClienteContainer'>
             {feedback && 
-                <Alert severity="success">{msg}</Alert>
+                <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
             }
             <h3>Editar Cliente</h3>
             <Formik
@@ -91,8 +94,8 @@ function FormEdicaoCliente() {
                     errors,
                 }) => (
                     <Form noValidate onSubmit={handleSubmit}>
-                        <div className='campo01'>
-                            <div className='campoNome'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='nome'
@@ -104,7 +107,7 @@ function FormEdicaoCliente() {
                                     required
                                 />
                             </div>
-                            <div className='campoCPF'> 
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='cpf'
@@ -126,8 +129,8 @@ function FormEdicaoCliente() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className='campo02'>
-                            <div className='campoEmail'> 
+                        <div className='padd-15-flex'>
+                            <div className='margin-r-45'> 
                                 <Field 
                                     component={TextField}
                                     name='email'
@@ -147,13 +150,12 @@ function FormEdicaoCliente() {
                                 size='small'
                                 value={values.telefone}
                                 onChange={handleChange}
-                                //placeholder='000000000'
                             />
                         </div>
                         <fieldset>
                             <legend>Endereço</legend>
-                            <div className='campo03'>
-                                <div className='campoRua'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.rua'
@@ -164,7 +166,7 @@ function FormEdicaoCliente() {
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className='campoNumero'> 
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.numero'
@@ -185,8 +187,8 @@ function FormEdicaoCliente() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className='campo04'>
-                                <div className='campoCidade'> 
+                            <div className='padd-15-flex'>
+                                <div className='margin-r-45'> 
                                     <Field 
                                         component={TextField}
                                         name='endereco.cidade'

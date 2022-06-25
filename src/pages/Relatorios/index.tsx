@@ -25,6 +25,7 @@ function Relatorios() {
   const [listaDados, setListaDados] = useState<IRelatorio[]>([]);
   const [msg, setMsg] = useState('Selecione um relatório');
 
+  // busca os dados ao selecionar algum tipo de relatório
   const handleChange = async (event: SelectChangeEvent) => {
     setMsg('')
     setListaDados([])
@@ -33,6 +34,8 @@ function Relatorios() {
     if(tipo) {
         setTipoRelatorio(tipo);
         const response = await getRelatorio(tipo);
+
+        // verifica se tem dados na resposta para preencher a lista
         if(response.length > 0) {
           const rows = response.map(row => (
               createData(row.id, row.idUsuario, row.idCliente, row.idLivro, row.tipoMovimentacao, row.dataHora)
@@ -40,6 +43,7 @@ function Relatorios() {
 
           setListaDados(rows)
         } else {
+          // caso não tenha, mostra mensagem
           setMsg(`Não há registros de ${tipo}s.`)
         }
     }

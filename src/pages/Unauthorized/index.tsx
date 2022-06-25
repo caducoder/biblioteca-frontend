@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 function Unauthorized() {
    const navigate = useNavigate()
    
+   // volta para página anterior
    const goBack = () => navigate(-1)
 
    return (

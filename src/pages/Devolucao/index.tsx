@@ -16,6 +16,7 @@ function Devolucao() {
 
     const buscarEmprestimo = async () => {
         try {
+            // busca empréstimo no servidor
             const response = await getEmprestimo(codigoLivro)
             setCodigoLivro('')
             setEmprestimo(response)
@@ -25,6 +26,7 @@ function Devolucao() {
         
     }
 
+    // apaga mensagem de feedback ao alterar o código do livro no campo
     useEffect(() => {
         setMsg('')
     }, [codigoLivro]);

@@ -36,9 +36,22 @@ function Emprestimo() {
     const [nomeCliente, setNomeCliente] = useState('');
     const [openModal, setOpen] = useState(false);
     const [idCliente, setIdCliente] = useState<number>(0);
+    const [err, setErr] = useState({err: false, msg: ''});
     const [msg, setMsg] = useState('');
 
     const buscarCliente = async () => {
+        // verifica se existe letra no cpf
+        if(cpf.match(/[a-zA-Z]+/gm)) {
+            setErr({err: true, msg: 'Apenas números'})
+            return;
+        }
+        // verifica tamanho do cpf
+        if(cpf.length !== 11 ){
+            setErr({err:true, msg: 'CPF deve conter 11 números'})
+            return;
+        }
+
+        // faz a busca do cliente
         if(cpf) {
             try {
                 const data = await buscarPorCpf(cpf)
@@ -67,6 +80,7 @@ function Emprestimo() {
             return <span className="red">Atrasado</span>
         }
 
+        // se não, regular
         return <span className="green">Regular</span>
     }
 
@@ -89,6 +103,7 @@ function Emprestimo() {
     useEffect(() => {
         setMsg('')
         setNomeCliente('')
+        setErr({err: false, msg: ''})
     }, [cpf]);
 
     return ( 
@@ -105,12 +120,13 @@ function Emprestimo() {
                 <form>
                     <TextField 
                         label="CPF" 
+                        error={err.err}
+                        helperText={err.msg}
                         variant="outlined" 
                         size="small" 
                         sx={{marginBottom: '10px'}}
                         value={cpf}
                         onChange={e => setCpf(e.target.value)}
-                        helperText='Somente números'
                     />
                     <br />
                     <Botao onClick={buscarCliente}>Buscar</Botao>

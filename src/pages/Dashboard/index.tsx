@@ -12,14 +12,15 @@ import Botao from '../../components/Botao'
 import { Link } from 'react-router-dom'
 
 function Dashboard() {
-   const [numeroDeLivros, setNumeroDeLivros] = useState<any>();
-   const [numeroDeClientes, setNumeroDeClientes] = useState<any>();
-   const [numeroDeEmprestimos, setNumeroDeEmprestimos] = useState<any>();
-   const [numeroDeReservas, setNumeroDeReservas] = useState<any>();
+   const [numeroDeLivros, setNumeroDeLivros] = useState<number>();
+   const [numeroDeClientes, setNumeroDeClientes] = useState<number>();
+   const [numeroDeEmprestimos, setNumeroDeEmprestimos] = useState<number>();
+   const [numeroDeReservas, setNumeroDeReservas] = useState<number>();
 
    //função que busca os dados toda vez que a página é acessada
    useEffect(() => {
       const getTotal = async () => {
+         // faz as requisições de uma vez só, bem mais rápido
          const [numLivros, numClientes, numEmpr, numReservas] = await Promise.all([
             contarLivros(), contarClientes(), contarEmprestimos(), contarReservas()
          ])

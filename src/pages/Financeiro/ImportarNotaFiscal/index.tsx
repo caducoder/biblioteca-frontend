@@ -1,4 +1,4 @@
-import { Alert, AlertColor, Button, Input, InputLabel, MenuItem, Select } from "@mui/material";
+import { Alert, AlertColor, Button, InputLabel, MenuItem, Select } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -30,18 +30,17 @@ function ImportarNotaFiscal() {
 
         try {
             let msg = await uploadForm(formD)
+
             setMsg({resp: msg, severity: 'success'})
             setFeedback(true)
             clearForm()
-            console.log(msg)
         } catch (error: any) {
             setMsg({resp: error?.response?.data, severity: 'error'})
             setFeedback(true)
         }
-        
     }
 
-    // função que pega o arquivo qnd ele é selecionado
+    // função que pega o arquivo quando ele é selecionado
     const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files !== null) {
             let file = e.target.files[0]
@@ -55,12 +54,6 @@ function ImportarNotaFiscal() {
         setAssunto('')
         setFile(undefined)
     }
-
-    useEffect(() => {
-        setTimeout(() => (
-            setFeedback(false)
-        ), 2000)
-    }, [clearForm]);
 
     return ( 
         <>
@@ -131,7 +124,6 @@ function ImportarNotaFiscal() {
                     </form>
                 </div>
             </section>
-            
         </>
      );
 }

@@ -60,10 +60,10 @@ function createData(
 }
 
 export default function Equipe() {
+   const navigate = useNavigate()
+   const [busca, setBusca] = useState('');
    const [funcionarios, setfuncionarios] = useState<Data[]>([]);
    const [funcionariosFiltrados, setFuncionariosFiltrados] = useState<Data[]>([]);
-   const [busca, setBusca] = useState('');
-   const navigate = useNavigate()
    const [openConfirmModal, setOpenConfirmModal] = useState<{open: boolean, id: number | null}>({open: false, id: null});
    const handleOpen = (id: number) => setOpenConfirmModal({open: true, id: id})
    const handleClose = () => setOpenConfirmModal({open: false, id: null})
@@ -71,16 +71,20 @@ export default function Equipe() {
    const handleOpenChangePass = (id: number) => setChangePasswModal({open: true, id: id})
    const handleCloseChangePass = () => setChangePasswModal({open: false, id: null})
 
+   // função que remove funcionário ao confirmar
    const handleRemoveConfirm = (id: number) => {
       deletarFuncionario(id)
+      // remove funcionario da lista
       const newList = funcionariosFiltrados.filter(cliente => cliente.id !== id)
       setFuncionariosFiltrados(newList)
       handleClose()
    }
 
+   // efeito que busca os funcionários toda vez q a página é acessada
    useEffect(() => {
       const getFuncionarios= async () => {
          const list = await listarFuncionarios()
+         // resposta vem com dois arrays, um de admin e outro de bibliotecários. Faço a junção dos arrays
          const arrBiblioAdmin = list[0].concat(list[1])
          popularTabela(arrBiblioAdmin)
       }
@@ -88,6 +92,7 @@ export default function Equipe() {
       getFuncionarios()
    }, []);
 
+   // popula a tabela com os dados vindos do servidor
    const popularTabela = (funcionarios: Array<IFuncionario>)  => {
       const linhas = funcionarios.map(funcionario => (
          createData(
@@ -121,22 +126,27 @@ export default function Equipe() {
    }
 
    const handleClickEdit = (funcionario: IFuncionario) => {
+      // navega para a página de edição  do funcionário
       navigate(`funcionario/${funcionario.cpf}`)
    }
 
    const handleClickDelete = (funcionarioId: number) => {
+      // abre modal de confirmação de remoção
       handleOpen(funcionarioId)
    }
 
    const handleClickAdd = () => {
+      // navega para a página de cadastro ao clicar em adicionar
       navigate('cadastro-funcionario')
    }
 
    const handleClickSearch = () => {
+      // filtra pelo nome do funcionário
       const funcionariosFilter = funcionarios?.filter(funcionario => funcionario.nome.toLowerCase().includes(busca.toLowerCase()))
       setFuncionariosFiltrados(funcionariosFilter)
    }
 
+   // limpa campo de busca
    const handleClickClear = () => {
       setBusca('')
    }
@@ -150,74 +160,74 @@ export default function Equipe() {
          <main className='group-equipe'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-               <InputLabel htmlFor="outlined-adornment-search">Buscar funcionário</InputLabel>
-               <OutlinedInput
-                  id="outlined-adornment-search"
-                  type='text'
-                  value={busca}
-                  onChange={ev => setBusca(ev.target.value)}
-                  endAdornment={
-                  <InputAdornment position="end">
-                     {busca ? 
+                  <InputLabel htmlFor="outlined-adornment-search">Buscar funcionário</InputLabel>
+                  <OutlinedInput
+                     id="outlined-adornment-search"
+                     type='text'
+                     value={busca}
+                     onChange={ev => setBusca(ev.target.value)}
+                     endAdornment={
+                     <InputAdornment position="end">
+                        {busca ? 
+                           <IconButton
+                              aria-label="clear button"
+                              onClick={handleClickClear}
+                              edge="end"
+                           >
+                              {<MdOutlineClear />}
+                           </IconButton>
+                           : ''
+                        }
+                        
                         <IconButton
-                           aria-label="clear button"
-                           onClick={handleClickClear}
+                           aria-label="search button"
+                           onClick={handleClickSearch}
                            edge="end"
                         >
-                           {<MdOutlineClear />}
+                           {<MdOutlineSearch />}
                         </IconButton>
-                        : ''
+                     </InputAdornment>
                      }
-                     
-                     <IconButton
-                        aria-label="search button"
-                        onClick={handleClickSearch}
-                        edge="end"
-                     >
-                        {<MdOutlineSearch />}
-                     </IconButton>
-                  </InputAdornment>
-                  }
-                  label="Buscar funcionário"
-               />
+                     label="Buscar funcionário"
+                  />
                </FormControl>
             </div>
             <div className='table'>
                <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                   <TableContainer sx={{ maxHeight: 440 }}>
-                     <Table size="small" aria-label="a dense table">
-                     <TableHead>
-                        <TableRow>
-                           {columns.map((column) => (
-                              <TableCell
-                                 key={column.id}
-                                 align={column.align}
-                                 style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
-                              >
-                                 {column.label}
-                              </TableCell>
-                           ))}
-                        </TableRow>
-                     </TableHead>
-                     <TableBody>
-                        {funcionariosFiltrados ? funcionariosFiltrados
-                           .map((row) => {
-                              return (
-                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                 {columns.map((column) => {
-                                    const value = row[column.id];
-                                    return (
-                                       <TableCell key={column.id} align={column.align}>
-                                       {value}
-                                       </TableCell>
-                                    );
-                                 })}
-                                 </TableRow>
-                              );
-                           })
-                           : <TableRow><TableCell colSpan={6} sx={{textAlign: 'center'}}>Não foram encontrados funcionários</TableCell></TableRow>
-                        }  
-                     </TableBody>
+                     <Table size="small" aria-label="tabela de funcionários">
+                        <TableHead>
+                           <TableRow>
+                              {columns.map((column) => (
+                                 <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
+                                 >
+                                    {column.label}
+                                 </TableCell>
+                              ))}
+                           </TableRow>
+                        </TableHead>
+                        <TableBody>
+                           {funcionariosFiltrados ? funcionariosFiltrados
+                              .map((row) => {
+                                 return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                    {columns.map((column) => {
+                                       const value = row[column.id];
+                                       return (
+                                          <TableCell key={column.id} align={column.align}>
+                                          {value}
+                                          </TableCell>
+                                       );
+                                    })}
+                                    </TableRow>
+                                 );
+                              })
+                              : <TableRow><TableCell colSpan={6} sx={{textAlign: 'center'}}>Não foram encontrados funcionários</TableCell></TableRow>
+                           }  
+                        </TableBody>
                      </Table>
                   </TableContainer>
                </Paper>
@@ -238,7 +248,6 @@ export default function Equipe() {
          <ModalTrocarSenha 
             open={openChangePasswModal}
             handleClose={handleCloseChangePass}
-            handleOpen={handleOpenChangePass}
          />
       </>
    );

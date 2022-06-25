@@ -18,7 +18,6 @@ interface IProps {
 }
 
 function EmprestimosCliente({nomeCliente, emprestimos, handleClickAdicionar}: IProps) {
-    
     return ( 
         <section className='clienteEmpr'>
             <RiAccountBoxFill size={100}/>
