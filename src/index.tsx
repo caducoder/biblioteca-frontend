@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AuthProvider } from './context/AuthProvider';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Rotas from './routes';
 import Palette from './globalStyle';
+import './i18n/index';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

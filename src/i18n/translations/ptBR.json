@@ -1,0 +1,23 @@
+{
+  "translation": {
+    "homepage": {
+      "title": "Venha explorar o incrível mundo da leitura!",
+      "subtitle": "Mais de 10.000 exemplares a sua disposição",
+      "localization": "Nossa Localização",
+      "aboutUs": "Sobre nós",
+      "aboutUsText": {
+        "1": "Somos uma biblioteca tradicional no Rio de Janeiro.",
+        "2": "Nosso acervo é composto por livros de qualidade.",
+        "3": "Disponibilizamos espaços confortáveis para sua leitura."
+      },
+      "actionPhrase": "Acesse nosso acervo e faça uma reserva!",
+      "consultCollection": "Consultar Acervo",
+      "accessCollection": "Acessar Acervo",
+      "contact": "Contato",
+      "cellPhone": "Telefone",
+      "privacyPolicy": "Política de Privacidade",
+      "terms": "Termos de uso",
+      "rights": "Todos os direitos reservados."
+    }
+  }
+}

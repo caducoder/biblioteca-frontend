@@ -6,18 +6,20 @@ import './Homepage.scss'
 import Botao from '../../components/Botao'
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 function Homepage() {
+   const { t } = useTranslation();
    return ( 
       <>
          <section className='banner'>
             <div className='banner__info'>
                <h1 className='banner__title'>
-                  Venha explorar o incrível mundo da leitura!
+                  {t("homepage.title")}
                </h1>
-               <p className='banner__subtitle'>Mais de 10.000 exemplares a sua disposição</p>
+               <p className='banner__subtitle'>{t("homepage.subtitle")}</p>
                <Link to='/acervo' className='no_style'>
-                  <Botao>Consultar Acervo</Botao>
+                  <Botao>{t("homepage.consultCollection")}</Botao>
                </Link>
             </div>
             <WomanBookSVG className='banner__svg' />
@@ -25,7 +27,7 @@ function Homepage() {
          <section className='endereco'>
             <img src={MapSVG} className='endereco__map' alt='desenho de um mapa'/>
             <div className='endereco__info'>
-               <Typography variant='h3' className='endereco__info__title'>Nossa Localização</Typography>
+               <Typography variant='h3' className='endereco__info__title'>{t("homepage.localization")}</Typography>
                <p>
                   Biblioteca XXXX <br/>
                   Rua Carlos Machado 133<br/>
@@ -38,28 +40,28 @@ function Homepage() {
          </section>
          <section className='sobre'>
             <div className="sobre__info">
-               <Typography variant='h3' className='sobre__info__title'>Sobre nós</Typography>
-               <p>Somos uma biblioteca tradicional no Rio de Janeiro. </p>
-               <p>Nosso acervo é composto por livros  de qualidade.</p>
-               <p>Disponibilizamos espaços confortáveis para sua leitura.</p>
+               <Typography variant='h3' className='sobre__info__title'>{t("homepage.aboutUs")}</Typography>
+               <p>{t("homepage.aboutUsText.1")}</p>
+               <p>{t("homepage.aboutUsText.2")}</p>
+               <p>{t("homepage.aboutUsText.3")}</p>
             </div>
             <img src={library_photo} className='sobre__imagem' alt="Foto do interior da biblioteca" />
          </section>
          <section className='acesso'>
             <img src={EducSVG} className='acesso__svg' alt='Desenho de uma moça em pé em cima de um livro' />
             <div className='acesso__info'>
-               <h3 className='acesso__info__title'>Acesse nosso acervo e faça uma reserva!</h3>
+               <h3 className='acesso__info__title'>{t("homepage.actionPhrase")}</h3>
                <Link to='/acervo' className='no_style'>
-                  <Botao>Acessar Acervo</Botao>
+                  <Botao>{t("homepage.accessCollection")}</Botao>
                </Link>
             </div>
          </section>
          <footer className='rodape'>
             <div className='rodape__info'>
                <div>
-                  <Typography variant='h4'>Contato</Typography>
+                  <Typography variant='h4'>{t("homepage.contact")}</Typography>
                   <p>
-                     <a href="tel:5521999999999"><strong>Telefone:</strong> (21) 99999-9999</a>
+                     <a href="tel:5521999999999"><strong>{t("homepage.cellPhone")}:</strong> (21) 99999-9999</a>
                   </p>
                   <p>
                      <a href="mailto:biblioteca@gmail.com.br"><strong>E-mail:</strong> biblioteca@gmail.com.br</a>
@@ -67,11 +69,11 @@ function Homepage() {
                </div>
                <div>
                   <p>
-                     <span className='pointer'>Políticas de Privacidade</span> | <span className='pointer'>Termos de uso</span>
+                     <span className='pointer'>{t("homepage.privacyPolicy")}</span> | <span className='pointer'>{t("homepage.terms")}</span>
                   </p>
                </div>
             </div>
-            <p>© 2022 Todos os direitos reservados.</p>
+            <p>© 2022 {t("homepage.rights")}</p>
          </footer>
       </>
     );

@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './MenuResponsivo.scss'
 import { useState, useEffect, MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '../LanguageSelector';
 
 const publicPages = [
   {
@@ -49,6 +51,7 @@ function MenuResponsivo() {
   const [pages, setPages] = useState(publicPages);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { t } = useTranslation();
 
   // funções para abrir e fechar o menu caso o usuário esteja no celular
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
@@ -178,7 +181,8 @@ function MenuResponsivo() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center'}}>
+            <LanguageSelector />
             {auth?.role ? 
               (
                 <div>

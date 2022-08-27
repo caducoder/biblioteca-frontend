@@ -66,12 +66,15 @@ export default function Remocao() {
 
    // ao confirmar a remoção, envia requisição para o servidor com o id do livro a ser removido
    const handleRemoveConfirm = (id: number) => {
-      removerLivro(id)
-      // filtra lista tirando livro que foi removido
-      const newList = livrosFiltrados.filter(livro => livro.id !== id)
-      setLivrosFiltrados(newList)
-
-      handleClose()
+      try {
+         removerLivro(id)
+         // filtra lista tirando livro que foi removido
+         const newList = livrosFiltrados.filter(livro => livro.id !== id)
+         setLivrosFiltrados(newList)
+         handleClose()
+      } catch (error) {
+         console.log("ERRO", error)
+      }
    }
 
    // efeito que busca os livros toda vez que a página é renderizada

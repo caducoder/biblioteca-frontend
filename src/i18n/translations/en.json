@@ -1,0 +1,23 @@
+{
+  "translation": {
+    "homepage": {
+      "title": "Come explore the amazing world of reading!",
+      "subtitle": "More than 10,000 copies at your disposal",
+      "localization": "Our Location",
+      "aboutUs": "About Us",
+      "aboutUsText": {
+        "1": "We are a traditional library in Rio de Janeiro.",
+        "2": "Our collection consists of quality books.",
+        "3": "We provide comfortable spaces for your reading."
+      },
+      "actionPhrase": "Access our collection and make a reservation!",
+      "consultCollection": "Consult Collection",
+      "accessCollection": "Access Collection",
+      "contact": "Contact",
+      "cellPhone": "Cell Phone",
+      "privacyPolicy": "Privacy policy",
+      "terms": "Terms",
+      "rights": "All rights reserved."
+    }
+  }
+}
