@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import './CadastroCliente.scss'
 import { cadastrarCliente } from '../../../api/ClienteService';
 import { useState } from 'react';
-import { Alert, AlertColor } from '@mui/material';
+import { Alert, AlertColor, Card } from '@mui/material';
 
 // esquema de validação do cadastro de clientes
 export const CadastroClienteSchema = Yup.object().shape({
@@ -41,7 +41,7 @@ export interface ClienteFormValues {
 
 function FormCadastroCliente() {
     const [feedback, setFeedback] = useState(false);
-    const [msg, setMsg] = useState({resp: '', severity: ''});
+    const [msg, setMsg] = useState({ resp: '', severity: '' });
     const initialValues: ClienteFormValues = {
         nome: '',
         cpf: '',
@@ -57,159 +57,161 @@ function FormCadastroCliente() {
         }
     }
 
-    const enviarDados = async (dados: any, {resetForm}: any) => {
+    const enviarDados = async (dados: any, { resetForm }: any) => {
         try {
             const resp = await cadastrarCliente(dados)
-            
-            setMsg({resp: resp, severity: 'success'})
+
+            setMsg({ resp: resp, severity: 'success' })
             setFeedback(true)
             resetForm({})
         } catch (error: any) {
-            setMsg({resp: error?.response?.data, severity: 'error'})
+            setMsg({ resp: error?.response?.data, severity: 'error' })
             setFeedback(true)
         }
-        
+
     }
 
-    return ( 
+    return (
         <section className='cadastroClienteContainer'>
-            <h2>Formulário de Cadastro de Clientes</h2>
-            {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
-            <Formik
-                validateOnBlur={false}
-                initialValues={initialValues}
-                onSubmit={enviarDados}
-                validationSchema={CadastroClienteSchema}
-            >
-                {({
-                    handleSubmit,
-                    handleChange,
-                    values,
-                    errors,
-                }) => (
-                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
-                        <div className='padd-15-flex'>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='nome'
-                                    type='text'
-                                    label='Nome'
-                                    size='small'
-                                    value={values.nome}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='cpf'
-                                    type='text'
-                                    label='CPF'
-                                    size='small'
-                                    value={values.cpf}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Field 
-                                component={TextField}
-                                name='rg'
-                                type='text'
-                                label='RG'
-                                size='small'
-                                value={values.rg}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className='padd-15-flex'>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='email'
-                                    type='text'
-                                    label='Email'
-                                    size='small'
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Field 
-                                component={TextField}
-                                name='telefone'
-                                type='text'
-                                label='Telefone'
-                                size='small'
-                                value={values.telefone}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <fieldset>
-                            <legend>Endereço</legend>
+            <Card sx={{ p: '20px', mt: '30px', borderRadius: '10px' }} >
+                <h2>Formulário de Cadastro de Clientes</h2>
+                {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
+                <Formik
+                    validateOnBlur={false}
+                    initialValues={initialValues}
+                    onSubmit={enviarDados}
+                    validationSchema={CadastroClienteSchema}
+                >
+                    {({
+                        handleSubmit,
+                        handleChange,
+                        values,
+                        errors,
+                    }) => (
+                        <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                             <div className='padd-15-flex'>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.rua'
+                                        name='nome'
                                         type='text'
-                                        label='Rua'
+                                        label='Nome'
                                         size='small'
-                                        value={values.endereco.rua}
+                                        value={values.nome}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.numero'
-                                        type='number'
-                                        label='Número'
+                                        name='cpf'
+                                        type='text'
+                                        label='CPF'
                                         size='small'
-                                        value={values.endereco.numero}
+                                        value={values.cpf}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                <Field 
+                                <Field
                                     component={TextField}
-                                    name='endereco.bairro'
+                                    name='rg'
                                     type='text'
-                                    label='Bairro'
+                                    label='RG'
                                     size='small'
-                                    value={values.endereco.bairro}
+                                    value={values.rg}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className='padd-15-flex'>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.cidade'
+                                        name='email'
                                         type='text'
-                                        label='Cidade'
+                                        label='Email'
                                         size='small'
-                                        value={values.endereco.cidade}
+                                        value={values.email}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                <Field 
+                                <Field
                                     component={TextField}
-                                    name='endereco.cep'
+                                    name='telefone'
                                     type='text'
-                                    label='CEP'
+                                    label='Telefone'
                                     size='small'
-                                    value={values.endereco.cep}
+                                    value={values.telefone}
                                     onChange={handleChange}
                                 />
                             </div>
-                        </fieldset>
-                        <div className='botaoCadCliente'><Botao type='submit'>Cadastrar</Botao></div>
-                    </Form>
-                )}
-            </Formik>
+                            <fieldset>
+                                <legend>Endereço</legend>
+                                <div className='padd-15-flex'>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.rua'
+                                            type='text'
+                                            label='Rua'
+                                            size='small'
+                                            value={values.endereco.rua}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.numero'
+                                            type='number'
+                                            label='Número'
+                                            size='small'
+                                            value={values.endereco.numero}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <Field
+                                        component={TextField}
+                                        name='endereco.bairro'
+                                        type='text'
+                                        label='Bairro'
+                                        size='small'
+                                        value={values.endereco.bairro}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className='padd-15-flex'>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.cidade'
+                                            type='text'
+                                            label='Cidade'
+                                            size='small'
+                                            value={values.endereco.cidade}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <Field
+                                        component={TextField}
+                                        name='endereco.cep'
+                                        type='text'
+                                        label='CEP'
+                                        size='small'
+                                        value={values.endereco.cep}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </fieldset>
+                            <div className='botaoCadCliente'><Botao type='submit'>Cadastrar</Botao></div>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
         </section>
-     );
+    );
 }
 
 export default FormCadastroCliente;

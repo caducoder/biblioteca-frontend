@@ -29,7 +29,7 @@ function AcervoProtegido() {
                className='sidenav'
                sx={{ 
                   maxWidth: 230, 
-                  backgroundColor: '#283593',
+                  backgroundColor: 'primary.dark',
                   minHeight: '100vh',
                   width: '100%',
                   color: 'white'

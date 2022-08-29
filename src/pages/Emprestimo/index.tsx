@@ -110,8 +110,8 @@ function Emprestimo() {
         <section className="container">
             <div className='container__bread'>
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
-                    <Link to='/dashboard' color="inherit">
-                        Dashboard
+                    <Link to='/dashboard' className='no_style'>
+                        <Typography color="text.secondary">Dashboard</Typography>
                     </Link>
                     <Typography color="text.primary">Realizar Empréstimo</Typography>
                 </Breadcrumbs>

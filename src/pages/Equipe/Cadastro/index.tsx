@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { TextField } from 'formik-mui';
 import { Formik, Form, Field } from 'formik';
 import Botao from '../../../components/Botao';
-import { Alert, AlertColor, Checkbox, FormControlLabel } from '@mui/material';
+import { Alert, AlertColor, Card, Checkbox, FormControlLabel } from '@mui/material';
 import { cadastrarFuncionario } from '../../../api/FuncionarioService';
 import './CadastroFuncionario.scss';
 
@@ -44,7 +44,7 @@ export interface FuncionarioFormValues {
 function FormCadastroFuncionario() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [feedback, setFeedback] = useState(false)
-    const [msg, setMsg] = useState({resp: '', severity: ''})
+    const [msg, setMsg] = useState({ resp: '', severity: '' })
     const initialValues: FuncionarioFormValues = {
         nome: '',
         cpf: '',
@@ -67,174 +67,176 @@ function FormCadastroFuncionario() {
     };
 
     // envia os dados para o servidor
-    const enviarDados = async (funcionario: any, {resetForm}: any) => {
+    const enviarDados = async (funcionario: any, { resetForm }: any) => {
         try {
             const resp = await cadastrarFuncionario(funcionario, isAdmin);
-            setMsg({resp: resp, severity: 'success'})
+            setMsg({ resp: resp, severity: 'success' })
             setFeedback(true)
             resetForm({})
         } catch (error: any) {
-            setMsg({resp: error?.response?.data, severity: 'error'})
+            setMsg({ resp: error?.response?.data, severity: 'error' })
             setFeedback(true)
         }
     }
 
-    return ( 
+    return (
         <section className='cadastroFuncionarioContainer'>
-            <h2>Formulário de Cadastro de Funcionários</h2>
-            {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
-            <Formik
-                validateOnBlur={false}
-                initialValues={initialValues}
-                onSubmit={enviarDados}
-                validationSchema={CadastroFuncionarioSchema}
-            >
-                {({
-                    handleSubmit,
-                    handleChange,
-                    values,
-                    errors,
-                }) => (
-                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
-                        <div className='padd-15-flex'>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='nome'
-                                    type='text'
-                                    label='Nome'
-                                    size='small'
-                                    value={values.nome}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='cpf'
-                                    type='text'
-                                    label='CPF'
-                                    size='small'
-                                    value={values.cpf}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Field 
-                                component={TextField}
-                                name='rg'
-                                type='text'
-                                label='RG'
-                                size='small'
-                                value={values.rg}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className='padd-15-flex'>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='email'
-                                    type='text'
-                                    label='Email'
-                                    size='small'
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className='margin-r-45'> 
-                                <Field 
-                                    component={TextField}
-                                    name='telefone'
-                                    type='text'
-                                    label='Telefone'
-                                    size='small'
-                                    value={values.telefone}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className='margin-r-45'> 
-                            <Field 
-                                component={TextField}
-                                name='senha'
-                                type='password'
-                                label='Senha'
-                                size='small'
-                                value={values.senha}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        </div>
-                        <div className='admCheckbox'>
-                            <FormControlLabel control={<Checkbox checked={isAdmin} onChange={handleCheckboxChange} />} label="Administrador" />
-                        </div>
-                        <fieldset>
-                            <legend>Endereço</legend>
+            <Card sx={{ p: '20px', mt: '30px', borderRadius: '10px' }} >
+                <h2>Formulário de Cadastro de Funcionários</h2>
+                {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
+                <Formik
+                    validateOnBlur={false}
+                    initialValues={initialValues}
+                    onSubmit={enviarDados}
+                    validationSchema={CadastroFuncionarioSchema}
+                >
+                    {({
+                        handleSubmit,
+                        handleChange,
+                        values,
+                        errors,
+                    }) => (
+                        <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
                             <div className='padd-15-flex'>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.rua'
+                                        name='nome'
                                         type='text'
-                                        label='Rua'
+                                        label='Nome'
                                         size='small'
-                                        value={values.endereco.rua}
+                                        value={values.nome}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.numero'
-                                        type='number'
-                                        label='Número'
+                                        name='cpf'
+                                        type='text'
+                                        label='CPF'
                                         size='small'
-                                        value={values.endereco.numero}
+                                        value={values.cpf}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                <Field 
+                                <Field
                                     component={TextField}
-                                    name='endereco.bairro'
+                                    name='rg'
                                     type='text'
-                                    label='Bairro'
+                                    label='RG'
                                     size='small'
-                                    value={values.endereco.bairro}
+                                    value={values.rg}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className='padd-15-flex'>
-                                <div className='margin-r-45'> 
-                                    <Field 
+                                <div className='margin-r-45'>
+                                    <Field
                                         component={TextField}
-                                        name='endereco.cidade'
+                                        name='email'
                                         type='text'
-                                        label='Cidade'
+                                        label='Email'
                                         size='small'
-                                        value={values.endereco.cidade}
+                                        value={values.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className='margin-r-45'>
+                                    <Field
+                                        component={TextField}
+                                        name='telefone'
+                                        type='text'
+                                        label='Telefone'
+                                        size='small'
+                                        value={values.telefone}
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <Field 
-                                    component={TextField}
-                                    name='endereco.cep'
-                                    type='text'
-                                    label='CEP'
-                                    size='small'
-                                    value={values.endereco.cep}
-                                    onChange={handleChange}
-                                />
+                                <div className='margin-r-45'>
+                                    <Field
+                                        component={TextField}
+                                        name='senha'
+                                        type='password'
+                                        label='Senha'
+                                        size='small'
+                                        value={values.senha}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+
                             </div>
-                        </fieldset>
-                        <div className='botaoCadFuncionario'><Botao type='submit'>Cadastrar</Botao></div>
-                    </Form>
-                )}
-            </Formik>
+                            <div className='admCheckbox'>
+                                <FormControlLabel control={<Checkbox checked={isAdmin} onChange={handleCheckboxChange} />} label="Administrador" />
+                            </div>
+                            <fieldset>
+                                <legend>Endereço</legend>
+                                <div className='padd-15-flex'>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.rua'
+                                            type='text'
+                                            label='Rua'
+                                            size='small'
+                                            value={values.endereco.rua}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.numero'
+                                            type='number'
+                                            label='Número'
+                                            size='small'
+                                            value={values.endereco.numero}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <Field
+                                        component={TextField}
+                                        name='endereco.bairro'
+                                        type='text'
+                                        label='Bairro'
+                                        size='small'
+                                        value={values.endereco.bairro}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className='padd-15-flex'>
+                                    <div className='margin-r-45'>
+                                        <Field
+                                            component={TextField}
+                                            name='endereco.cidade'
+                                            type='text'
+                                            label='Cidade'
+                                            size='small'
+                                            value={values.endereco.cidade}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <Field
+                                        component={TextField}
+                                        name='endereco.cep'
+                                        type='text'
+                                        label='CEP'
+                                        size='small'
+                                        value={values.endereco.cep}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </fieldset>
+                            <div className='botaoCadFuncionario'><Botao type='submit'>Cadastrar</Botao></div>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
         </section>
-     );
+    );
 }
 
 export default FormCadastroFuncionario;

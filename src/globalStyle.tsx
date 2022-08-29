@@ -1,8 +1,32 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import React, { useMemo, useState } from 'react';
+import { PaletteMode } from '@mui/material';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+
+const getDesignTokens = (mode: PaletteMode) => ({
+  palette: {
+    mode,
+    ...(mode === 'light'
+      ? {
+          // palette values for light mode
+          primary: {
+            main: '#4360FF',
+            dark: '#2E43B2'
+          },
+        }
+      : {
+          // palette values for dark mode
+          primary: {
+            main: '#4360FF',
+            dark: '#212121'
+          },
+         
+        }),
+  },
+});
+
 
 export default function Palette({ children }: { children: JSX.Element }) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -15,19 +39,7 @@ export default function Palette({ children }: { children: JSX.Element }) {
     [],
   );
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          primary: {
-            main: '#4360FF',
-            dark: '#2E43B2'
-          },
-        },
-      }),
-    [mode],
-  );
+  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   
   return (
     <ColorModeContext.Provider value={colorMode}>
