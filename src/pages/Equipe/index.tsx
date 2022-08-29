@@ -69,7 +69,6 @@ export default function Equipe() {
    const navigate = useNavigate()
    const [busca, setBusca] = useState('');
    const [funcionarios, setFuncionarios] = useState<Data[]>([]);
-   const [funcionariosFiltrados, setFuncionariosFiltrados] = useState<Data[]>([]);
    const [openConfirmModal, setOpenConfirmModal] = useState<{ open: boolean, id: number | null }>({ open: false, id: null });
    const handleOpen = (id: number) => setOpenConfirmModal({ open: true, id: id })
    const handleClose = () => setOpenConfirmModal({ open: false, id: null })
@@ -81,8 +80,8 @@ export default function Equipe() {
    const handleRemoveConfirm = (id: number) => {
       deletarFuncionario(id)
       // remove funcionario da lista
-      const newList = funcionariosFiltrados.filter(cliente => cliente.id !== id)
-      setFuncionariosFiltrados(newList)
+      const newList = funcionarios.filter(cliente => cliente.id !== id)
+      setFuncionarios(newList)
       handleClose()
    }
 
@@ -128,7 +127,6 @@ export default function Equipe() {
       ))
 
       setFuncionarios(linhas)
-      setFuncionariosFiltrados(linhas)
    }
 
    const exportarLista = () => {
@@ -198,11 +196,9 @@ export default function Equipe() {
       navigate('cadastro-funcionario')
    }
 
-   const handleClickSearch = () => {
-      // filtra pelo nome do funcionário
-      const funcionariosFilter = funcionarios?.filter(funcionario => funcionario.nome.toLowerCase().includes(busca.toLowerCase()))
-      setFuncionariosFiltrados(funcionariosFilter)
-   }
+   const filteredEmployees = busca.length > 0
+      ? funcionarios.filter(funcionario => funcionario.nome.toLowerCase().includes(busca.toLowerCase()))
+      : []
 
    // limpa campo de busca
    const handleClickClear = () => {
@@ -245,8 +241,8 @@ export default function Equipe() {
 
                               <IconButton
                                  aria-label="search button"
-                                 onClick={handleClickSearch}
                                  edge="end"
+                                 disabled
                               >
                                  {<MdOutlineSearch />}
                               </IconButton>
@@ -281,7 +277,7 @@ export default function Equipe() {
                            </TableRow>
                         </TableHead>
                         <TableBody>
-                           {funcionariosFiltrados ? funcionariosFiltrados
+                           {busca.length > 0 ? filteredEmployees.length ? filteredEmployees
                               .map((row) => {
                                  return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -297,6 +293,22 @@ export default function Equipe() {
                                  );
                               })
                               : <TableRow><TableCell colSpan={6} sx={{ textAlign: 'center' }}>Não foram encontrados funcionários</TableCell></TableRow>
+                              : (funcionarios
+                                 .map((row) => {
+                                    return (
+                                       <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                          {columns.map((column) => {
+                                             const value = row[column.id];
+                                             return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                   {value}
+                                                </TableCell>
+                                             );
+                                          })}
+                                       </TableRow>
+                                    );
+                                 })
+                              )
                            }
                         </TableBody>
                      </Table>

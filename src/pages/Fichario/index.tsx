@@ -65,8 +65,7 @@ function createData(
 
 export default function Fichario() {
    const navigate = useNavigate()
-   const [clientes, setclientes] = useState<Data[]>([]);
-   const [clientesFiltrados, setClientesFiltrados] = useState<Data[]>([]);
+   const [clientes, setClientes] = useState<Data[]>([]);
    const [page, setPage] = useState(0);
    const [rowsPerPage, setRowsPerPage] = useState(5);
    const [busca, setBusca] = useState('');
@@ -78,8 +77,8 @@ export default function Fichario() {
    const handleRemoveConfirm = (id: number) => {
       deletarCliente(id)
       // remove cliente da lista
-      const newList = clientesFiltrados.filter(cliente => cliente.id !== id)
-      setClientesFiltrados(newList)
+      const newList = clientes.filter(cliente => cliente.id !== id)
+      setClientes(newList)
       handleClose()
    }
 
@@ -111,8 +110,7 @@ export default function Fichario() {
          )
       ))
 
-      setclientes(linhas)
-      setClientesFiltrados(linhas)
+      setClientes(linhas)
    }
 
    const exportarLista = () => {
@@ -182,11 +180,10 @@ export default function Fichario() {
       navigate('cadastro-cliente')
    }
 
-   // função que filtra a lista de cliente pelo nome
-   const handleClickSearch = () => {
-      const clientesFilter = clientes?.filter(cliente => cliente.nome.toLowerCase().includes(busca.toLowerCase()))
-      setClientesFiltrados(clientesFilter)
-   }
+   // variável contendo a lista de cliente filtrada
+   const filteredUsers = busca.length > 0
+      ? clientes.filter(cliente => cliente.nome.toLowerCase().includes(busca.toLowerCase()))
+      : []
 
    // limpa campo de busca
    const handleClickClear = () => {
@@ -242,8 +239,8 @@ export default function Fichario() {
 
                               <IconButton
                                  aria-label="search button"
-                                 onClick={handleClickSearch}
                                  edge="end"
+                                 disabled
                               >
                                  {<MdOutlineSearch />}
                               </IconButton>
@@ -275,7 +272,7 @@ export default function Fichario() {
                            </TableRow>
                         </TableHead>
                         <TableBody>
-                           {clientesFiltrados ? clientesFiltrados
+                           {busca.length > 0 ? filteredUsers.length > 0 ? filteredUsers
                               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                               .map((row) => {
                                  return (
@@ -290,8 +287,25 @@ export default function Fichario() {
                                        })}
                                     </TableRow>
                                  );
-                              })
+                              }) 
                               : <TableRow><TableCell colSpan={7} sx={{ textAlign: 'center' }}>Não foram encontrados clientes</TableCell></TableRow>
+                              : (clientes
+                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                 .map((row) => {
+                                    return (
+                                       <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                          {columns.map((column) => {
+                                             const value = row[column.id];
+                                             return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                   {value}
+                                                </TableCell>
+                                             );
+                                          })}
+                                       </TableRow>
+                                    );
+                                 })
+                              )
                            }
                         </TableBody>
                      </Table>
@@ -300,7 +314,7 @@ export default function Fichario() {
                      labelRowsPerPage='Clientes por página:'
                      rowsPerPageOptions={[5, 10, 25, 50]}
                      component="div"
-                     count={clientesFiltrados.length}
+                     count={clientes.length}
                      rowsPerPage={rowsPerPage}
                      page={page}
                      onPageChange={handleChangePage}
