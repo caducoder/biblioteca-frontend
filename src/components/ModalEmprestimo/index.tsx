@@ -12,7 +12,7 @@ import { getEmprestimo, realizarEmprestimo } from '../../api/EmprestimoService';
 import Alert, { AlertColor } from '@mui/material/Alert';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { PageSize, Alignment} from "pdfmake/interfaces";
+import { PageSize, Alignment } from "pdfmake/interfaces";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -31,26 +31,26 @@ export const style = {
 };
 
 interface IProps {
-    idCliente: number,
-    handleClose: () => void,
-    open: boolean
+  idCliente: number,
+  handleClose: () => void,
+  open: boolean
 }
 
-export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) {
+export default function ModalEmprestimo({ idCliente, open, handleClose }: IProps) {
   const [codigoLivro, setCodigoLivro] = useState('');
   const [linkImpressao, setLinkImpressao] = useState(false);
   const [feedback, setFeedback] = useState(false)
-  const [msg, setMsg] = useState({resp: '', severity: ''})
+  const [msg, setMsg] = useState({ resp: '', severity: '' })
 
   const emprestar = async () => {
     try {
       // faz requisição para o servidor
       const msg = await realizarEmprestimo(idCliente, codigoLivro)
-      setMsg({resp: msg, severity: 'success'})
+      setMsg({ resp: msg, severity: 'success' })
       setLinkImpressao(true)
       setFeedback(true)
     } catch (error: any) {
-      setMsg({resp: error?.response?.data, severity: 'error'})
+      setMsg({ resp: error?.response?.data, severity: 'error' })
       setFeedback(true)
     }
   }
@@ -60,26 +60,27 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
 
     // estrutura o pdf do comprovante
     let docDefinition = {
-        pageSize: 'A4' as PageSize,
+      pageSize: 'A4' as PageSize,
 
-        content: [
-            {text: 'Biblioteca', style: 'header', alignment: 'center' as Alignment, fontSize: 26},
-            '\n',
-            {text: 'Comprovante de Empréstimo', style: 'subheader', alignment: 'center' as Alignment, fontSize: 15, color: '#666'},
-            '\n',
-            {text: [
-                {text: 'Leitor(a): ', bold: true},`${emprestimo.nomeCliente}\n`,
-                {text: 'Livro: ', bold: true}, `${emprestimo.livro.titulo}\n`,
-                {text: 'Data de Empréstimo: ', bold: true},`${formatDate(emprestimo.emprestadoEm)}\n`,
-                {text: 'Data de Devolução: ', bold: true},`${formatDate(emprestimo.dataDevolucao)}\n`,
-                ]
-            },
-            '\n',
-            { text: 'Atente-se ao prazo de devolução para evitar pagamento de multa!', color: '#f00' },
-            '\n',
-            {text: format(new Date(), "'Rio, ' dd 'de' MMMM 'de' yyyy'", {locale: pt}), alignment: 'right' as Alignment},
-            
-        ]
+      content: [
+        { text: 'Biblioteca', style: 'header', alignment: 'center' as Alignment, fontSize: 26 },
+        '\n',
+        { text: 'Comprovante de Empréstimo', style: 'subheader', alignment: 'center' as Alignment, fontSize: 15, color: '#666' },
+        '\n',
+        {
+          text: [
+            { text: 'Leitor(a): ', bold: true }, `${emprestimo.nomeCliente}\n`,
+            { text: 'Livro: ', bold: true }, `${emprestimo.livro.titulo}\n`,
+            { text: 'Data de Empréstimo: ', bold: true }, `${formatDate(emprestimo.emprestadoEm)}\n`,
+            { text: 'Data de Devolução: ', bold: true }, `${formatDate(emprestimo.dataDevolucao)}\n`,
+          ]
+        },
+        '\n',
+        { text: 'Atente-se ao prazo de devolução para evitar pagamento de multa!', color: '#f00' },
+        '\n',
+        { text: format(new Date(), "'Rio, ' dd 'de' MMMM 'de' yyyy'", { locale: pt }), alignment: 'right' as Alignment },
+
+      ]
     }
     pdfMake.createPdf(docDefinition).print();
     handleClose()
@@ -98,19 +99,19 @@ export default function ModalEmprestimo({idCliente, open, handleClose}: IProps) 
         onClose={handleClose}
       >
         <Box sx={{ ...style, width: 400 }}>
-          <div className='closeBtn'><FaTimes onClick={handleClose}/></div>
+          <div className='closeBtn'><FaTimes onClick={handleClose} /></div>
           <div className='scanCodeBox'>
             <h2>Escaneie o código do livro</h2>
             <div>
-              <RiQrScan2Line size={80}/>
+              <RiQrScan2Line size={80} />
             </div>
             <p>
               Ou insira-o no campo abaixo:
             </p>
-            <input 
-              type="text" 
-              value={codigoLivro} 
-              onChange={e => setCodigoLivro(e.target.value)} 
+            <input
+              type="text"
+              value={codigoLivro}
+              onChange={e => setCodigoLivro(e.target.value)}
             />
             {// caso feedback for true, mostra alerta com a respota do servidor
               feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>

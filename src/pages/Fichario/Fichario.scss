@@ -24,24 +24,10 @@
     cursor: pointer;
     padding: 4px;
     color: #4360FF;
-
-    &:hover {
-        color: #2243ff;
-    }
 }
 
-.newCliente {
+.bottom_bar {
     display: flex;
-}
-
-.botaoAdd {
-    cursor: pointer;
-    color: #4360FF;
-    margin-left: 10px;
-
-}
-
-.addCliente {
-    margin-left: 90px;
-    margin-top: 5px;
+    justify-content: space-between;
+    align-items: center;
 }
