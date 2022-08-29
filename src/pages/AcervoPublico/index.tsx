@@ -1,4 +1,4 @@
-import './AcervoPublico.scss'
+import './AcervoPublico.scss';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,14 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { MdReadMore } from 'react-icons/md'
+import { MdReadMore } from 'react-icons/md';
 import { listarLivros, ILivro } from '../../api/LivroService';
 import { ChangeEvent, useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
+import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 import { Typography } from '@mui/material';

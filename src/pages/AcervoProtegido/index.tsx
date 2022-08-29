@@ -1,23 +1,80 @@
 import './AcervoProtegido.scss'
-import SearchSVG from '../../assets/search-small.svg'
-import AddSVG from '../../assets/add-circle.svg'
-import RemoveSVG from '../../assets/remove-circle.svg'
 import livros_foto from '../../assets/imagem_livros.jpg'
 import { Outlet, Link } from 'react-router-dom'
+import {MdOutlineAddCircle, MdOutlineRemoveCircle, MdOutlineSearch} from 'react-icons/md'
+import {
+   Box,
+   List,
+   ListItemButton,
+   ListItemText,
+   ListItemIcon
+
+} from '@mui/material'
+import { useState } from 'react'
 
 function AcervoProtegido() {
-   return ( 
+   const [selectedIndex, setSelectedIndex] = useState<number>();
+
+   const handleListItemClick = (
+      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      index: number,
+   ) => {
+      setSelectedIndex(index);
+   }
+
+   return (
       <>
          <section className='acervo_prot'>
-            <div className="sidenav">
+            <Box 
+               className='sidenav'
+               sx={{ 
+                  maxWidth: 230, 
+                  backgroundColor: '#283593',
+                  minHeight: '100vh',
+                  width: '100%',
+                  color: 'white'
+               }}
+            >
                <h3>Gerencimanento do Acervo</h3>
-               <Link to='consulta'><img src={SearchSVG} className='search' alt='desenho de uma lupa'/>  Consultar Livro</Link>
-               <Link to='cadastro'><img src={AddSVG} className='add' alt='desenho de um círculo com um mais no meio'/>  Cadastrar Livro</Link>
-               <Link to='remover'><img src={RemoveSVG} className='remove' alt='desenho de um círculo com um menos no meio'/>  Remover Livro</Link>
-            </div>  
+               <List component='nav'>
+                  <Link to='consulta'>
+                     <ListItemButton
+                        selected={selectedIndex === 0}
+                        onClick={ev => handleListItemClick(ev, 0)}
+                     >
+                        <ListItemIcon>
+                           <MdOutlineSearch size={20} color='white'/>
+                        </ListItemIcon>
+                        <ListItemText primary="Consultar Livro" />  
+                     </ListItemButton>
+                  </Link>
+                  <Link to='cadastro'>
+                     <ListItemButton
+                        selected={selectedIndex === 1}
+                        onClick={ev => handleListItemClick(ev, 1)}
+                     >
+                        <ListItemIcon>
+                           <MdOutlineAddCircle size={20} color='white'/>
+                        </ListItemIcon>
+                        <ListItemText primary="Cadastrar Livro" /> 
+                     </ListItemButton>
+                  </Link>
+                  <Link to='remover'>
+                     <ListItemButton
+                        selected={selectedIndex === 2}
+                        onClick={ev => handleListItemClick(ev, 2)}
+                     >
+                        <ListItemIcon>
+                           <MdOutlineRemoveCircle size={20} color='white'/>
+                        </ListItemIcon>
+                        <ListItemText primary="Remover Livro" /> 
+                     </ListItemButton>
+                  </Link>
+               </List>
+            </Box>
             <div className='pageContent'>
                <div className="pagecon">
-                     <img src={livros_foto} className='imagem' alt="Foto de uma estante de livros" />
+                  <img src={livros_foto} className='imagem' alt="Foto de uma estante de livros" />
                </div>
                <div className='conteudo'>
                   <Outlet />
@@ -25,7 +82,7 @@ function AcervoProtegido() {
             </div>
          </section>
       </>
-    );
+   );
 }
 
 export default AcervoProtegido;

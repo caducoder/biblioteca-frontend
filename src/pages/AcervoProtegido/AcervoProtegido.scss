@@ -10,29 +10,20 @@
     position: relative;
     z-index: 1;
     left: 0;
-    background-color: #203088;
-    overflow-x: hidden;
-    padding: 20px;
-}
-  
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #C4C4C4;
-    display: block;
-}
-  
-.sidenav a:hover {
-    color: #00FFE0;
-}
+    overflow-x: hidden; 
 
-.sidenav a:visited {
-    color: #00FFE0;
-}
+    h3 {
+        padding: 20px;
+        text-align: center;
+    }
 
-.sidenav h3 {
-    color: white;
+    a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #C4C4C4;
+        display: block;
+    }
 }
 
 .pageContent {
@@ -40,7 +31,6 @@
 }
 
 .pagecon img {
-  //margin-left: 210px;
   width: 100%;
   height: 200px;
 }

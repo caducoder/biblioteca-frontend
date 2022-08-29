@@ -73,7 +73,7 @@ function Homepage() {
                   </p>
                </div>
             </div>
-            <p>© 2022 {t("homepage.rights")}</p>
+            <p>© {new Date().getFullYear()} {t("homepage.rights")}</p>
          </footer>
       </>
     );

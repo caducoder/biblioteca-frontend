@@ -15,6 +15,7 @@ import './MenuResponsivo.scss'
 import { useState, useEffect, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '../LanguageSelector';
+import DarkmodeToggle from '../DarkmodeToggle';
 
 const publicPages = [
   {
@@ -65,7 +66,7 @@ function MenuResponsivo() {
   
   useEffect(() => {
     // verificando se o usuário está logado para decidir se mostra a barra completa ou não
-    if(auth?.role/*true*/) {
+    if(/*auth?.role*/true) {
       setPages(protectedPages)
     } else {
       setPages(publicPages)
@@ -182,6 +183,7 @@ function MenuResponsivo() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center'}}>
+            <DarkmodeToggle />
             <LanguageSelector />
             {auth?.role ? 
               (

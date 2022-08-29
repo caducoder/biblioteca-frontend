@@ -2,7 +2,7 @@ import BooksSVG from '../../assets/books.svg'
 import BookmarkSVG from '../../assets/book-bookmark.svg'
 import ReaderSVG from '../../assets/solid_book-reader.svg'
 import UserSVG from '../../assets/user-multiple.svg'
-import { Typography } from '@mui/material'
+import { Typography, Card, useTheme  } from '@mui/material'
 import { contarLivros, contarReservas } from '../../api/LivroService'
 import { contarClientes } from '../../api/ClienteService'
 import { contarEmprestimos } from '../../api/EmprestimoService'
@@ -16,6 +16,8 @@ function Dashboard() {
    const [numeroDeClientes, setNumeroDeClientes] = useState<number>();
    const [numeroDeEmprestimos, setNumeroDeEmprestimos] = useState<number>();
    const [numeroDeReservas, setNumeroDeReservas] = useState<number>();
+   const theme = useTheme();
+   let svgColor = theme.palette.mode === 'dark' ? 1 : 0;
 
    //função que busca os dados toda vez que a página é acessada
    useEffect(() => {
@@ -40,28 +42,28 @@ function Dashboard() {
          </div>
 
          <section className='grid-container'>
-            <div className='livrosCad'>
-               <img src={BooksSVG} className='svg' alt='desenho de dois livros'/>
+            <Card className='livrosCad'>
+               <img src={BooksSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de dois livros'/>
                <p>Livros Cadastrados: <span className='numero'>{numeroDeLivros || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
-            </div>
+            </Card>
 
-            <div className='livrosRes'>
-               <img src={BookmarkSVG} className='svg' alt='desenho de um livro com um marca página'/>
+            <Card className='livrosRes'>
+               <img src={BookmarkSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de um livro com um marca página'/>
                <p>Livros Reservados: <span className='numero'>{numeroDeReservas || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
-            </div>
+            </Card>
 
-            <div className='livrosEmp'>
-               <img src={ReaderSVG} className='svg' alt='desenho de um boneco com um livro'/>
+            <Card className='livrosEmp'>
+               <img src={ReaderSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de um boneco com um livro'/>
                <p>Livros Emprestados: <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
-            </div>
-            <div className='clientesCad'>
-               <img src={UserSVG} className='svg' alt='desenho de dois bonecos'/>
+            </Card>
+            <Card className='clientesCad'>
+               <img src={UserSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de dois bonecos'/>
                <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
-            </div>
-            <div className='actions-box'>
+            </Card>
+            <Card className='actions-box'>
                <h3>Ações</h3>
                <div className='buttons'>
                   <div className='empr'>  
@@ -85,7 +87,7 @@ function Dashboard() {
                      </Link>
                   </div>
                </div>
-            </div>
+            </Card>
          </section>
       </>
     );
