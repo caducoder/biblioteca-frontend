@@ -66,7 +66,7 @@ function MenuResponsivo() {
   
   useEffect(() => {
     // verificando se o usuário está logado para decidir se mostra a barra completa ou não
-    if(/*auth?.role*/true) {
+    if(auth?.role/*true*/) {
       setPages(protectedPages)
     } else {
       setPages(publicPages)

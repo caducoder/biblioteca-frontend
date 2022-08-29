@@ -209,7 +209,7 @@ export default function Fichario() {
          </div>
 
          <main className='group-fichario'>
-            <div className='bottom_bar'>
+            <div className='action_bar'>
                <div>
                   <Button
                      onClick={() => handleClickAdd()}

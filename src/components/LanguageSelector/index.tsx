@@ -22,7 +22,6 @@ export const LanguageSelector = () => {
       <select className='languageToggle'>
         {languageOptions.map(lng => (
           <option key={lng.value} style={{ fontWeight: i18n.resolvedLanguage === lng.value ? 'bold' : 'normal' }} onClick={() => i18n.changeLanguage(lng.value)}>
-            <img src={lng.flag} alt={lng.name} />
             {lng.name}
           </option>
         ))}
