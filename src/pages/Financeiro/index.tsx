@@ -5,6 +5,7 @@ import { MdOutlineAddCircleOutline } from 'react-icons/md'
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { listarFinancas, Finance, buscarPdf } from "../../api/FinanceiroService";
+import { useTranslation } from 'react-i18next'
 
 export interface Data {
    id: number;
@@ -62,16 +63,17 @@ function Financeiro() {
       window.open(fileURL)
    }
 
+   const { t } = useTranslation();
    return ( 
       <section className='financeiro_container'>
          <div className='cabecalho'>
-            <h1 className="cabecalho__title">Financeiro</h1>
+            <h1 className="cabecalho__title"> {t("financial.title")} </h1>
             <Link to='importar' className='cabecalho__importButton no_style'>
                <Button  
                   variant='contained' 
                   startIcon={<MdOutlineAddCircleOutline />}
                >
-                  Importar
+                  {t("financial.import")} 
                </Button>
             </Link>
          </div>

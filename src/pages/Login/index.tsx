@@ -5,8 +5,9 @@ import Botao from '../../components/Botao';
 import {MdInfoOutline} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import './Login.scss'
-
+import { useTranslation } from 'react-i18next'
 import api from '../../api/axios';
+
 
 function Login() {
    const navigate = useNavigate();
@@ -72,13 +73,14 @@ function Login() {
    const open = Boolean(anchorEl);
    const id = open ? 'simple-popover' : undefined;
 
+   const { t } = useTranslation();
    return ( 
       <section className='login'>
          <div className='login__box'>
             <div className='login__box__info'>
-               <p><MdInfoOutline size={30} /> Área exclusiva da administração </p>
+               <p><MdInfoOutline size={30} /> {t("login.title")} </p>
             </div>
-            <Typography variant='h4' className='login__box__title'>Entrar</Typography>
+            <Typography variant='h4' className='login__box__title'> {t("login.signIn")} </Typography>
             <p className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
             <form onSubmit={submitForm} className='login__box__form'>
                <TextField 
@@ -108,7 +110,7 @@ function Login() {
                   className='login__box__form__forgetpass' 
                   onClick={handleClickForgetPassword}
                >
-                  Esqueci a senha
+                  {t("login.forgotPassword")}
                </button>
                <Popover
                   id={id}
@@ -120,7 +122,7 @@ function Login() {
                      horizontal: 'right',
                   }}
                >
-                  <Typography sx={{ p: 2 }}>Contate o administrador do sistema.</Typography>
+                  <Typography sx={{ p: 2 }}> {t("login.contact")} </Typography>
                </Popover>
                <Botao type='submit'>Login</Botao>
             </form>

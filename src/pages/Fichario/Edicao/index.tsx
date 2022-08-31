@@ -7,6 +7,7 @@ import {ClienteFormValues, CadastroClienteSchema} from '../Cadastro'
 import { alterarCliente, buscarPorId, ICliente } from '../../../api/ClienteService';
 import { useState, useEffect } from 'react';
 import Alert, { AlertColor } from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next'
 
 function FormEdicaoCliente() {
     const navigate = useNavigate()
@@ -75,12 +76,13 @@ function FormEdicaoCliente() {
         }
     }
 
+    const { t } = useTranslation();
     return (
         <section className='edicaoClienteContainer'>
             {feedback && 
                 <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
             }
-            <h3>Editar Cliente</h3>
+            <h3> {t("clientEdition.title")} </h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -153,7 +155,7 @@ function FormEdicaoCliente() {
                             />
                         </div>
                         <fieldset>
-                            <legend>Endereço</legend>
+                            <legend> {t("clientEdition.address")} </legend>
                             <div className='padd-15-flex'>
                                 <div className='margin-r-45'> 
                                     <Field 
@@ -212,8 +214,8 @@ function FormEdicaoCliente() {
                         </fieldset>
                         
                         <div className='botoes'>
-                            <Botao type='submit'>Salvar</Botao>
-                            <Botao onClick={() => navigate(-1)}>Cancelar</Botao>
+                            <Botao type='submit'>{t("clientEdition.save")}</Botao>
+                            <Botao onClick={() => navigate(-1)}>{t("clientEdition.cancel")}</Botao>
                         </div>
                     </Form>
                 )}

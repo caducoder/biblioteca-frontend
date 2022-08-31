@@ -6,6 +6,7 @@ import './CadastroCliente.scss'
 import { cadastrarCliente } from '../../../api/ClienteService';
 import { useState } from 'react';
 import { Alert, AlertColor, Card } from '@mui/material';
+import { useTranslation } from 'react-i18next'
 
 // esquema de validação do cadastro de clientes
 export const CadastroClienteSchema = Yup.object().shape({
@@ -71,10 +72,11 @@ function FormCadastroCliente() {
 
     }
 
+    const { t } = useTranslation();
     return (
         <section className='cadastroClienteContainer'>
             <Card sx={{ p: '20px', mt: '30px', borderRadius: '10px' }} >
-                <h2>Formulário de Cadastro de Clientes</h2>
+                <h2> {t("clientRegistration.title")} </h2>
                 {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
                 <Formik
                     validateOnBlur={false}
@@ -148,7 +150,7 @@ function FormCadastroCliente() {
                                 />
                             </div>
                             <fieldset>
-                                <legend>Endereço</legend>
+                                <legend> {t("clientRegistration.address")} </legend>
                                 <div className='padd-15-flex'>
                                     <div className='margin-r-45'>
                                         <Field
@@ -205,7 +207,7 @@ function FormCadastroCliente() {
                                     />
                                 </div>
                             </fieldset>
-                            <div className='botaoCadCliente'><Botao type='submit'>Cadastrar</Botao></div>
+                            <div className='botaoCadCliente'><Botao type='submit'>{t("clientRegistration.register")}</Botao></div>
                         </Form>
                     )}
                 </Formik>

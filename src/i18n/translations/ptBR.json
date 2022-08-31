@@ -18,6 +18,65 @@
       "privacyPolicy": "Política de Privacidade",
       "terms": "Termos de uso",
       "rights": "Todos os direitos reservados."
+    },
+
+    "unauthorized" : {
+      "warning": "Você não tem permissão para acessar essa página.",
+      "goBack": "Voltar"
+    },
+
+    "reports" : {
+      "title": "Relatórios",
+      "select": "Selecione",
+      "general": "Geral",
+      "books": "Livros - Cadastros/Exclusões/Alterações",
+      "clients": "Clientes - Cadastros/Exclusões/Alterações",
+      "borrowing": "Empréstimos e Devoluções",
+      "reservations": "Reservas"
+    },
+
+    "login": {
+      "title": "Área exclusiva da administração",
+      "signIn": "Entrar",
+      "forgotPassword": "Esqueci a senha",
+      "contact": "Contate o administrador do sistema."
+    },
+
+    "financial": {
+      "title": "Financeiro",
+      "import": "Importar"
+    },
+
+    "importInvoice": {
+      "title": "Financeiro",
+      "importation": "Importação",
+      "invoice": "Importação de Nota Fiscal",
+      "operation": "Tipo de Operação",
+      "input": "Entrada",
+      "output": "Saída",
+      "selectFile": "Selecionar Arquivo",
+      "confirm": "Confirmar"
+    },
+
+    "clientRegistration": {
+      "title": "Formulário de Cadastro de Clientes",
+      "address": "Endereço",
+      "register": "Cadastrar"
+    },
+
+    "clientEdition": {
+      "title": "Editar Cliente",
+      "address": "Endereço",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+
+    "binder": {
+      "title": "Fichário",
+      "add": "ADICIONAR",
+      "search": "Buscar cliente",
+      "export": "EXPORTAR",
+      "warning": "Não foram encontrados clientes"
     }
   }
 }

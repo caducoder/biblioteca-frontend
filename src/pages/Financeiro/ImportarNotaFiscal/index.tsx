@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { uploadForm } from "../../../api/FinanceiroService";
-
+import { useTranslation } from 'react-i18next'
 import './ImportarNotaFiscal.scss'
 
 function ImportarNotaFiscal() {
@@ -55,18 +55,19 @@ function ImportarNotaFiscal() {
         setFile(undefined)
     }
 
+    const { t } = useTranslation();
     return (
         <>
             <div className="bread">
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
                     <Link to='/financeiro' className='no_style'>
-                        <Typography color="text.secondary">Financeiro</Typography>
+                        <Typography color="text.secondary"> {t("importInvoice.title")} </Typography>
                     </Link>
-                    <Typography color="text.primary">Importação</Typography>
+                    <Typography color="text.primary"> {t("importInvoice.importation")} </Typography>
                 </Breadcrumbs>
             </div>
             <section className='importContainer'>
-                <Typography variant="h4">Importação de Nota Fiscal</Typography>
+                <Typography variant="h4"> {t("importInvoice.invoice")} </Typography>
                 <Card sx={{p: '30px', width: '455px', mt: '20px'}}>
                     {feedback &&
                         <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
@@ -85,7 +86,7 @@ function ImportarNotaFiscal() {
                             type='text'
                         />
                         <FormControl sx={{ m: 1, width: 200 }} size='small'>
-                            <InputLabel id="simple-select-label">Tipo de Operação</InputLabel>
+                            <InputLabel id="simple-select-label"> {t("importInvoice.operation")} </InputLabel>
                             <Select
                                 labelId="simple-select-label"
                                 id="simple-select"
@@ -94,8 +95,8 @@ function ImportarNotaFiscal() {
                                 label="Tipo de Operação"
                                 defaultValue=''
                             >
-                                <MenuItem value='entrada'>Entrada</MenuItem>
-                                <MenuItem value='saida'>Saída</MenuItem>
+                                <MenuItem value='entrada'> {t("importInvoice.input")} </MenuItem>
+                                <MenuItem value='saida'> {t("importInvoice.output")} </MenuItem>
                             </Select>
                         </FormControl>
                         <TextField
@@ -115,11 +116,11 @@ function ImportarNotaFiscal() {
                         />
                         <label htmlFor="arquivo">
                             <Button variant="contained" component="span" className="btn">
-                                Selecionar Arquivo
+                                {t("importInvoice.selectFile")}
                             </Button>
                         </label>
                         <Button color="success" variant="contained" className="btn submitBtn" type="submit">
-                            Confirmar
+                            {t("importInvoice.confirm")}
                         </Button>
                     </form>
                 </Card>

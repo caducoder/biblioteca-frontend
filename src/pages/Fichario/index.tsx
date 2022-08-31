@@ -26,6 +26,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import { Alignment, PageSize } from 'pdfmake/interfaces';
 import pt from 'date-fns/locale/pt';
 import format from 'date-fns/format';
+import { useTranslation } from 'react-i18next'
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
@@ -199,10 +200,11 @@ export default function Fichario() {
       setPage(0);
    };
 
+   const { t } = useTranslation();
    return (
       <>
          <div className='title'>
-            <Typography variant='h2'>Fichário</Typography>
+            <Typography variant='h2'> {t("binder.title")} </Typography>
          </div>
 
          <main className='group-fichario'>
@@ -213,12 +215,12 @@ export default function Fichario() {
                      variant='contained'
                      startIcon={<FaUserPlus />}
                   >
-                     ADICIONAR
+                     {t("binder.add")}
                   </Button>
                </div>
                <div className='busca'>
                   <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-                     <InputLabel htmlFor="outlined-adornment-search">Buscar cliente</InputLabel>
+                     <InputLabel htmlFor="outlined-adornment-search"> {t("binder.search")} </InputLabel>
                      <OutlinedInput
                         id="outlined-adornment-search"
                         type='text'
@@ -251,7 +253,7 @@ export default function Fichario() {
                   </FormControl>
                </div>
                <div>
-                  <Button variant='contained' startIcon={<MdPictureAsPdf />} onClick={() => exportarLista()}>EXPORTAR</Button>
+                  <Button variant='contained' startIcon={<MdPictureAsPdf />} onClick={() => exportarLista()}> {t("binder.export")} </Button>
                </div>
             </div>
             <div className='table'>
@@ -288,7 +290,7 @@ export default function Fichario() {
                                     </TableRow>
                                  );
                               }) 
-                              : <TableRow><TableCell colSpan={7} sx={{ textAlign: 'center' }}>Não foram encontrados clientes</TableCell></TableRow>
+                              : <TableRow><TableCell colSpan={7} sx={{ textAlign: 'center' }}> {t("binder.warning")} </TableCell></TableRow>
                               : (clientes
                                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                  .map((row) => {

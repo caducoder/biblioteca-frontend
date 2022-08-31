@@ -18,6 +18,65 @@
       "privacyPolicy": "Privacy policy",
       "terms": "Terms",
       "rights": "All rights reserved."
+    },
+
+    "unauthorized" : {
+      "warning": "You do not have permission to access this page.",
+      "goBack": "Go back"
+    },
+
+    "reports" : {
+      "title": "Reports",
+      "select": "Select",
+      "general": "General",
+      "books": "Books - Registrations/Exclusions/Changes",
+      "clients": "Clients - Registrations/Exclusions/Changes",
+      "loan": "Loans and Returns",
+      "reservations": "Reservations"
+    },
+
+    "login": {
+      "title": "Exclusive administration area",
+      "signIn": "Sign in",
+      "forgotPassword": "I forgot the password",
+      "contact": "Contact your system administrator."
+    },
+
+    "financial": {
+      "title": "Financial",
+      "import": "Import"
+    },
+
+    "importInvoice": {
+      "title": "Financial",
+      "importation": "Importation",
+      "invoice": "Invoice Import",
+      "operation": "Operation type",
+      "input": "Input",
+      "output": "Output",
+      "selectFile": "Select File",
+      "confirm": "Confirm"
+    },
+
+    "clientRegistration": {
+      "title": "Customer Registration Form",
+      "address": "aAddress",
+      "register": "Register"
+    },
+
+    "clientEdition": {
+      "title": "Edit Client",
+      "address": "Address",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+
+    "binder": {
+      "title": "Binder",
+      "add": "ADD",
+      "search": "Search client",
+      "export": "EXPORT",
+      "warning": "No clients found"
     }
   }
 }

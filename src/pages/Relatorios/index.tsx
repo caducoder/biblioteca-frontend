@@ -8,6 +8,7 @@ import { getRelatorio, IRelatorio } from '../../api/RelatorioService';
 import CircularProgress from '@mui/material/CircularProgress';
 import TabelaRelatorio from '../../components/TabelaRelatorio';
 import './Relatorios.scss'
+import { useTranslation } from 'react-i18next'
 
 function createData(
     id: number,
@@ -49,13 +50,14 @@ function Relatorios() {
     }
   };
 
+  const { t } = useTranslation();
   return (
     <section className='container'>
-        <h1>Relatórios</h1>
+        <h1> {t("reports.title")} </h1>
     
         <Box sx={{ display: 'flex', gap: 5, minWidth: 120 }}>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Selecione</InputLabel>
+                <InputLabel id="demo-simple-select-label"> {t("reports.select")} </InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -63,11 +65,11 @@ function Relatorios() {
                     label="Selecione"
                     onChange={handleChange}
                 >
-                    <MenuItem value='geral'>Geral</MenuItem>
-                    <MenuItem value='livro'>Livros - Cadastros/Exclusões/Alterações</MenuItem>
-                    <MenuItem value='cliente'>Clientes - Cadastros/Exclusões/Alterações</MenuItem>
-                    <MenuItem value='emprestimo'>Empréstimos e Devoluções</MenuItem>
-                    <MenuItem value='reserva'>Reservas</MenuItem>
+                    <MenuItem value='geral'> {t("reports.general")} </MenuItem>
+                    <MenuItem value='livro'> {t("reports.books")} </MenuItem>
+                    <MenuItem value='cliente'> {t("reports.clients")} </MenuItem>
+                    <MenuItem value='emprestimo'> {t("reports.loan")} </MenuItem>
+                    <MenuItem value='reserva'> {t("reports.reservations")} </MenuItem>
                 </Select>
             </FormControl>
         </Box>
