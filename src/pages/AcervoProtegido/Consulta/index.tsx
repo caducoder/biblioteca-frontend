@@ -9,6 +9,7 @@ import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 import Livro from '../../../components/Livro';
+import { useTranslation } from 'react-i18next'
 
 export default function Consulta() {
    const [livro, setLivro] = useState<ILivro | undefined>(undefined);
@@ -39,14 +40,15 @@ export default function Consulta() {
       setMsg('')
    }
 
+   const { t } = useTranslation();
    return (
       <>
-         <h2>Consulta de Livros</h2>
+         <h2> {t("query.title")} </h2>
 
          <main className='group'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-               <InputLabel htmlFor="outlined-adornment-search">Digite a ISBN/ISSN</InputLabel>
+               <InputLabel htmlFor="outlined-adornment-search">  {t("query.search")} </InputLabel>
                <OutlinedInput
                   id="outlined-adornment-search"
                   type='text'

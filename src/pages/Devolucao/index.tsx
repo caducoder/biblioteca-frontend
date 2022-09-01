@@ -8,6 +8,7 @@ import { getEmprestimo, IEmprestimo } from "../../api/EmprestimoService";
 import Botao from "../../components/Botao";
 import EmprestimoDetails from "../../components/EmprestimoDetails";
 import './Devolucao.scss'
+import { useTranslation } from 'react-i18next'
 
 function Devolucao() {
     const [codigoLivro, setCodigoLivro] = useState('');
@@ -31,25 +32,26 @@ function Devolucao() {
         setMsg('')
     }, [codigoLivro]);
 
+    const { t } = useTranslation();
     return ( 
         <section className="container">
             <div className='container__bread'>
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
                     <Link to='/dashboard' className="no_style">
-                        <Typography color="text.secondary">Dashboard</Typography>
+                        <Typography color="text.secondary"> {t("retrun.title")} </Typography>
                     </Link>
-                    <Typography color="text.primary">Realizar Devolução</Typography>
+                    <Typography color="text.primary"> {t("retrun.performReturn")} </Typography>
                 </Breadcrumbs>
             </div>
             <div className="buscaEmprestimo">
                 {emprestimo ?  <EmprestimoDetails emprestimo={emprestimo} setEmprestimo={setEmprestimo} /> :
                 <div className='scanCodeBox'>
-                    <h2>Escaneie o código do livro</h2>
+                    <h2> {t("retrun.scan")} </h2>
                     <div>
                         <RiQrScan2Line size={80}/>
                     </div>
                     <p>
-                        Ou insira-o no campo abaixo:
+                        {t("retrun.insert")}
                     </p>
                     {/* fazer validação do código inserido */}
                     <TextField
@@ -61,7 +63,7 @@ function Devolucao() {
                         size='small'
                         required
                     />
-                    <Botao size="small" onClick={buscarEmprestimo} className='buscarBtn'>Buscar</Botao>
+                    <Botao size="small" onClick={buscarEmprestimo} className='buscarBtn'>{t("retrun.search")}</Botao>
                     <p>{msg}</p>
                 </div>
                 }

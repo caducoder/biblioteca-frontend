@@ -18,6 +18,7 @@ import {MdOutlineSearch, MdOutlineClear} from 'react-icons/md';
 import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next'
 
 interface Column {
    id: 'titulo' | 'autor' | 'editora' | 'estado' | 'detalhes';
@@ -106,16 +107,17 @@ export default function AcervoPublico() {
       setPage(0);
    };
 
+   const { t } = useTranslation();
    return (
       <>
          <div className='title'>
-            <Typography variant='h2'>Nosso Acervo</Typography>
+            <Typography variant='h2'> {t("publicCollection.title")} </Typography>
          </div>
          
          <main className='group-acervoPublico'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-               <InputLabel htmlFor="outlined-adornment-search">Buscar livro</InputLabel>
+               <InputLabel htmlFor="outlined-adornment-search"> {t("publicCollection.search")} </InputLabel>
                <OutlinedInput
                   id="outlined-adornment-search"
                   type='text'
@@ -181,7 +183,7 @@ export default function AcervoPublico() {
                                  </TableRow>
                               );
                            })
-                           : <TableRow><TableCell colSpan={5} sx={{textAlign: 'center'}}>Não foram encontrados livros</TableCell></TableRow>
+                           : <TableRow><TableCell colSpan={5} sx={{textAlign: 'center'}}>  {t("publicCollection.warning")} </TableCell></TableRow>
                         }
                      </TableBody>
                   </Table>

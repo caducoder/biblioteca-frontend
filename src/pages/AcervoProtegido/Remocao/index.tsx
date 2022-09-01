@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import {MdOutlineSearch, MdOutlineClear, MdDelete} from 'react-icons/md'
 import FormControl from '@mui/material/FormControl';
 import ModalConfirmar from '../../../components/ModalConfirmar';
+import { useTranslation } from 'react-i18next'
 
 interface Column {
    id: 'titulo' | 'autor' | 'editora' | 'estado' | 'remover';
@@ -121,14 +122,15 @@ export default function Remocao() {
       setPage(0);
    };
 
+   const { t } = useTranslation();
    return (
       <>
-        <h2>Remover Livro</h2>
+        <h2> {t("removal.title")} </h2>
 
         <main className='group-remocao'>
             <div className='busca'>
                <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-               <InputLabel htmlFor="outlined-adornment-search">Título do livro</InputLabel>
+               <InputLabel htmlFor="outlined-adornment-search"> {t("removal.book")} </InputLabel>
                <OutlinedInput
                   id="outlined-adornment-search"
                   type='text'
@@ -194,7 +196,7 @@ export default function Remocao() {
                                  </TableRow>
                               );
                            })
-                           : <div><p>Não foram encontrados livros</p></div>
+                           : <div><p> {t("removal.warning")} </p></div>
                         }
                      </TableBody>
                   </Table>

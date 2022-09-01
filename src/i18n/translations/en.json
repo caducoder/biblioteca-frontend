@@ -59,8 +59,8 @@
     },
 
     "clientRegistration": {
-      "title": "Customer Registration Form",
-      "address": "aAddress",
+      "title": "Client Registration Form",
+      "address": "Address",
       "register": "Register"
     },
 
@@ -77,6 +77,124 @@
       "search": "Search client",
       "export": "EXPORT",
       "warning": "No clients found"
+    },
+
+    "employeeRegistration": {
+      "title": "Employee Registration Form",
+      "address": "Address",
+      "register": "Register"
+    },
+    
+    "employeeEdition": {
+      "title": "Edit Employee",
+      "address": "Address",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+
+    "team": {
+      "title": "Team",
+      "add": "ADD",
+      "search": "Search employee",
+      "export": "EXPORT",
+      "warning": "No employees found"
+    },
+
+    "clientLoan": {
+      "name": "Name: ",
+      "situation": "Situation: ",
+      "active": "Active",
+      "loans": "Loans: ",
+      "add": "Add",
+      "book": "Book",
+      "loanDate": "Loan Date",
+      "returnDate": "Return Date",
+      "state": "State",
+      "warning": "No loans found"
+    },
+
+    "loan": {
+      "title": "Dashboard",
+      "performLoan": "Perform a Loan",
+      "search": "Search"
+    },
+
+    "return": {
+      "title": "Dashboard",
+      "performReturn": "Perform Return",
+      "scan": "Scan the book code",
+      "insert": "Or enter it in the field below:",
+      "search": "Search"
+    },
+
+    "popup": {
+      "warning": "You have 5 days to pick up the book from the library, after which the reservation will be canceled."
+    },
+
+    "reservation": {
+      "collection": "Collection",
+      "details": "Book Details",
+      "isbn": "ISBN",
+      "title": "Title",
+      "description": "Description",
+      "language": "Language",
+      "author": "Author",
+      "number": "Number of pages",
+      "state": "State",
+      "company": "Publishing company",
+      "year": "Year of Publication",
+      "reserve": "Reserve"
+    },
+
+    "dashboard": {
+      "title": "Dashboard",
+      "registeredB:": "Registered Books: ",
+      "reserved": "Reserved Books: ",
+      "borrowed": "Borrowed Books: ",
+      "registeredC": "Clientes Cadastrados: ",
+      "actions": "Actions",
+      "performLoan": "Perform a Loan",
+      "return/renewal": "Return/Renewal",
+      "reports": "Relatórios",
+      "performReservation": "Perform a reservation"
+    },
+
+    "publicCollection": {
+      "title": "Our Collection",
+      "search": "Search Book",
+      "warning": "No books found"
+    },
+
+    "removal": {
+      "title": "Remove Book",
+      "book": "Book's title",
+      "warning": "No books found"
+    },
+
+    "edition": {
+      "title": "Edit Book",
+      "portuguese": "Portuguese",
+      "spanish": "Spanish",
+      "english": "English",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+
+    "query": {
+      "title": "Book Consultation",
+      "search": "Enter the ISBN/ISSN"
+    },
+
+    "registration": {
+      "title": "Book registration",
+      "portuguese": "Portuguese",
+      "spanish": "Spanish",
+      "english": "English",
+      "register": "Register"
+    },
+
+    "protectedCollection": {
+      "title": "Collection Management"
     }
   }
 }

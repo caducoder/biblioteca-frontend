@@ -8,6 +8,7 @@ import { alterarFuncionario, buscarPorCpf, IFuncionario } from '../../../api/Fun
 import { useState, useEffect } from 'react';
 import Alert, { AlertColor } from '@mui/material/Alert';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next'
 
 export const EdicaoFuncionarioSchema = Yup.object().shape({
     nome: Yup.string().min(3, 'deve ter pelo menos 3 caracteres').required('Obrigatório'),
@@ -90,12 +91,13 @@ function FormEdicaoFuncionario() {
         }
     }
 
+    const { t } = useTranslation();
     return (
         <section className='edicaoFuncionarioContainer'>
             {feedback && 
                 <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
-            }
-            <h3>Editar Funcionario</h3>
+            }      
+            <h3> {t("employeeEdition.title")} </h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -171,7 +173,7 @@ function FormEdicaoFuncionario() {
                         </div>
                         
                         <fieldset>
-                            <legend>Endereço</legend>
+                            <legend> {t("employeeEdition.address")} </legend>
                             <div className='campo03'>
                                 <div className='campoRua'> 
                                     <Field 
@@ -230,8 +232,8 @@ function FormEdicaoFuncionario() {
                         </fieldset>
                         
                         <div className='botoes'>
-                            <Botao type='submit'>Salvar</Botao>
-                            <Botao onClick={() => navigate(-1)}>Cancelar</Botao>
+                            <Botao type='submit'>{t("employeeEdition.save")}</Botao>
+                            <Botao onClick={() => navigate(-1)}>{t("employeeEdition.cancel")}</Botao>
                         </div>
                     </Form>
                 )}

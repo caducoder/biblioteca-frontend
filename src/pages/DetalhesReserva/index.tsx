@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { reservarLivro } from '../../api/LivroService';
 import './DetalhesReserva.scss'
 import Modal from './Popup'
+import { useTranslation } from 'react-i18next'
 
 function DetalhesReserva() {
     const {state: livro}: any = useLocation()
@@ -53,52 +54,53 @@ function DetalhesReserva() {
         setErr({err: false, msg: ''})
     }, [cpf]);
 
+    const { t } = useTranslation();
     return ( 
         <section className='container'>
             <div className='container__bread'>
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
                     <Link to='/acervo' color="inherit">
-                        Acervo
+                        {t("reservation.collection")}
                     </Link>
-                    <Typography color="text.primary">Detalhes do livro</Typography>
+                    <Typography color="text.primary"> {t("reservation.details")} </Typography>
                 </Breadcrumbs>
             </div>
             <div className='detalhes'>
                 <div className='detalhes__isbn'>
-                    <Typography variant='h6'>ISBN</Typography>
+                    <Typography variant='h6'> {t("reservation.isbn")} </Typography>
                     <p>{livro.isbn}</p>
                 </div>
                 <div className='detalhes__titulo'>
-                    <Typography variant='h6'>Título</Typography>
+                    <Typography variant='h6'> {t("reservation.title")} </Typography>
                     <p>{livro.titulo}</p>
                 </div>
                 <div className='detalhes__descricao'>
-                    <Typography variant='h6'>Descrição</Typography>
+                    <Typography variant='h6'> {t("reservation.description")} </Typography>
                     <p>{livro.descricao}</p>
                 </div>
                 <div className='detalhes__idioma'>
-                    <Typography variant='h6'>Idioma</Typography>
+                    <Typography variant='h6'> {t("reservation.language")} </Typography>
                     <p>{livro.idioma}</p>
                 </div>
                 <div className='detalhes__autor'>
-                    <Typography variant='h6'>Autor</Typography>
+                    <Typography variant='h6'> {t("reservation.author")} </Typography>
                     <p>{livro.autor}</p>
                 </div>
                 <div className='detalhes__numeroDePaginas'>
-                    <Typography variant='h6'>Número de Páginas</Typography>
+                    <Typography variant='h6'> {t("reservation.number")} </Typography>
                     <p>{livro.numeroDePaginas}</p>
                 </div>
                 <div className='detalhes__estado'>
-                    <Typography variant='h6'>Estado</Typography>
+                    <Typography variant='h6'> {t("reservation.state")} </Typography>
                     <p>{livro.estadoLivro}</p>
                 </div>
                 <div className='detalhes__editora'>
-                    <Typography variant='h6'>Editora</Typography>
+                    <Typography variant='h6'> {t("reservation.company")} </Typography>
                     <p>{livro.editora}</p>
                 </div>
                 
                 <div className='detalhes__anoEdicao'>
-                    <Typography variant='h6'>Ano de Publicação</Typography>
+                    <Typography variant='h6'> {t("reservation.year")} </Typography>
                     <p>{livro.anoEdicao}</p>
                 </div>
                 
@@ -113,7 +115,7 @@ function DetalhesReserva() {
                     onChange={(ev) => setCpf(ev.target.value)}
                     disabled={indisponivel}
                 />
-                <Button disabled={indisponivel} variant="contained" onClick={() => handleClickReservar(cpf)}>Reservar</Button>
+                <Button disabled={indisponivel} variant="contained" onClick={() => handleClickReservar(cpf)}>{t("reservation.reserve")}</Button>
             </div>
             <Modal open={open} handleClose={handleClose} msg={msg} sucesso={sucesso}/>
         </section>

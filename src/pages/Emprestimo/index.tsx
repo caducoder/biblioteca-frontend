@@ -10,7 +10,7 @@ import { isPast } from 'date-fns'
 import ModalEmprestimo from "../../components/ModalEmprestimo";
 import { IEmprestimo } from "../../api/EmprestimoService";
 import { formatDate } from "../../utils/dateUtils";
-
+import { useTranslation } from 'react-i18next'
 
 export interface DataEmpr {
     id: number,
@@ -106,14 +106,15 @@ function Emprestimo() {
         setErr({err: false, msg: ''})
     }, [cpf]);
 
+   const { t } = useTranslation();
     return ( 
         <section className="container">
             <div className='container__bread'>
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
                     <Link to='/dashboard' className='no_style'>
-                        <Typography color="text.secondary">Dashboard</Typography>
+                        <Typography color="text.secondary"> {t("loan.title")} </Typography>
                     </Link>
-                    <Typography color="text.primary">Realizar Empréstimo</Typography>
+                    <Typography color="text.primary"> {t("loan.performLoan")} </Typography>
                 </Breadcrumbs>
             </div>
             <div>
@@ -129,7 +130,7 @@ function Emprestimo() {
                         onChange={e => setCpf(e.target.value)}
                     />
                     <br />
-                    <Botao onClick={buscarCliente}>Buscar</Botao>
+                    <Botao onClick={buscarCliente}>{t("loan.search")}</Botao>
                 </form>
                 {nomeCliente ?
                     <EmprestimosCliente 

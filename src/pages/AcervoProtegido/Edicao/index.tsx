@@ -8,6 +8,7 @@ import { alterarLivro, buscarPorCodigo, ILivro } from '../../../api/LivroService
 import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next'
 
 function FormEdicaoLivro() {
     const navigate = useNavigate()
@@ -72,12 +73,13 @@ function FormEdicaoLivro() {
         }
     }
 
+    const { t } = useTranslation();
     return (
         <section className='edicaoLivroContainer'>
             {success && 
                 <Alert severity="success">{msg}</Alert>
             }
-            <h3>Editar Livro</h3>
+            <h3> {t("edition.title")} </h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -189,9 +191,9 @@ function FormEdicaoLivro() {
                                 size='small'
                                 sx={{width: 140}}
                             >
-                                <MenuItem value={'PORTUGUES'}>Português</MenuItem>
-                                <MenuItem value={'ESPANHOL'}>Espanhol</MenuItem>
-                                <MenuItem value={'INGLES'}>Inglês</MenuItem>
+                                <MenuItem value={'PORTUGUES'}> {t("edition.portuguese")} </MenuItem>
+                                <MenuItem value={'ESPANHOL'}> {t("edition.spanish")} </MenuItem>
+                                <MenuItem value={'INGLES'}> {t("edition.english")} </MenuItem>
                             </Field>
                         </div>
                         <div className='campoDescricao'> 
@@ -210,8 +212,8 @@ function FormEdicaoLivro() {
                         </div>
                         <input type="hidden" name="estadoLivro" value={values.estadoLivro} />
                         <div className='botoes'>
-                            <Botao type='submit'>Salvar</Botao>
-                            <Botao onClick={() => navigate(-1)}>Cancelar</Botao>
+                            <Botao type='submit'>{t("edition.save")}</Botao>
+                            <Botao onClick={() => navigate(-1)}>{t("edition.cancel")}</Botao>
                         </div>
                     </Form>
                 )}

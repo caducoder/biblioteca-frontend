@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import Botao from '../../../components/Botao'
 import './Popup.scss'
+import { useTranslation } from 'react-i18next'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -30,6 +31,7 @@ interface Props {
 
 export default function BasicModal({open, handleClose, msg, sucesso}: Props) {
 
+  const { t } = useTranslation();
   return (
     <div>
       <Modal
@@ -50,7 +52,7 @@ export default function BasicModal({open, handleClose, msg, sucesso}: Props) {
             </Typography>
             {sucesso && 
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  Você tem 5 dias para buscar o livro na biblioteca, após esse período, a reserva será desfeita.
+                {t("popup.warning")}
               </Typography>
             }
             <Botao onClick={handleClose} className='okButton'>OK</Botao>

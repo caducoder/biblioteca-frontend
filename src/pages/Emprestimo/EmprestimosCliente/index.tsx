@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DataEmpr } from '..';
-
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
     nomeCliente: string,
@@ -18,24 +18,25 @@ interface IProps {
 }
 
 function EmprestimosCliente({nomeCliente, emprestimos, handleClickAdicionar}: IProps) {
+   const { t } = useTranslation();
     return ( 
         <section className='clienteEmpr'>
             <RiAccountBoxFill size={100}/>
             <div className='clienteEmpr__box'>
-                <p><span className='bold'>Nome:</span> {nomeCliente}</p>
-                <p><span className='bold'>Situação:</span> Ativo</p>
+                <p><span className='bold'> {t("clientLoan.name")} </span> {nomeCliente}</p>
+                <p><span className='bold'> {t("clientLoan.situation")} </span> {t("clientLoan.active")} </p>
                 <div className='clienteEmpr__box__btn'>
-                    <span className='bold'>Emprestimos:</span>
-                    <Botao onClick={handleClickAdicionar} size='small'>Adicionar</Botao>
+                    <span className='bold'> {t("clientLoan.loans")} </span>
+                    <Botao onClick={handleClickAdicionar} size='small'>{t("clientLoan.add")}</Botao>
                 </div>
                 <TableContainer component={Paper} className='clienteEmpr__table'>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead>
                         <TableRow>
-                            <TableCell className='bold'>Livro</TableCell>
-                            <TableCell  className='bold' align="center">Data de Empréstimo</TableCell>
-                            <TableCell  className='bold'>Data de Devolução</TableCell>
-                            <TableCell  className='bold' align="left">Estado</TableCell>
+                            <TableCell className='bold'> {t("clientLoan.book")} </TableCell>
+                            <TableCell  className='bold' align="center"> {t("clientLoan.loanDate")} </TableCell>
+                            <TableCell  className='bold'> {t("clientLoan.returnDate")} </TableCell>
+                            <TableCell  className='bold' align="left"> {t("clientLoan.state")} </TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -51,7 +52,7 @@ function EmprestimosCliente({nomeCliente, emprestimos, handleClickAdicionar}: IP
                                 <TableCell align="center">{empr.dataDevolucao}</TableCell>
                                 <TableCell align="left">{empr.estado}</TableCell>
                             </TableRow>
-                        )) : <TableRow><TableCell colSpan={4} sx={{textAlign: 'center'}}>Não foram encontrados empréstimos</TableCell></TableRow>
+                        )) : <TableRow><TableCell colSpan={4} sx={{textAlign: 'center'}}> {t("clientLoan.warning")} </TableCell></TableRow>
                         }
                         </TableBody>
                     </Table>

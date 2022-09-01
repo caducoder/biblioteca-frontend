@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { cadastrarLivro } from '../../../api/LivroService';
 import { useState } from 'react';
 import { Alert, AlertColor } from '@mui/material';
+import { useTranslation } from 'react-i18next'
 
 // esquema de validação do cadastro do livro
 export const CadastroLivroSchema = Yup.object().shape({
@@ -75,9 +76,10 @@ function FormCadastroDeLivros() {
         }
     }
 
+    const { t } = useTranslation();
     return (
         <section className='cadastroLivroContainer'>
-            <h2>Cadastro de livros</h2>
+            <h2> {t("registration.title")} </h2>
             {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
             <Formik
                 validateOnBlur={false}
@@ -190,9 +192,9 @@ function FormCadastroDeLivros() {
                                 size='small'
                                 sx={{width: 140}}
                             >
-                                <MenuItem value={'PORTUGUES'}>Português</MenuItem>
-                                <MenuItem value={'ESPANHOL'}>Espanhol</MenuItem>
-                                <MenuItem value={'INGLES'}>Inglês</MenuItem>
+                                <MenuItem value={'PORTUGUES'}> {t("registration.portuguese")} </MenuItem>
+                                <MenuItem value={'ESPANHOL'}> {t("registration.spanish")} </MenuItem>
+                                <MenuItem value={'INGLES'}> {t("registration.english")} </MenuItem>
                             </Field>
                         </div>
                         <div className='campoDescricao'> 
@@ -210,7 +212,7 @@ function FormCadastroDeLivros() {
                             />
                         </div>
                         <input type="hidden" name="estadoLivro" value={values.estadoLivro} />
-                        <div className='botaoCadLivro'><Botao type='submit'>Cadastrar</Botao></div>
+                        <div className='botaoCadLivro'><Botao type='submit'>{t("registration.register")}</Botao></div>
                     </Form>
                 )}
             </Formik>

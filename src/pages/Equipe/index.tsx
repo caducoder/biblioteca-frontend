@@ -28,6 +28,7 @@ import format from 'date-fns/format';
 import pt from 'date-fns/locale/pt';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next'
 
 interface Column {
    id: 'id' | 'nome' | 'cpf' | 'email' | 'telefone' | 'acoes';
@@ -205,22 +206,23 @@ export default function Equipe() {
       setBusca('')
    }
 
+   const { t } = useTranslation();
    return (
       <>
          <div className='title'>
-            <Typography variant='h2'>Equipe</Typography>
+            <Typography variant='h2'> {t("team.title")} </Typography>
          </div>
 
          <main className='group-equipe'>
             <div className='action_bar'>
                <div>
                   <Button variant='contained' startIcon={<FaUserPlus />} onClick={() => handleClickAdd()}>
-                     ADICIONAR
+                     {t("team.add")}
                   </Button>
                </div>
                <div className='busca'>
                   <FormControl sx={{ m: 1, width: '50ch' }} variant="outlined" size="small">
-                     <InputLabel htmlFor="outlined-adornment-search">Buscar funcionário</InputLabel>
+                     <InputLabel htmlFor="outlined-adornment-search"> {t("team.search")} </InputLabel>
                      <OutlinedInput
                         id="outlined-adornment-search"
                         type='text'
@@ -254,7 +256,7 @@ export default function Equipe() {
                </div>
                <div>
                   <Button variant='contained' startIcon={<MdPictureAsPdf />} onClick={() => exportarLista()}>
-                     EXPORTAR
+                     {t("team.export")}
                   </Button>
                </div>
             </div>
@@ -292,7 +294,7 @@ export default function Equipe() {
                                     </TableRow>
                                  );
                               })
-                              : <TableRow><TableCell colSpan={6} sx={{ textAlign: 'center' }}>Não foram encontrados funcionários</TableCell></TableRow>
+                              : <TableRow><TableCell colSpan={6} sx={{ textAlign: 'center' }}> {t("team.warning")} </TableCell></TableRow>
                               : (funcionarios
                                  .map((row) => {
                                     return (

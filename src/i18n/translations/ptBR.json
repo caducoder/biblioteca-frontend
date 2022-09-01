@@ -77,6 +77,124 @@
       "search": "Buscar cliente",
       "export": "EXPORTAR",
       "warning": "Não foram encontrados clientes"
+    },
+
+    "employeeRegistration": {
+      "title": "Formulário de Cadastro de Funcionários",
+      "address": "Endereço",
+      "register": "Cadastrar"
+    },
+
+    "employeeEdition": {
+      "title": "Editar Funcionário",
+      "address": "Endereço",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+
+    "team": {
+      "title": "Equipe",
+      "add": "ADICIONAR",
+      "search": "Buscar funcionário",
+      "export": "EXPORTAR",
+      "warning": "Não foram encontrados funcionários"
+    },
+
+    "clientLoan": {
+      "name": "Nome: ",
+      "situation": "Situação: ",
+      "active": "Ativo",
+      "loans": "Empréstimos: ",
+      "add": "Adicionar",
+      "book": "Livro",
+      "loanDate": "Data de Empréstimo",
+      "returnDate": "Data de Devolução",
+      "state": "Estado",
+      "warning": "Não foram encontrados empréstimos"
+    },
+
+    "loan": {
+      "title": "Dashboard",
+      "performLoan": "Realizar Empréstimo",
+      "search": "Buscar"
+    },
+
+    "return": {
+      "title": "Dashboard",
+      "performReturn": "Realizar Devolução",
+      "scan": "Escaneie o código do livro",
+      "insert": "Ou insira-o no campo abaixo:",
+      "search": "Buscar"
+    },
+
+    "popup": {
+      "warning": "Você tem 5 dias para buscar o livro na biblioteca, após esse período, a reserva será desfeita."
+    },
+
+    "reservation": {
+      "collection": "Acervo",
+      "details": "Detalhes do livro",
+      "isbn": "ISBN",
+      "title": "Título",
+      "description": "Descrição",
+      "language": "Idioma",
+      "author": "Autor",
+      "number": "Número de Páginas",
+      "state": "Estado",
+      "company": "Editora",
+      "year": "Ano de Publicação",
+      "reserve": "Reservar"
+    },
+
+    "dashboard": {
+      "title": "Dashboard",
+      "registeredB": "Livros Cadastrados: ",
+      "reserved": "Livros Reservados: ",
+      "borrowed": "Livros Emprestados: ",
+      "registeredC": "Clientes Cadastrados: ",
+      "actions": "Ações",
+      "performLoan": "Realizar Empréstimo",
+      "return/renewal": "Devolução/Renovação",
+      "reports": "Relatórios",
+      "performReservation": "Realizar Reserva"
+    },
+
+    "publicCollection": {
+      "title": "Nosso Acervo",
+      "search": "Buscar livro",
+      "warning": "Não foram encontrados livros"
+    },
+
+    "removal": {
+      "title": "Remover Livro",
+      "book": "Título do livro",
+      "warning": "Não foram encontrados livros"
+    },
+
+    "edition": {
+      "title": "Editar Livro",
+      "portuguese": "Português",
+      "spanish": "Espanhol",
+      "english": "Inglês",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+
+    "query": {
+      "title": "Consulta de Livros",
+      "search": "Digite a ISBN/ISSN"
+    },
+
+    "registration": {
+      "title": "Cadastro de livros",
+      "portuguese": "Português",
+      "spanish": "Espanhol",
+      "english": "Inglês",
+      "register": "Cadastrar"
+    },
+
+    "protectedCollection": {
+      "title": "Gerencimanento do Acervo"
     }
   }
 }

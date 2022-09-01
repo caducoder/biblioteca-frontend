@@ -6,6 +6,7 @@ import Botao from '../../../components/Botao';
 import { Alert, AlertColor, Card, Checkbox, FormControlLabel } from '@mui/material';
 import { cadastrarFuncionario } from '../../../api/FuncionarioService';
 import './CadastroFuncionario.scss';
+import { useTranslation } from 'react-i18next'
 
 // esquema de validação do cadastro de funcionário
 export const CadastroFuncionarioSchema = Yup.object().shape({
@@ -79,10 +80,11 @@ function FormCadastroFuncionario() {
         }
     }
 
+    const { t } = useTranslation();
     return (
         <section className='cadastroFuncionarioContainer'>
             <Card sx={{ p: '20px', mt: '30px', borderRadius: '10px' }} >
-                <h2>Formulário de Cadastro de Funcionários</h2>
+                <h2> {t("employeeRegistration.title")} </h2>
                 {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
                 <Formik
                     validateOnBlur={false}
@@ -173,7 +175,7 @@ function FormCadastroFuncionario() {
                                 <FormControlLabel control={<Checkbox checked={isAdmin} onChange={handleCheckboxChange} />} label="Administrador" />
                             </div>
                             <fieldset>
-                                <legend>Endereço</legend>
+                                <legend> {t("employeeRegistration.address")} </legend>
                                 <div className='padd-15-flex'>
                                     <div className='margin-r-45'>
                                         <Field
@@ -230,7 +232,7 @@ function FormCadastroFuncionario() {
                                     />
                                 </div>
                             </fieldset>
-                            <div className='botaoCadFuncionario'><Botao type='submit'>Cadastrar</Botao></div>
+                            <div className='botaoCadFuncionario'><Botao type='submit'>{t("employeeRegistration.register")}</Botao></div>
                         </Form>
                     )}
                 </Formik>

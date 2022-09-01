@@ -10,6 +10,7 @@ import './Dashboard.scss'
 import { useState, useEffect } from 'react'
 import Botao from '../../components/Botao'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 function Dashboard() {
    const [numeroDeLivros, setNumeroDeLivros] = useState<number>();
@@ -35,55 +36,56 @@ function Dashboard() {
       getTotal()
    }, []);
 
+   const { t } = useTranslation();
    return ( 
       <>
          <div className='relatorios__title'>
-            <Typography variant='h4'><br />Dashboard</Typography>
+            <Typography variant='h4'><br /> {t("dashboard.title")} </Typography>
          </div>
 
          <section className='grid-container'>
             <Card className='livrosCad'>
                <img src={BooksSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de dois livros'/>
-               <p>Livros Cadastrados: <span className='numero'>{numeroDeLivros || 'N/A'}</span> </p>
+               <p> {t("dashboard.registeredB")} <span className='numero'>{numeroDeLivros || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
             </Card>
 
             <Card className='livrosRes'>
                <img src={BookmarkSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de um livro com um marca página'/>
-               <p>Livros Reservados: <span className='numero'>{numeroDeReservas || 'N/A'}</span> </p>
+               <p> {t("dashboard.reserved")} <span className='numero'>{numeroDeReservas || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
             </Card>
 
             <Card className='livrosEmp'>
                <img src={ReaderSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de um boneco com um livro'/>
-               <p>Livros Emprestados: <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
+               <p> {t("dashboard.borrowed")} <span className='numero'>{numeroDeEmprestimos || 'N/A'}</span> </p>
                {/* <a href="#">Ver relatório</a> */}
             </Card>
             <Card className='clientesCad'>
                <img src={UserSVG} style={{filter: `invert(${svgColor})`}} className='svg' alt='desenho de dois bonecos'/>
-               <p>Clientes Cadastrados: <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
+               <p> {t("dashboard.registeredC")} <span className='numero'>{numeroDeClientes || 'N/A'}</span> </p>
             </Card>
             <Card className='actions-box'>
-               <h3>Ações</h3>
+               <h3> {t("dashboard.actions")} </h3>
                <div className='buttons'>
                   <div className='empr'>  
                      <Link to='/emprestimo'>
-                        <Botao>Realizar Emprestimo</Botao>
+                        <Botao>{t("dashboard.performLoan")}</Botao>
                      </Link>          
                   </div>
                   <div className='dev'>
                      <Link to='/devolucao'>
-                        <Botao>Devolução/Renovação</Botao>
+                        <Botao>{t("dashboard.return/renewal")}</Botao>
                      </Link>
                   </div>
                   <div className='clie'>
                      <Link to='/relatorios'>
-                        <Botao>Relatórios</Botao>
+                        <Botao>{t("dashboard.reports")}</Botao>
                      </Link>
                   </div>
                   <div className='res'>
                      <Link to='/acervo'>
-                        <Botao>Realizar Reserva</Botao>
+                        <Botao>{t("dashboard.performReservation")}</Botao>
                      </Link>
                   </div>
                </div>

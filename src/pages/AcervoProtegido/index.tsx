@@ -11,6 +11,7 @@ import {
 
 } from '@mui/material'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function AcervoProtegido() {
    const [selectedIndex, setSelectedIndex] = useState<number>();
@@ -22,6 +23,7 @@ function AcervoProtegido() {
       setSelectedIndex(index);
    }
 
+   const { t } = useTranslation();
    return (
       <>
          <section className='acervo_prot'>
@@ -35,7 +37,7 @@ function AcervoProtegido() {
                   color: 'white'
                }}
             >
-               <h3>Gerencimanento do Acervo</h3>
+               <h3> {t("protectedCollection.title")} </h3>
                <List component='nav'>
                   <Link to='consulta'>
                      <ListItemButton
