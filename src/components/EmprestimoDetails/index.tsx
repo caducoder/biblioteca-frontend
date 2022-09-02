@@ -1,26 +1,20 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import './EmprestimoDetails.scss'
+import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { Paper, Typography } from "@mui/material";
+import Alert from '@mui/material/Alert';
 import { 
-    format, 
+  format, 
     formatDistanceToNowStrict, 
     isPast, 
     parseISO,
     addHours,
     isToday,
-} from "date-fns";
-import pt from 'date-fns/locale/pt-BR';
-import { useState, useEffect, SetStateAction, Dispatch } from "react";
-import { IEmprestimo, realizarDevolucao } from "../../api/EmprestimoService";
-import Botao from "../Botao";
-import { MdDone } from 'react-icons/md';
-import Alert from '@mui/material/Alert';
-import './EmprestimoDetails.scss'
-import ModalRenovacao from '../ModalRenovacao';
+  } from "date-fns";
+  import pt from 'date-fns/locale/pt-BR';
+  import { IEmprestimo, realizarDevolucao } from "../../api/EmprestimoService";
+  import Botao from "../Botao";
+  import { MdDone } from 'react-icons/md';
+  import ModalRenovacao from '../ModalRenovacao';
 import ConfirmacaoPagamentoPopup from '../ConfirmacaoPagamentoPopup';
 
 interface IPropsEmpr {
@@ -103,7 +97,7 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
         }
 
         // condicional para mostrar o status do empréstimo
-        if(days != '0'){
+        if(days !== '0'){
             setStatus(<span className='red'>Pagamento pendente</span>)
             setPagmRealizado(false)
         } else {
@@ -126,7 +120,7 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
               <p><span className='bold'>Data de Empréstimo:</span> {format(dataEmprestimo, "dd/MM/yyyy")}</p>
               <p><span className='bold'>Data de Devolução:</span> {format(dataDevl, "dd/MM/yyyy")}</p>
               <p>
-                  <span className='bold'>Dias atrasados:</span> {diasAtrasados == '0' ? diasAtrasados : <span className="red">{diasAtrasados}</span>}
+                  <span className='bold'>Dias atrasados:</span> {diasAtrasados === '0' ? diasAtrasados : <span className="red">{diasAtrasados}</span>}
                   {pagmRealizado ? '' : <Botao size="small" onClick={calcularMulta} className='calcMultaBtn'>Calcular Multa</Botao>}
               </p>
               <div><span className='bold'>Status:</span> {status}</div>

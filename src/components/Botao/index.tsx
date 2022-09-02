@@ -11,7 +11,7 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 
 interface Props {
-  children: string,
+  children: string | any,
   type?: "button" | "submit" | "reset" | undefined
   onClick?: any,
   className?: string,

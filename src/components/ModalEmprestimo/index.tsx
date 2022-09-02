@@ -13,6 +13,7 @@ import Alert, { AlertColor } from '@mui/material/Alert';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { PageSize, Alignment } from "pdfmake/interfaces";
+import emailjs from '@emailjs/browser';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -49,10 +50,25 @@ export default function ModalEmprestimo({ idCliente, open, handleClose }: IProps
       setMsg({ resp: msg, severity: 'success' })
       setLinkImpressao(true)
       setFeedback(true)
+      sendEmail()
     } catch (error: any) {
       setMsg({ resp: error?.response?.data, severity: 'error' })
       setFeedback(true)
     }
+  }
+
+  const sendEmail = async () => {
+    const emprestimo = await getEmprestimo(codigoLivro)
+    const emailParams = {
+      to_name: emprestimo.nomeCliente,
+      client_email: emprestimo.cliente.email,
+      book_title: emprestimo.livro.titulo,
+      devolution_date: formatDate(emprestimo.dataDevolucao)
+    }
+
+    emailjs.send("serviceMail_bdgazj6", "template_znj3kkn", emailParams, "BeoUG3OH4NcSY8UCF")
+      .then((res) => console.log('Email enviado com SUCESSO'))
+      .catch(err => console.log('ERRO: ' + err))
   }
 
   const gerarComprovante = async () => {

@@ -1,4 +1,5 @@
 import api from "../axios";
+import { ICliente } from "../ClienteService";
 import { ILivro } from "../LivroService";
 
 export interface IEmprestimo {
@@ -6,7 +7,8 @@ export interface IEmprestimo {
     nomeCliente: string,
     emprestadoEm: string,
     dataDevolucao: string,
-    livro: ILivro
+    livro: ILivro,
+    cliente: ICliente
 }
 
 export const realizarEmprestimo = (idCliente: number, codLivro: string) => new Promise<string> (

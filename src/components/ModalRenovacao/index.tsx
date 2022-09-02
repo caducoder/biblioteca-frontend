@@ -12,6 +12,7 @@ import pt from "date-fns/locale/pt";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { PageSize, Alignment} from "pdfmake/interfaces";
+import emailjs from '@emailjs/browser';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const style = {
@@ -47,11 +48,25 @@ function ModalRenovacao({ open, handleClose, emprestimo}: IProps) {
             setMsg({resp: 'Empréstimo renovado com sucesso!', severity: 'success'})
             setFeedback(true)
             setLinkImpressao(true)
+            sendEmail(emprestimo)
         } catch (error: any) {
             setMsg({resp: error?.response?.data, severity: 'error'})
             setFeedback(true)
         }
     }
+
+    const sendEmail = async (emprestimo: IEmprestimo) => {
+        const emailParams = {
+          to_name: emprestimo.nomeCliente,
+          client_email: emprestimo.cliente.email,
+          book_title: emprestimo.livro.titulo,
+          devolution_date: formatDate(emprestimo.dataDevolucao)
+        }
+    
+        emailjs.send("serviceMail_bdgazj6", "template_5kz9l89", emailParams, "BeoUG3OH4NcSY8UCF")
+          .then((res) => console.log('Email enviado com SUCESSO'))
+          .catch(err => console.log('ERRO: ' + err))
+      }
 
     const gerarComprovante = () => {
         // estrutura o pdf do comprovante
