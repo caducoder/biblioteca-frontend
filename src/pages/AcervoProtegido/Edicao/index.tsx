@@ -79,7 +79,7 @@ function FormEdicaoLivro() {
             {success && 
                 <Alert severity="success">{msg}</Alert>
             }
-            <h3> {t("edition.title")} </h3>
+            <h3> {t("edition.edit")} </h3>
             <Formik
                 validateOnBlur={false}
                 initialValues={initialValues}
@@ -132,7 +132,7 @@ function FormEdicaoLivro() {
                                     component={TextField}
                                     name='autor'
                                     type='text'
-                                    label='Autor'
+                                    label={t("edition.author")}
                                     size='small'
                                     value={values.autor}
                                     onChange={handleChange}
@@ -143,7 +143,7 @@ function FormEdicaoLivro() {
                                     component={TextField}
                                     name='titulo'
                                     type='text'
-                                    label='Título'
+                                    label={t("edition.title")}
                                     size='small'
                                     value={values.titulo}
                                     onChange={handleChange}
@@ -153,7 +153,7 @@ function FormEdicaoLivro() {
                                 component={TextField}
                                 name='numeroDePaginas'
                                 type='number'
-                                label='Páginas'
+                                label={t("edition.number")}
                                 size='small'
                                 value={values.numeroDePaginas}
                                 onChange={handleChange}
@@ -165,7 +165,7 @@ function FormEdicaoLivro() {
                                     component={TextField}
                                     name='editora'
                                     type='text'
-                                    label='Editora'
+                                    label={t("edition.company")}
                                     size='small'
                                     value={values.editora}
                                     onChange={handleChange}
@@ -176,7 +176,7 @@ function FormEdicaoLivro() {
                                     component={TextField}
                                     name='anoEdicao'
                                     type='number'
-                                    label='Ano'
+                                    label={t("edition.year")}
                                     size='small'
                                     value={values.anoEdicao}
                                     onChange={handleChange}
@@ -187,7 +187,7 @@ function FormEdicaoLivro() {
                                 id="idioma"
                                 labelId="idioma"
                                 name="idioma"
-                                label="Idioma"
+                                label={t("edition.language")}
                                 size='small'
                                 sx={{width: 140}}
                             >
@@ -201,7 +201,7 @@ function FormEdicaoLivro() {
                                 component={TextField}
                                 name='descricao'
                                 type='text'
-                                label='Descricao'
+                                label={t("edition.description")}
                                 size='small'
                                 multiline
                                 rows={4}

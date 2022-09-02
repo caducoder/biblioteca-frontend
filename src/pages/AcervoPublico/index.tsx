@@ -145,7 +145,7 @@ export default function AcervoPublico() {
                      </IconButton>
                   </InputAdornment>
                   }
-                  label="Buscar livro"
+                  label={t("publicCollection.search")}
                />
                </FormControl>
             </div>
@@ -189,7 +189,7 @@ export default function AcervoPublico() {
                   </Table>
                   </TableContainer>
                   <TablePagination
-                     labelRowsPerPage='Livros por página:'
+                     labelRowsPerPage={t("publicCollection.perPage")}
                      rowsPerPageOptions={[10, 25, 50]}
                      component="div"
                      count={livrosFiltrados ? livrosFiltrados.length : 0}

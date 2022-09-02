@@ -96,7 +96,7 @@ function Login() {
                <TextField 
                   name='senha' 
                   id="outlined-basic" 
-                  label="Senha" 
+                  label={t("login.password")}
                   variant='outlined' 
                   type='password' 
                   size='small' 

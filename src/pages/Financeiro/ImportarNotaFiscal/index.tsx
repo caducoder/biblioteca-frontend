@@ -74,7 +74,7 @@ function ImportarNotaFiscal() {
                     }
                     <form onSubmit={submit}>
                         <TextField
-                            label="Valor"
+                            label={t("importInvoice.amount")}
                             sx={{ m: 1, width: '25ch' }}
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">R$</InputAdornment>,
@@ -92,7 +92,7 @@ function ImportarNotaFiscal() {
                                 id="simple-select"
                                 value={tipo}
                                 onChange={e => setTipo(e.target.value)}
-                                label="Tipo de Operação"
+                                label={t("importInvoice.operation")}
                                 defaultValue=''
                             >
                                 <MenuItem value='entrada'> {t("importInvoice.input")} </MenuItem>
@@ -101,7 +101,7 @@ function ImportarNotaFiscal() {
                         </FormControl>
                         <TextField
                             sx={{ m: 1, width: '96.5%' }}
-                            label='Assunto'
+                            label={t("importInvoice.subject")}
                             value={assunto}
                             onChange={e => setAssunto(e.target.value)}
                             size='small'

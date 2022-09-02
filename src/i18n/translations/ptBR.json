@@ -38,6 +38,7 @@
     "login": {
       "title": "Área exclusiva da administração",
       "signIn": "Entrar",
+      "password": "Senha",
       "forgotPassword": "Esqueci a senha",
       "contact": "Contate o administrador do sistema."
     },
@@ -51,22 +52,36 @@
       "title": "Financeiro",
       "importation": "Importação",
       "invoice": "Importação de Nota Fiscal",
+      "amount": "Valor",
       "operation": "Tipo de Operação",
       "input": "Entrada",
       "output": "Saída",
+      "subject": "Assunto",
       "selectFile": "Selecionar Arquivo",
       "confirm": "Confirmar"
     },
 
     "clientRegistration": {
       "title": "Formulário de Cadastro de Clientes",
+      "name": "Nome",
+      "cellPhone": "Telefone",
       "address": "Endereço",
+      "street": "Rua",
+      "number": "Número",
+      "neighborhood": "Bairro",
+      "city": "Cidade",
       "register": "Cadastrar"
     },
 
     "clientEdition": {
       "title": "Editar Cliente",
+      "name": "Nome",
+      "cellPhone": "Telefone",
       "address": "Endereço",
+      "street": "Rua",
+      "number": "Número",
+      "neighborhood": "Bairro",
+      "city": "Cidade",
       "save": "Salvar",
       "cancel": "Cancelar"
     },
@@ -76,18 +91,34 @@
       "add": "ADICIONAR",
       "search": "Buscar cliente",
       "export": "EXPORTAR",
-      "warning": "Não foram encontrados clientes"
+      "warning": "Não foram encontrados clientes",
+      "perPage": "Clientes por página:",
+      "delete": "Excluir cliente",
+      "confirm": "Tem certeza que quer excluir o cliente selecionado?"
     },
 
     "employeeRegistration": {
       "title": "Formulário de Cadastro de Funcionários",
+      "name": "Nome",
+      "cellPhone": "Telefone",
+      "password": "Senha",
       "address": "Endereço",
+      "street": "Rua",
+      "number": "Número",
+      "neighborhood": "Bairro",
+      "city": "Cidade",
       "register": "Cadastrar"
     },
 
     "employeeEdition": {
       "title": "Editar Funcionário",
+      "name": "Nome",
+      "cellPhone": "Telefone",
       "address": "Endereço",
+      "street": "Rua",
+      "number": "Número",
+      "neighborhood": "Bairro",
+      "city": "Cidade",
       "save": "Salvar",
       "cancel": "Cancelar"
     },
@@ -97,7 +128,9 @@
       "add": "ADICIONAR",
       "search": "Buscar funcionário",
       "export": "EXPORTAR",
-      "warning": "Não foram encontrados funcionários"
+      "warning": "Não foram encontrados funcionários",
+      "delete": "Excluir funcionário",
+      "confirm": "Tem certeza que quer excluir o funcionário selecionado?"
     },
 
     "clientLoan": {
@@ -143,6 +176,7 @@
       "state": "Estado",
       "company": "Editora",
       "year": "Ano de Publicação",
+      "cpf": "Seu CPF",
       "reserve": "Reservar"
     },
 
@@ -162,17 +196,30 @@
     "publicCollection": {
       "title": "Nosso Acervo",
       "search": "Buscar livro",
-      "warning": "Não foram encontrados livros"
+      "warning": "Não foram encontrados livros",
+      "perPage": "Livros por página:"
     },
 
     "removal": {
       "title": "Remover Livro",
       "book": "Título do livro",
-      "warning": "Não foram encontrados livros"
+      "search": "Buscar livro",
+      "warning": "Não foram encontrados livros",
+      "perPage": "Livros por página:",
+      "delete": "Excluir livro",
+      "confirm": "Tem certeza que quer excluir o livro selecionado?"
     },
 
     "edition": {
-      "title": "Editar Livro",
+      "edit": "Editar Livro",
+      "author": "Autor",
+      "title": "Título",
+      "number": "Número de Páginas",
+      "state": "Estado",
+      "company": "Editora",
+      "year": "Ano de Publicação",
+      "language": "Idioma",
+      "description": "Descrição",
       "portuguese": "Português",
       "spanish": "Espanhol",
       "english": "Inglês",
@@ -186,7 +233,14 @@
     },
 
     "registration": {
-      "title": "Cadastro de livros",
+      "registration": "Cadastro de livros",
+      "author": "Autor",
+      "title": "Título",
+      "number": "Número de Páginas",
+      "company": "Editora",
+      "year": "Ano de Publicação",
+      "language": "Idioma",
+      "description": "Descrição",
       "portuguese": "Português",
       "spanish": "Espanhol",
       "english": "Inglês",
@@ -194,7 +248,10 @@
     },
 
     "protectedCollection": {
-      "title": "Gerencimanento do Acervo"
+      "title": "Gerencimanento do Acervo",
+      "consult":"Consultar Livro",
+      "register":"Cadastrar Livro",
+      "remove":"Remover Livro"
     }
   }
 }

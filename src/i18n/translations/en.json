@@ -38,6 +38,7 @@
     "login": {
       "title": "Exclusive administration area",
       "signIn": "Sign in",
+      "password": "Password",
       "forgotPassword": "I forgot the password",
       "contact": "Contact your system administrator."
     },
@@ -51,22 +52,36 @@
       "title": "Financial",
       "importation": "Importation",
       "invoice": "Invoice Import",
+      "amount": "Amount",
       "operation": "Operation type",
       "input": "Input",
       "output": "Output",
+      "subject": "Subject",
       "selectFile": "Select File",
       "confirm": "Confirm"
     },
 
     "clientRegistration": {
-      "title": "Client Registration Form",
+      "title": "Cliente Registration Form",
+      "name": "Name",
+      "cellPhone": "Cell Phone",
       "address": "Address",
+      "street": "Street",
+      "number": "Number",
+      "neighborhood": "Neighborhood",
+      "city": "City",
       "register": "Register"
     },
 
     "clientEdition": {
       "title": "Edit Client",
+      "name": "Name",
+      "cellPhone": "Cell Phone",
       "address": "Address",
+      "street": "Street",
+      "number": "Number",
+      "neighborhood": "Neighborhood",
+      "city": "City",
       "save": "Save",
       "cancel": "Cancel"
     },
@@ -76,18 +91,34 @@
       "add": "ADD",
       "search": "Search client",
       "export": "EXPORT",
-      "warning": "No clients found"
+      "warning": "No clients found",
+      "perPage": "Clients per page:",
+      "delete": "Delete client",
+      "confirm": "Are you sure you want to delete the selected client?"
     },
 
     "employeeRegistration": {
       "title": "Employee Registration Form",
-      "address": "Address",
+      "name": "Name",
+      "cellPhone": "Cell Phone",
+      "password": "Password",
+      "address": "Endereço",
+      "street": "Street",
+      "number": "Number",
+      "neighborhood": "Neighborhood",
+      "city": "City",
       "register": "Register"
     },
     
     "employeeEdition": {
       "title": "Edit Employee",
+      "name": "Name",
+      "cellPhone": "Cell Phone",
       "address": "Address",
+      "street": "Street",
+      "number": "Number",
+      "neighborhood": "Neighborhood",
+      "city": "City",
       "save": "Save",
       "cancel": "Cancel"
     },
@@ -97,7 +128,9 @@
       "add": "ADD",
       "search": "Search employee",
       "export": "EXPORT",
-      "warning": "No employees found"
+      "warning": "No employees found",
+      "delete": "Delete employee",
+      "confirm": "Are you sure you want to delete the selected employee?"
     },
 
     "clientLoan": {
@@ -143,6 +176,7 @@
       "state": "State",
       "company": "Publishing company",
       "year": "Year of Publication",
+      "cpf": "Your CPF",
       "reserve": "Reserve"
     },
 
@@ -151,7 +185,7 @@
       "registeredB:": "Registered Books: ",
       "reserved": "Reserved Books: ",
       "borrowed": "Borrowed Books: ",
-      "registeredC": "Clientes Cadastrados: ",
+      "registeredC": "Registered Clients: ",
       "actions": "Actions",
       "performLoan": "Perform a Loan",
       "return/renewal": "Return/Renewal",
@@ -162,17 +196,30 @@
     "publicCollection": {
       "title": "Our Collection",
       "search": "Search Book",
-      "warning": "No books found"
+      "warning": "No books found",
+      "perPage": "Books per page:"
     },
 
     "removal": {
       "title": "Remove Book",
       "book": "Book's title",
-      "warning": "No books found"
+      "search": "Search Book",
+      "warning": "No books found",
+      "perPage": "Books per page:",
+      "delete": "Delete book",
+      "confirm": "Are you sure you want to delete the selected book?"
     },
 
     "edition": {
-      "title": "Edit Book",
+      "edit": "Edit Book",
+      "author": "Author",
+      "title": "Title",
+      "number": "Number of pages",
+      "state": "State",
+      "company": "Publishing company",
+      "year": "Year of Publication",
+      "language": "Language",
+      "description": "Description",
       "portuguese": "Portuguese",
       "spanish": "Spanish",
       "english": "English",
@@ -186,7 +233,14 @@
     },
 
     "registration": {
-      "title": "Book registration",
+      "registration": "Book registration",
+      "author": "Author",
+      "title": "Title",
+      "number": "Number of pages",
+      "company": "Publishing company",
+      "year": "Year of Publication",
+      "language": "Language",
+      "description": "Description",
       "portuguese": "Portuguese",
       "spanish": "Spanish",
       "english": "English",
@@ -194,7 +248,10 @@
     },
 
     "protectedCollection": {
-      "title": "Collection Management"
+      "title": "Collection Management",
+      "consult":"Consult Book",
+      "register":"Register Book",
+      "remove":"Remove Book"
     }
   }
 }

@@ -158,7 +158,7 @@ export default function Remocao() {
                      </IconButton>
                   </InputAdornment>
                   }
-                  label="Buscar livro"
+                  label={t("removal.search")}
                />
                </FormControl>
             </div>
@@ -202,7 +202,7 @@ export default function Remocao() {
                   </Table>
                   </TableContainer>
                   <TablePagination
-                     labelRowsPerPage='Livros por página:'
+                     labelRowsPerPage={t("removal.perPage")}
                      rowsPerPageOptions={[5, 10, 15]}
                      component="div"
                      count={livrosFiltrados.length}
@@ -214,8 +214,8 @@ export default function Remocao() {
                </Paper>
             </div>
             <ModalConfirmar 
-               title='Excluir livro'
-               message='Tem certeza que quer excluir o livro selecionado?' 
+               title={t("removal.delete")}
+               message={t("removal.confirm")} 
                open={openConfirmModal}
                handleOpen={handleOpen} 
                handleClose={handleClose}
