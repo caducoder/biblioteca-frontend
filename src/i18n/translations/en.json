@@ -1,5 +1,13 @@
 {
   "translation": {
+    "menu": {
+      "dashboard": "Dashboard",
+      "collection": "Collection",
+      "binder": "Binder",
+      "team": "Team",
+      "financial": "Financial",
+      "logout": "Logout"
+    },
     "homepage": {
       "title": "Come explore the amazing world of reading!",
       "subtitle": "More than 10,000 copies at your disposal",
@@ -182,14 +190,14 @@
 
     "dashboard": {
       "title": "Dashboard",
-      "registeredB:": "Registered Books: ",
+      "registeredB": "Registered Books: ",
       "reserved": "Reserved Books: ",
       "borrowed": "Borrowed Books: ",
       "registeredC": "Registered Clients: ",
       "actions": "Actions",
       "performLoan": "Perform a Loan",
       "return/renewal": "Return/Renewal",
-      "reports": "Relatórios",
+      "reports": "Reports",
       "performReservation": "Perform a reservation"
     },
 
@@ -249,9 +257,36 @@
 
     "protectedCollection": {
       "title": "Collection Management",
+      "select": "Select an option",
       "consult":"Consult Book",
       "register":"Register Book",
       "remove":"Remove Book"
+    },
+
+    "table" : {
+      "title": "Title",
+      "author": "Author",
+      "publisher": "Publisher",
+      "state": "State",
+      "details": "Details",
+      "value": "Value",
+      "opType": "Operation Type",
+      "subject": "Subject",
+      "pdf": "PDF",
+      "datetime": "Date and time",
+      "name": "Name",
+      "phone": "CellPhone",
+      "cpf": "CPF",
+      "actions": "Actions",
+      "email": "Email",
+      "id": "ID"
+    },
+
+    "modal": {
+      "scanCode": "Scan the book code",
+      "insertCode": "Or enter it in the field below:",
+      "confirm": "Confirm",
+      "printReceipt": "Print Receipt"
     }
   }
 }

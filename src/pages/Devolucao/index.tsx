@@ -14,6 +14,7 @@ function Devolucao() {
     const [codigoLivro, setCodigoLivro] = useState('');
     const [emprestimo, setEmprestimo] = useState<IEmprestimo | null>(null);
     const [msg, setMsg] = useState('');
+    const { t } = useTranslation();
 
     const buscarEmprestimo = async () => {
         try {
@@ -32,26 +33,25 @@ function Devolucao() {
         setMsg('')
     }, [codigoLivro]);
 
-    const { t } = useTranslation();
     return ( 
         <section className="container">
             <div className='container__bread'>
                 <Breadcrumbs separator='>' aria-label="breadcrumb">
                     <Link to='/dashboard' className="no_style">
-                        <Typography color="text.secondary"> {t("retrun.title")} </Typography>
+                        <Typography color="text.secondary"> {t("return.title")} </Typography>
                     </Link>
-                    <Typography color="text.primary"> {t("retrun.performReturn")} </Typography>
+                    <Typography color="text.primary"> {t("return.performReturn")} </Typography>
                 </Breadcrumbs>
             </div>
             <div className="buscaEmprestimo">
                 {emprestimo ?  <EmprestimoDetails emprestimo={emprestimo} setEmprestimo={setEmprestimo} /> :
                 <div className='scanCodeBox'>
-                    <h2> {t("retrun.scan")} </h2>
+                    <h2> {t("return.scan")} </h2>
                     <div>
                         <RiQrScan2Line size={80}/>
                     </div>
                     <p>
-                        {t("retrun.insert")}
+                        {t("return.insert")}
                     </p>
                     {/* fazer validação do código inserido */}
                     <TextField
@@ -63,7 +63,7 @@ function Devolucao() {
                         size='small'
                         required
                     />
-                    <Botao size="small" onClick={buscarEmprestimo} className='buscarBtn'>{t("retrun.search")}</Botao>
+                    <Botao size="small" onClick={buscarEmprestimo} className='buscarBtn'>{t("return.search")}</Botao>
                     <p>{msg}</p>
                 </div>
                 }

@@ -38,12 +38,12 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-   { id: 'id', label: 'ID', minWidth: 50 },
-   { id: 'nome', label: 'Nome', minWidth: 150 },
-   { id: 'cpf', label: 'CPF', minWidth: 170 },
-   { id: 'email', label: 'Email', minWidth: 170 },
-   { id: 'telefone', label: 'Telefone', minWidth: 120 },
-   { id: 'acoes', label: 'Ações', minWidth: 150, align: 'center' },
+   { id: 'id', label: 'id', minWidth: 50 },
+   { id: 'nome', label: 'name', minWidth: 150 },
+   { id: 'cpf', label: 'cpf', minWidth: 170 },
+   { id: 'email', label: 'email', minWidth: 170 },
+   { id: 'telefone', label: 'phone', minWidth: 120 },
+   { id: 'acoes', label: 'actions', minWidth: 150, align: 'center' },
 ];
 
 interface Data {
@@ -76,6 +76,7 @@ export default function Equipe() {
    const [openChangePasswModal, setChangePasswModal] = useState<{ open: boolean, id: number | null }>({ open: false, id: null });
    const handleOpenChangePass = (id: number) => setChangePasswModal({ open: true, id: id })
    const handleCloseChangePass = () => setChangePasswModal({ open: false, id: null })
+   const { t } = useTranslation();
 
    // função que remove funcionário ao confirmar
    const handleRemoveConfirm = (id: number) => {
@@ -206,7 +207,7 @@ export default function Equipe() {
       setBusca('')
    }
 
-   const { t } = useTranslation();
+   
    return (
       <>
          <div className='title'>
@@ -273,7 +274,7 @@ export default function Equipe() {
                                     align={column.align}
                                     style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
                                  >
-                                    {column.label}
+                                    {t(`table.${column.label}`)}
                                  </TableCell>
                               ))}
                            </TableRow>

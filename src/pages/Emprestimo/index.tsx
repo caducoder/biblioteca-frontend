@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { buscarPorCpf } from "../../api/ClienteService";
 import Botao from "../../components/Botao";
@@ -57,7 +57,8 @@ function Emprestimo() {
                 const data = await buscarPorCpf(cpf)
                 setIdCliente(data.id)
                 setNomeCliente(data.nome)
-                popularTabela(data.emprestimos)
+                // refazer lógica no back
+                //popularTabela(data.emprestimos)
             } catch (error: any) {
                 setMsg(error?.response?.data)
             }

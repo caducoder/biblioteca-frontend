@@ -19,30 +19,30 @@ import DarkmodeToggle from '../DarkmodeToggle';
 
 const publicPages = [
   {
-    name: 'Acervo',
+    name: 'collection',
     to: '/acervo'
   }
 ];
 
 const protectedPages = [
   {
-    name: 'Dashboard',
+    name: 'dashboard',
     to: '/dashboard'
   },
   {
-    name: 'Acervo',
+    name: 'collection',
     to: '/acervo-gestao'
   },
   {
-    name: 'Fichário',
+    name: 'binder',
     to: '/fichario'
   },
   {
-    name: 'Equipe',
+    name: 'team',
     to: '/equipe'
   },
   {
-    name: 'Financeiro',
+    name: 'financial',
     to: '/financeiro'
   }
 ]
@@ -176,7 +176,7 @@ function MenuResponsivo() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'inherit', display: 'block', fontWeight: 'bold' }}
                 >
-                  {page.name}
+                  {t(`menu.${page.name}`)}
                 </Button>
               </Link>
             ))}
@@ -222,7 +222,7 @@ function MenuResponsivo() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleLogout}>Sair</MenuItem>
+                    <MenuItem onClick={handleLogout}>{t("menu.logout")}</MenuItem>
                   </Menu>
                 </div>
               )

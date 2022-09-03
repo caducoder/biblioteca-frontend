@@ -1,5 +1,13 @@
 {
   "translation": {
+    "menu": {
+      "dashboard": "Dashboard",
+      "collection": "Acervo",
+      "binder": "Fichário",
+      "team": "Equipe",
+      "financial": "Financeiro",
+      "logout": "Sair"
+    },
     "homepage": {
       "title": "Venha explorar o incrível mundo da leitura!",
       "subtitle": "Mais de 10.000 exemplares a sua disposição",
@@ -249,9 +257,36 @@
 
     "protectedCollection": {
       "title": "Gerencimanento do Acervo",
+      "select": "Selecione uma opção",
       "consult":"Consultar Livro",
       "register":"Cadastrar Livro",
       "remove":"Remover Livro"
+    },
+
+    "table": {
+      "title": "Título",
+      "author": "Autor",
+      "publisher": "Editora",
+      "state": "Estado",
+      "details": "Detalhes",
+      "value": "Valor",
+      "opType": "Tipo de Operação",
+      "subject": "Assunto",
+      "pdf": "PDF",
+      "datetime": "Data e hora",
+      "name": "Nome",
+      "phone": "Telefone",
+      "cpf": "CPF",
+      "actions": "Ações",
+      "email": "Email",
+      "id": "ID"
+    },
+
+    "modal": {
+      "scanCode": "Escaneie o código do livro",
+      "insertCode": "Ou insira-o no campo abaixo:",
+      "confirm": "Confirmar",
+      "printReceipt": "Imprimir Comprovante"
     }
   }
 }

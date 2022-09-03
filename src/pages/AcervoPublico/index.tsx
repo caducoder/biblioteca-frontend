@@ -28,11 +28,11 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-   { id: 'titulo', label: 'Título', minWidth: 200 },
-   { id: 'autor', label: 'Autor', minWidth: 150 },
-   { id: 'editora', label: 'Editora', minWidth: 170 },
-   { id: 'estado', label: 'Estado', minWidth: 60, },
-   { id: 'detalhes', label: 'Detalhes', minWidth: 120, align: 'right' },
+   { id: 'titulo', label: 'title', minWidth: 200 },
+   { id: 'autor', label: 'author', minWidth: 150 },
+   { id: 'editora', label: 'publisher', minWidth: 170 },
+   { id: 'estado', label: 'state', minWidth: 60, },
+   { id: 'detalhes', label: 'details', minWidth: 120, align: 'right' },
 ];
 
 interface Data {
@@ -62,6 +62,7 @@ export default function AcervoPublico() {
    const [rowsPerPage, setRowsPerPage] = useState(10);
    const [busca, setBusca] = useState('');
    const navigate = useNavigate()
+   const { t } = useTranslation();
 
    // função que busca os livros toda vez q a página é acessada
    useEffect(() => {
@@ -107,7 +108,6 @@ export default function AcervoPublico() {
       setPage(0);
    };
 
-   const { t } = useTranslation();
    return (
       <>
          <div className='title'>
@@ -161,7 +161,7 @@ export default function AcervoPublico() {
                               align={column.align}
                               style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
                            >
-                              {column.label}
+                              {t(`table.${column.label}`)}
                            </TableCell>
                         ))}
                         </TableRow>

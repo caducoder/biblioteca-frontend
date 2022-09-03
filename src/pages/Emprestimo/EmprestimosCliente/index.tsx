@@ -1,4 +1,4 @@
-import {RiAccountBoxFill} from 'react-icons/ri'
+import { RiAccountBoxFill } from 'react-icons/ri'
 import Botao from '../../../components/Botao';
 import './EmprestimosCliente.scss'
 import Table from '@mui/material/Table';
@@ -17,11 +17,11 @@ interface IProps {
     handleClickAdicionar: () => void
 }
 
-function EmprestimosCliente({nomeCliente, emprestimos, handleClickAdicionar}: IProps) {
-   const { t } = useTranslation();
-    return ( 
+function EmprestimosCliente({ nomeCliente, emprestimos, handleClickAdicionar }: IProps) {
+    const { t } = useTranslation();
+    return (
         <section className='clienteEmpr'>
-            <RiAccountBoxFill size={100}/>
+            <RiAccountBoxFill size={100} />
             <div className='clienteEmpr__box'>
                 <p><span className='bold'> {t("clientLoan.name")} </span> {nomeCliente}</p>
                 <p><span className='bold'> {t("clientLoan.situation")} </span> {t("clientLoan.active")} </p>
@@ -32,34 +32,34 @@ function EmprestimosCliente({nomeCliente, emprestimos, handleClickAdicionar}: IP
                 <TableContainer component={Paper} className='clienteEmpr__table'>
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead>
-                        <TableRow>
-                            <TableCell className='bold'> {t("clientLoan.book")} </TableCell>
-                            <TableCell  className='bold' align="center"> {t("clientLoan.loanDate")} </TableCell>
-                            <TableCell  className='bold'> {t("clientLoan.returnDate")} </TableCell>
-                            <TableCell  className='bold' align="left"> {t("clientLoan.state")} </TableCell>
-                        </TableRow>
+                            <TableRow>
+                                <TableCell className='bold'> {t("clientLoan.book")} </TableCell>
+                                <TableCell className='bold' align="center"> {t("clientLoan.loanDate")} </TableCell>
+                                <TableCell className='bold'> {t("clientLoan.returnDate")} </TableCell>
+                                <TableCell className='bold' align="left"> {t("clientLoan.state")} </TableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
-                        {emprestimos.length ? emprestimos.map((empr) => (
-                            <TableRow
-                                key={empr.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row" width={150}>
-                                    {empr.nomeLivro}
-                                </TableCell>
-                                <TableCell align="center">{empr.dataEmprestimo}</TableCell>
-                                <TableCell align="center">{empr.dataDevolucao}</TableCell>
-                                <TableCell align="left">{empr.estado}</TableCell>
-                            </TableRow>
-                        )) : <TableRow><TableCell colSpan={4} sx={{textAlign: 'center'}}> {t("clientLoan.warning")} </TableCell></TableRow>
-                        }
+                            {emprestimos.length ? emprestimos.map((empr) => (
+                                <TableRow
+                                    key={empr.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row" width={150}>
+                                        {empr.nomeLivro}
+                                    </TableCell>
+                                    <TableCell align="center">{empr.dataEmprestimo}</TableCell>
+                                    <TableCell align="center">{empr.dataDevolucao}</TableCell>
+                                    <TableCell align="left">{empr.estado}</TableCell>
+                                </TableRow>
+                            )) : <TableRow><TableCell colSpan={4} sx={{ textAlign: 'center' }}> {t("clientLoan.warning")} </TableCell></TableRow>
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
             </div>
         </section>
-     );
+    );
 }
 
 export default EmprestimosCliente;

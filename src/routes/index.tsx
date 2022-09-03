@@ -23,6 +23,7 @@ import Relatorios from '../pages/Relatorios';
 import FormEdicaoFuncionario from '../pages/Equipe/Edicao';
 import Devolucao from '../pages/Devolucao';
 import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
+import { useTranslation } from 'react-i18next';
 
 /*
 2200: Bibliotecario
@@ -30,6 +31,7 @@ import FormEdicaoLivro from '../pages/AcervoProtegido/Edicao';
 */
 
 function Rotas() {
+  const { t } = useTranslation();
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
@@ -45,7 +47,7 @@ function Rotas() {
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='relatorios' element={<Relatorios />} />
           <Route path='acervo-gestao' element={<AcervoProtegido />} >
-            <Route path='' element={<h2>Selecione uma opção.</h2>} />
+            <Route path='' element={<h2>{t("protectedCollection.select")}</h2>} />
             <Route path='consulta' element={<Consulta />} />
             <Route path='cadastro' element={<Cadastro />} />
             <Route path='edicao/:isbn' element={<FormEdicaoLivro />} />

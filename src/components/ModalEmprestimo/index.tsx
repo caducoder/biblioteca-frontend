@@ -1,21 +1,21 @@
+import './ModalEmprestimo.scss'
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns'
 import pt from "date-fns/locale/pt";
 import { formatDate } from '../../utils/dateUtils';
-import { useEffect, useState } from 'react';
+import Alert, { AlertColor } from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { FaTimes } from 'react-icons/fa';
-import './ModalEmprestimo.scss'
 import { RiQrScan2Line } from 'react-icons/ri';
-import Botao from '../Botao';
 import { getEmprestimo, realizarEmprestimo } from '../../api/EmprestimoService';
-import Alert, { AlertColor } from '@mui/material/Alert';
+import Botao from '../Botao';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { PageSize, Alignment } from "pdfmake/interfaces";
 import emailjs from '@emailjs/browser';
+import { useTranslation } from 'react-i18next';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 
 export const style = {
   position: 'absolute' as 'absolute',
@@ -42,6 +42,7 @@ export default function ModalEmprestimo({ idCliente, open, handleClose }: IProps
   const [linkImpressao, setLinkImpressao] = useState(false);
   const [feedback, setFeedback] = useState(false)
   const [msg, setMsg] = useState({ resp: '', severity: '' })
+  const { t } = useTranslation()
 
   const emprestar = async () => {
     try {
@@ -117,23 +118,23 @@ export default function ModalEmprestimo({ idCliente, open, handleClose }: IProps
         <Box sx={{ ...style, width: 400 }}>
           <div className='closeBtn'><FaTimes onClick={handleClose} /></div>
           <div className='scanCodeBox'>
-            <h2>Escaneie o código do livro</h2>
+            <h2>{t("modal.scanCode")}</h2>
             <div>
               <RiQrScan2Line size={80} />
             </div>
             <p>
-              Ou insira-o no campo abaixo:
+              {t("modal.insertCode")}
             </p>
             <input
               type="text"
               value={codigoLivro}
               onChange={e => setCodigoLivro(e.target.value)}
             />
-            {// caso feedback for true, mostra alerta com a respota do servidor
+            {// caso feedback for true, mostra alerta com a resposta do servidor
               feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>
             }
-            {linkImpressao && <span className="link_imprimir" onClick={gerarComprovante}>Imprimir Comprovante</span>}
-            <Botao size='small' className='scanCodeBox__btn' onClick={emprestar}>Confirmar</Botao>
+            {linkImpressao && <span className="link_imprimir" onClick={gerarComprovante}>{t("modal.printReceipt")}</span>}
+            <Botao size='small' className='scanCodeBox__btn' onClick={emprestar}>{t("modal.confirm")}</Botao>
           </div>
         </Box>
       </Modal>
