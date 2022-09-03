@@ -250,7 +250,7 @@ export default function Equipe() {
                               </IconButton>
                            </InputAdornment>
                         }
-                        label="Buscar funcionário"
+                        label={t("team.search")}
                      />
                   </FormControl>
                </div>
@@ -320,8 +320,8 @@ export default function Equipe() {
          </main>
 
          <ModalConfirmar
-            title='Excluir funcionário'
-            message='Tem certeza que quer excluir o funcionário selecionado?'
+            title={t("team.delete")}
+            message={t("team.confirm")}
             open={openConfirmModal}
             handleOpen={handleOpen}
             handleClose={handleClose}

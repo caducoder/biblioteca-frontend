@@ -79,7 +79,7 @@ function FormCadastroDeLivros() {
     const { t } = useTranslation();
     return (
         <section className='cadastroLivroContainer'>
-            <h2> {t("registration.title")} </h2>
+            <h2> {t("registration.registration")} </h2>
             {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
             <Formik
                 validateOnBlur={false}
@@ -133,7 +133,7 @@ function FormCadastroDeLivros() {
                                     component={TextField}
                                     name='autor'
                                     type='text'
-                                    label='Autor'
+                                    label={t("registration.author")}
                                     size='small'
                                     value={values.autor}
                                     onChange={handleChange}
@@ -144,7 +144,7 @@ function FormCadastroDeLivros() {
                                     component={TextField}
                                     name='titulo'
                                     type='text'
-                                    label='Título'
+                                    label={t("registration.title")}
                                     size='small'
                                     value={values.titulo}
                                     onChange={handleChange}
@@ -154,7 +154,7 @@ function FormCadastroDeLivros() {
                                 component={TextField}
                                 name='numeroDePaginas'
                                 type='number'
-                                label='Páginas'
+                                label={t("registration.number")}
                                 size='small'
                                 value={values.numeroDePaginas}
                                 onChange={handleChange}
@@ -166,7 +166,7 @@ function FormCadastroDeLivros() {
                                     component={TextField}
                                     name='editora'
                                     type='text'
-                                    label='Editora'
+                                    label={t("registration.company")}
                                     size='small'
                                     value={values.editora}
                                     onChange={handleChange}
@@ -177,7 +177,7 @@ function FormCadastroDeLivros() {
                                     component={TextField}
                                     name='anoEdicao'
                                     type='number'
-                                    label='Ano'
+                                    label={t("registration.year")}
                                     size='small'
                                     value={values.anoEdicao}
                                     onChange={handleChange}
@@ -188,7 +188,7 @@ function FormCadastroDeLivros() {
                                 id="idioma"
                                 labelId="idioma"
                                 name="idioma"
-                                label="Idioma"
+                                label={t("registration.language")}
                                 size='small'
                                 sx={{width: 140}}
                             >
@@ -202,7 +202,7 @@ function FormCadastroDeLivros() {
                                 component={TextField}
                                 name='descricao'
                                 type='text'
-                                label='Descricao'
+                                label={t("registration.description")}
                                 size='small'
                                 multiline
                                 rows={4}

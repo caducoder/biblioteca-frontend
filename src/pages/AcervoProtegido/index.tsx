@@ -47,7 +47,7 @@ function AcervoProtegido() {
                         <ListItemIcon>
                            <MdOutlineSearch size={20} color='white'/>
                         </ListItemIcon>
-                        <ListItemText primary="Consultar Livro" />  
+                        <ListItemText primary={t("protectedCollection.consult")} />  
                      </ListItemButton>
                   </Link>
                   <Link to='cadastro'>
@@ -58,7 +58,7 @@ function AcervoProtegido() {
                         <ListItemIcon>
                            <MdOutlineAddCircle size={20} color='white'/>
                         </ListItemIcon>
-                        <ListItemText primary="Cadastrar Livro" /> 
+                        <ListItemText primary={t("protectedCollection.register")} /> 
                      </ListItemButton>
                   </Link>
                   <Link to='remover'>
@@ -69,7 +69,7 @@ function AcervoProtegido() {
                         <ListItemIcon>
                            <MdOutlineRemoveCircle size={20} color='white'/>
                         </ListItemIcon>
-                        <ListItemText primary="Remover Livro" /> 
+                        <ListItemText primary={t("protectedCollection.remove")} /> 
                      </ListItemButton>
                   </Link>
                </List>

@@ -109,7 +109,7 @@ function DetalhesReserva() {
                 <TextField
                     error={err.err}
                     helperText={err.msg}
-                    label="Seu CPF"
+                    label={t("reservation.cpf")}
                     size='small'
                     value={cpf}
                     onChange={(ev) => setCpf(ev.target.value)}

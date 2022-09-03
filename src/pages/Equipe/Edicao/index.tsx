@@ -117,7 +117,7 @@ function FormEdicaoFuncionario() {
                                     component={TextField}
                                     name='nome'
                                     type='text'
-                                    label='Nome'
+                                    label={t("employeeEdition.name")}
                                     size='small'
                                     value={values.nome}
                                     onChange={handleChange}
@@ -164,7 +164,7 @@ function FormEdicaoFuncionario() {
                                     component={TextField}
                                     name='telefone'
                                     type='text'
-                                    label='Telefone'
+                                    label={t("employeeEdition.cellPhone")}
                                     size='small'
                                     value={values.telefone}
                                     onChange={handleChange}
@@ -180,7 +180,7 @@ function FormEdicaoFuncionario() {
                                         component={TextField}
                                         name='endereco.rua'
                                         type='text'
-                                        label='Rua'
+                                        label={t("employeeEdition.street")}
                                         size='small'
                                         value={values.endereco.rua}
                                         onChange={handleChange}
@@ -191,7 +191,7 @@ function FormEdicaoFuncionario() {
                                         component={TextField}
                                         name='endereco.numero'
                                         type='number'
-                                        label='Número'
+                                        label={t("employeeEdition.number")}
                                         size='small'
                                         value={values.endereco.numero}
                                         onChange={handleChange}
@@ -201,7 +201,7 @@ function FormEdicaoFuncionario() {
                                     component={TextField}
                                     name='endereco.bairro'
                                     type='text'
-                                    label='Bairro'
+                                    label={t("employeeEdition.neighborhood")}
                                     size='small'
                                     value={values.endereco.bairro}
                                     onChange={handleChange}
@@ -213,7 +213,7 @@ function FormEdicaoFuncionario() {
                                         component={TextField}
                                         name='endereco.cidade'
                                         type='text'
-                                        label='Cidade'
+                                        label={t("employeeEdition.city")}
                                         size='small'
                                         value={values.endereco.cidade}
                                         onChange={handleChange}

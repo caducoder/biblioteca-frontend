@@ -248,7 +248,7 @@ export default function Fichario() {
                               </IconButton>
                            </InputAdornment>
                         }
-                        label="Buscar cliente"
+                        label={t("binder.search")}
                      />
                   </FormControl>
                </div>
@@ -313,7 +313,7 @@ export default function Fichario() {
                      </Table>
                   </TableContainer>
                   <TablePagination
-                     labelRowsPerPage='Clientes por página:'
+                     labelRowsPerPage={t("binder.perPage")}
                      rowsPerPageOptions={[5, 10, 25, 50]}
                      component="div"
                      count={clientes.length}
@@ -327,8 +327,8 @@ export default function Fichario() {
          </main>
 
          <ModalConfirmar
-            title='Excluir cliente'
-            message='Tem certeza que quer excluir o cliente selecionado?'
+            title={t("binder.delete")}
+            message={t("binder.confirm")}
             open={openConfirmModal}
             handleOpen={handleOpen}
             handleClose={handleClose}

@@ -16,7 +16,7 @@ function Unauthorized() {
       <section className='back'>
          <Typography variant='h4'> {t("unauthorized.warning")} </Typography>
          <img src={Barricada} alt="desenho de uma barricada" />
-         <Botao onClick={goBack}> {t("unauthorized.goBack")} </Botao>
+         <Botao onClick={goBack}>{t("unauthorized.goBack")}</Botao>
       </section>
    );
 }

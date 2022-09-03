@@ -105,7 +105,7 @@ function FormCadastroFuncionario() {
                                         component={TextField}
                                         name='nome'
                                         type='text'
-                                        label='Nome'
+                                        label={t("employeeRegistration.name")}
                                         size='small'
                                         value={values.nome}
                                         onChange={handleChange}
@@ -152,7 +152,7 @@ function FormCadastroFuncionario() {
                                         component={TextField}
                                         name='telefone'
                                         type='text'
-                                        label='Telefone'
+                                        label={t("employeeRegistration.cellPhone")}
                                         size='small'
                                         value={values.telefone}
                                         onChange={handleChange}
@@ -163,7 +163,7 @@ function FormCadastroFuncionario() {
                                         component={TextField}
                                         name='senha'
                                         type='password'
-                                        label='Senha'
+                                        label={t("employeeRegistration.password")}
                                         size='small'
                                         value={values.senha}
                                         onChange={handleChange}
@@ -182,7 +182,7 @@ function FormCadastroFuncionario() {
                                             component={TextField}
                                             name='endereco.rua'
                                             type='text'
-                                            label='Rua'
+                                            label={t("employeeRegistration.street")}
                                             size='small'
                                             value={values.endereco.rua}
                                             onChange={handleChange}
@@ -193,7 +193,7 @@ function FormCadastroFuncionario() {
                                             component={TextField}
                                             name='endereco.numero'
                                             type='number'
-                                            label='Número'
+                                            label={t("employeeRegistration.number")}
                                             size='small'
                                             value={values.endereco.numero}
                                             onChange={handleChange}
@@ -203,7 +203,7 @@ function FormCadastroFuncionario() {
                                         component={TextField}
                                         name='endereco.bairro'
                                         type='text'
-                                        label='Bairro'
+                                        label={t("employeeRegistration.neighborhood")}
                                         size='small'
                                         value={values.endereco.bairro}
                                         onChange={handleChange}
@@ -215,7 +215,7 @@ function FormCadastroFuncionario() {
                                             component={TextField}
                                             name='endereco.cidade'
                                             type='text'
-                                            label='Cidade'
+                                            label={t("employeeRegistration.city")}
                                             size='small'
                                             value={values.endereco.cidade}
                                             onChange={handleChange}

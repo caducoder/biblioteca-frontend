@@ -76,7 +76,7 @@ export default function Consulta() {
                      </IconButton>
                   </InputAdornment>
                   }
-                  label="Digite a ISBN/ISSN"
+                  label={t("query.search")}
                />
                </FormControl>
             </div>
