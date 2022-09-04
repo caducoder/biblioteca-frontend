@@ -32,7 +32,7 @@ export const listarClientes = () => new Promise<ICliente[]> (
     }
 )
 
-export const buscarPorCpf = (cpf: string) => new Promise<any> (
+export const buscarPorCpf = (cpf: string) => new Promise<ICliente> (
     (resolve, reject) => {
         api.get(`/clientes/${cpf}`)
             .then(response => resolve(response.data))

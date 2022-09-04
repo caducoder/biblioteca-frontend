@@ -97,7 +97,7 @@ function FormCadastroCliente() {
                                         component={TextField}
                                         name='nome'
                                         type='text'
-                                        label={t("financial.name")}
+                                        label={t("clientRegistration.name")}
                                         size='small'
                                         value={values.nome}
                                         onChange={handleChange}
@@ -143,7 +143,7 @@ function FormCadastroCliente() {
                                     component={TextField}
                                     name='telefone'
                                     type='text'
-                                    label={t("financial.cellPhone")}
+                                    label={t("clientRegistration.cellPhone")}
                                     size='small'
                                     value={values.telefone}
                                     onChange={handleChange}
@@ -157,7 +157,7 @@ function FormCadastroCliente() {
                                             component={TextField}
                                             name='endereco.rua'
                                             type='text'
-                                            label={t("financial.street")}
+                                            label={t("clientRegistration.street")}
                                             size='small'
                                             value={values.endereco.rua}
                                             onChange={handleChange}
@@ -168,7 +168,7 @@ function FormCadastroCliente() {
                                             component={TextField}
                                             name='endereco.numero'
                                             type='number'
-                                            label={t("financial.number")}
+                                            label={t("clientRegistration.number")}
                                             size='small'
                                             value={values.endereco.numero}
                                             onChange={handleChange}
@@ -178,7 +178,7 @@ function FormCadastroCliente() {
                                         component={TextField}
                                         name='endereco.bairro'
                                         type='text'
-                                        label={t("financial.neighborhood")}
+                                        label={t("clientRegistration.neighborhood")}
                                         size='small'
                                         value={values.endereco.bairro}
                                         onChange={handleChange}
@@ -190,7 +190,7 @@ function FormCadastroCliente() {
                                             component={TextField}
                                             name='endereco.cidade'
                                             type='text'
-                                            label={t("financial.city")}
+                                            label={t("clientRegistration.city")}
                                             size='small'
                                             value={values.endereco.cidade}
                                             onChange={handleChange}

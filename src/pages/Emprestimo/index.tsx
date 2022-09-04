@@ -8,7 +8,7 @@ import Botao from "../../components/Botao";
 import EmprestimosCliente from "./EmprestimosCliente";
 import { isPast } from 'date-fns'
 import ModalEmprestimo from "../../components/ModalEmprestimo";
-import { IEmprestimo } from "../../api/EmprestimoService";
+import { getEmprestimosPorCliente, IEmprestimo } from "../../api/EmprestimoService";
 import { formatDate } from "../../utils/dateUtils";
 import { useTranslation } from 'react-i18next'
 
@@ -54,11 +54,11 @@ function Emprestimo() {
         // faz a busca do cliente
         if(cpf) {
             try {
-                const data = await buscarPorCpf(cpf)
-                setIdCliente(data.id)
-                setNomeCliente(data.nome)
-                // refazer lógica no back
-                //popularTabela(data.emprestimos)
+                const cliente = await buscarPorCpf(cpf)
+                const emprestimos = await getEmprestimosPorCliente(cliente.id)
+                setIdCliente(cliente.id)
+                setNomeCliente(cliente.nome)
+                popularTabela(emprestimos)
             } catch (error: any) {
                 setMsg(error?.response?.data)
             }

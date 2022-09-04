@@ -44,6 +44,14 @@ export const getEmprestimo = (codLivro: string) => new Promise<IEmprestimo> (
     }
 )
 
+export const getEmprestimosPorCliente = (idCliente: number) => new Promise<IEmprestimo[]> (
+    (resolve, reject) => {
+        api.get(`/emprestimo/cliente/${idCliente}`)
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    }
+)
+
 export const contarEmprestimos = () => new Promise<number> (
     (resolve, reject) => {
         api.get('/emprestimo/quantidade')
