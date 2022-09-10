@@ -286,7 +286,26 @@
       "scanCode": "Escaneie o código do livro",
       "insertCode": "Ou insira-o no campo abaixo:",
       "confirm": "Confirmar",
-      "printReceipt": "Imprimir Comprovante"
+      "printReceipt": "Imprimir Comprovante",
+      "yes": "Sim",
+      "cancel": "Cancelar",
+      "renewal": "Renovação do Empréstimo",
+      "book": "Livro",
+      "dateLoan": "Data de Empréstimo",
+      "dateReturn": "Data de Devolução",
+      "newDate": "Nova data de Devolução",
+      "newPassword": "Nova Senha",
+      "confirmPassword": "Confirmar Senha",
+      "alter": "Alterar"
+    },
+
+    "reportTable": {
+      "id": "ID",
+      "type": "Tipo de Movimentação",
+      "user": "ID Usuário",
+      "client": "ID cliente",
+      "book": "ID Livro",
+      "dateTime": "Data e Hora"
     }
   }
 }

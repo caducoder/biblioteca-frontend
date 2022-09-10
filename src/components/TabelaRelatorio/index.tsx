@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import { MdFirstPage, MdKeyboardArrowLeft, MdKeyboardArrowRight, MdLastPage } from 'react-icons/md';
 import TableHead from "@mui/material/TableHead";
 import format from "date-fns/format";
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     rows: IRelatorio[]
@@ -108,17 +109,18 @@ function TabelaRelatorio({ rows }: IProps) {
     setPage(0);
   };
 
+  const { t } = useTranslation()
   return (
     <TableContainer component={Paper} sx={{ marginTop: 4}}>
       <Table sx={{ minWidth: 500 }} aria-label="report table">
         <TableHead>
           <TableRow>
-            <TableCell className="bold">ID</TableCell>
-            <TableCell align="right" className="bold">Tipo de Movimentação</TableCell>
-            <TableCell className="bold">ID Usuário</TableCell>
-            <TableCell align="right" className="bold">ID cliente</TableCell>
-            <TableCell align="right" className="bold">ID Livro</TableCell>
-            <TableCell align="right" className="bold">Data e Hora</TableCell>
+            <TableCell className="bold">{t("reportTable.id")}</TableCell>
+            <TableCell align="right" className="bold">{t("reportTable.type")}</TableCell>
+            <TableCell className="bold">{t("modal.book")}{t("reportTable.user")}</TableCell>
+            <TableCell align="right" className="bold">{t("reportTable.client")}</TableCell>
+            <TableCell align="right" className="bold">{t("reportTable.book")}</TableCell>
+            <TableCell align="right" className="bold">{t("reportTable.dateTime")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

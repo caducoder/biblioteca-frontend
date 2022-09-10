@@ -14,6 +14,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import { PageSize, Alignment} from "pdfmake/interfaces";
 import emailjs from '@emailjs/browser';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { useTranslation } from 'react-i18next';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -97,6 +98,7 @@ function ModalRenovacao({ open, handleClose, emprestimo}: IProps) {
         handleClose()
     }
 
+    const { t } = useTranslation()
     return ( 
         <div>
             <Modal
@@ -107,33 +109,33 @@ function ModalRenovacao({ open, handleClose, emprestimo}: IProps) {
             >
                 <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Renovação do Empréstimo
+                    {t("modal.renewal")}
                 </Typography>
                 {feedback && <Alert severity={msg.severity as AlertColor}>{msg.resp}</Alert>}
                 <table className="tabela-renovacao">
                     <tbody>
                     <tr>
-                        <td>Livro</td>
+                        <td>{t("modal.book")}</td>
                         <td>{emprestimo.livro.titulo}</td>
                     </tr>
                     <tr>
-                        <td>Data de Empréstimo</td>
+                        <td>{t("modal.dateLoan")}</td>
                         <td>{formatDate(emprestimo.emprestadoEm)}</td>
                     </tr>
                     <tr>
-                        <td>Data de Devolução</td>
+                        <td>{t("modal.dateReturn")}</td>
                         <td>{formatDate(emprestimo.dataDevolucao)}</td>
                     </tr>
                     <tr>
-                        <td>Nova data de Devolução</td>
+                        <td>{t("modal.newDate")}</td>
                         <td>{format(addDays(new Date(emprestimo.dataDevolucao), 16), 'dd/MM/yyyy')}</td>
                     </tr>
                     </tbody>
                 </table>
-                {linkImpressao && <span className="link_imprimir" onClick={gerarComprovante}>Imprimir Comprovante</span>}
+                {linkImpressao && <span className="link_imprimir" onClick={gerarComprovante}>{t("modal.printReceipt")}</span>}
                 <div className='botoes'>
-                    <Botao onClick={confirmaRenovacao} disabled={feedback}>Confirmar</Botao>
-                    <Botao onClick={handleClose}>Cancelar</Botao>
+                    <Botao onClick={confirmaRenovacao} disabled={feedback}>{t("modal.confirm")}</Botao>
+                    <Botao onClick={handleClose}>{t("modal.cancel")}</Botao>
                 </div>
                 </Box>
             </Modal>

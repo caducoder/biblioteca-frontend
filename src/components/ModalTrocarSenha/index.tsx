@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import { alterarSenha } from "../../api/FuncionarioService";
 import { useState } from "react";
 import Alert, { AlertColor } from "@mui/material/Alert";
+import { useTranslation } from 'react-i18next';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,6 +45,7 @@ function ModalTrocarSenha({ open, handleClose}: IProps) {
         }
     }
 
+    const { t } = useTranslation()
     return ( 
         <div>
             <Modal
@@ -84,7 +86,7 @@ function ModalTrocarSenha({ open, handleClose}: IProps) {
                                         component={TextField}
                                         name='newPass'
                                         type='password'
-                                        label='Nova Senha'
+                                        label={t("modal.newPassword")}
                                         variant="standard"
                                         size='small'
                                         value={values.newPass}
@@ -95,7 +97,7 @@ function ModalTrocarSenha({ open, handleClose}: IProps) {
                                         component={TextField}
                                         name='confirmPass'
                                         type='password'
-                                        label='Confirmar Senha'
+                                        label={t("modal.confirmPassword")}
                                         variant="standard"
                                         size='small'
                                         value={values.confirmPass}
@@ -104,8 +106,8 @@ function ModalTrocarSenha({ open, handleClose}: IProps) {
                                     />
                                 </Stack>
                                 <div className='botoes'>
-                                    <Botao type="submit">Alterar</Botao>
-                                    <Botao onClick={handleClose}>Cancelar</Botao>
+                                    <Botao type="submit">{t("modal.alter")}</Botao>
+                                    <Botao onClick={handleClose}>{t("modal.cancel")}</Botao>
                                 </div>
                             </Form>
                         )}

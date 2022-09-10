@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Botao from '../Botao';
 import './ModalConfirmar.scss'
+import { useTranslation } from 'react-i18next';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -27,6 +28,7 @@ interface IProps {
 
 export default function ModalConfirmar({title, message, open, handleOpen, handleClose, onConfirm}: IProps) {
 
+  const { t } = useTranslation();
   return (
     <div>
       <Modal
@@ -43,8 +45,8 @@ export default function ModalConfirmar({title, message, open, handleOpen, handle
             {message}
           </Typography>
           <div className='botoes'>
-              <Botao onClick={() => onConfirm(open.id ? open.id : -1)}>Sim</Botao>
-              <Botao onClick={handleClose}>Cancelar</Botao>
+              <Botao onClick={() => onConfirm(open.id ? open.id : -1)}>{t("modal.yes")}</Botao>
+              <Botao onClick={handleClose}>{t("modal.cancel")}</Botao>
           </div>
         </Box>
       </Modal>

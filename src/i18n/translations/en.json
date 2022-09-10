@@ -286,7 +286,26 @@
       "scanCode": "Scan the book code",
       "insertCode": "Or enter it in the field below:",
       "confirm": "Confirm",
-      "printReceipt": "Print Receipt"
+      "printReceipt": "Print Receipt",
+      "yes": "Yes",
+      "cancel": "Cancel",
+      "renewal": "Loan Renewal",
+      "book": "Book",
+      "dateLoan": "Loan Date",
+      "dateReturn": "Return Date",
+      "newDate": "New Return Date",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "alter": "Alter"
+    },
+
+    "reportTable": {
+      "id": "ID",
+      "type": "Type of Movement",
+      "user": "User ID",
+      "client": "Client ID",
+      "book": "Book ID",
+      "dateTime": "Date and Time"
     }
   }
 }
