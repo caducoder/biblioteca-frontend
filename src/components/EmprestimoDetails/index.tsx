@@ -2,24 +2,24 @@ import './EmprestimoDetails.scss'
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { Paper, Typography } from "@mui/material";
 import Alert from '@mui/material/Alert';
-import { 
-  format, 
-    formatDistanceToNowStrict, 
-    isPast, 
+import {
+    format,
+    formatDistanceToNowStrict,
+    isPast,
     parseISO,
     addHours,
     isToday,
-  } from "date-fns";
-  import pt from 'date-fns/locale/pt-BR';
-  import { IEmprestimo, realizarDevolucao } from "../../api/EmprestimoService";
-  import Botao from "../Botao";
-  import { MdDone } from 'react-icons/md';
-  import ModalRenovacao from '../ModalRenovacao';
+} from "date-fns";
+import pt from 'date-fns/locale/pt-BR';
+import { IEmprestimo, realizarDevolucao } from "../../api/EmprestimoService";
+import Botao from "../Botao";
+import { MdDone } from 'react-icons/md';
+import ModalRenovacao from '../ModalRenovacao';
 import ConfirmacaoPagamentoPopup from '../ConfirmacaoPagamentoPopup';
 
 interface IPropsEmpr {
-  emprestimo: IEmprestimo,
-  setEmprestimo: Dispatch<SetStateAction<IEmprestimo | null>>
+    emprestimo: IEmprestimo,
+    setEmprestimo: Dispatch<SetStateAction<IEmprestimo | null>>
 }
 
 const MULTA_DIARIA = 2.00
@@ -32,19 +32,19 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
     const [success, setSuccess] = useState(false);
     const [msg, setMsg] = useState('');
     const [openPagmDialog, setOpenPagmDialog] = useState(false);
-    const [openRenovacaoModal, setOpenRenovacaoModal] = useState<{open: boolean, codLivro: string}>({open: false, codLivro: ''});
-    
+    const [openRenovacaoModal, setOpenRenovacaoModal] = useState<{ open: boolean, codLivro: string }>({ open: false, codLivro: '' });
+
     // função para fechar o modal de renovação
-    const handleCloseRenovacaoModal = () => setOpenRenovacaoModal({open: false, codLivro: ''})
+    const handleCloseRenovacaoModal = () => setOpenRenovacaoModal({ open: false, codLivro: '' })
 
     // função para abrir o modal de renovação, passando o cod do livro
     const handleOpenRenovacaoModal = (codLivro: string) => {
-      setOpenRenovacaoModal({open: true, codLivro: codLivro})
+        setOpenRenovacaoModal({ open: true, codLivro: codLivro })
     }
 
     // função para quando clicar no botão de renovar, dispara abertura do modal
     const handleClickRenovar = () => {
-      handleOpenRenovacaoModal(emprestimo.livro.isbn || emprestimo.livro.issn)
+        handleOpenRenovacaoModal(emprestimo.livro.isbn || emprestimo.livro.issn)
     }
 
     // função para fechar o popup de pagamento
@@ -52,23 +52,23 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
 
     // função que valida o pagamento da multa e mostra status de pagamento realizado
     const confirmaPagamento = () => {
-        setStatus(<span className='pagOk green'>Pagamento realizado <span className='doneIcon'><MdDone size={20} color='green'/></span></span>)
+        setStatus(<span className='pagOk green'>Pagamento realizado <span className='doneIcon'><MdDone size={20} color='green' /></span></span>)
         setOpenPagmDialog(false);
-        setPagmRealizado(true)  
+        setPagmRealizado(true)
     };
 
     // função para efetivar a devolução no sistema
     const confirmaDevolucao = async () => {
         try {
-          const response = await realizarDevolucao(emprestimo.livro.isbn || emprestimo.livro.issn)
-          setMsg(response)
-          setSuccess(true)
-          
-          setTimeout(() => {
-            setEmprestimo(null)
-          }, 2000)
+            const response = await realizarDevolucao(emprestimo.livro.isbn || emprestimo.livro.issn)
+            setMsg(response)
+            setSuccess(true)
+
+            setTimeout(() => {
+                setEmprestimo(null)
+            }, 2000)
         } catch (error: any) {
-          console.log(error?.response?.data)
+            console.log(error?.response?.data)
         }
     }
 
@@ -91,58 +91,58 @@ function EmprestimoDetails({ emprestimo, setEmprestimo }: IPropsEmpr) {
 
         // se data de devolução for anterior ao dia de hoje, calcula dias de atraso
         if (isPast(dataDevl) && !isToday(dataDevl)) {
-            days =  formatDistanceToNowStrict(dataDevl, {locale: pt, unit: 'day'})
+            days = formatDistanceToNowStrict(dataDevl, { locale: pt, unit: 'day' })
         } else {
             days = '0';
         }
 
         // condicional para mostrar o status do empréstimo
-        if(days !== '0'){
+        if (days !== '0') {
             setStatus(<span className='red'>Pagamento pendente</span>)
             setPagmRealizado(false)
         } else {
             setStatus(<span className='green'>Regular</span>)
         }
-        
+
         setDiasAtrasados(days)
     }, []);
 
 
-    return ( 
+    return (
         <section>
             <Typography variant='h3'>Empréstimo:</Typography>
-            <Paper elevation={3} sx={{padding: 2, marginTop: '20px'}}>
-              {success && 
-                  <Alert severity="success">{msg}</Alert>
-              }
-              <p><span className='bold'>Cliente:</span> {emprestimo.nomeCliente}</p>
-              <p><span className='bold'>Livro:</span> {emprestimo.livro.titulo}</p>
-              <p><span className='bold'>Data de Empréstimo:</span> {format(dataEmprestimo, "dd/MM/yyyy")}</p>
-              <p><span className='bold'>Data de Devolução:</span> {format(dataDevl, "dd/MM/yyyy")}</p>
-              <p>
-                  <span className='bold'>Dias atrasados:</span> {diasAtrasados === '0' ? diasAtrasados : <span className="red">{diasAtrasados}</span>}
-                  {pagmRealizado ? '' : <Botao size="small" onClick={calcularMulta} className='calcMultaBtn'>Calcular Multa</Botao>}
-              </p>
-              <div><span className='bold'>Status:</span> {status}</div>
-              <div className='devlBtn'>
-                  <Botao disabled={!pagmRealizado} onClick={confirmaDevolucao}>Confirmar Devolução</Botao>
-                  <Botao disabled={!pagmRealizado} onClick={handleClickRenovar}>Renovar Empréstimo</Botao>
-              </div>
+            <Paper elevation={3} sx={{ padding: 2, marginTop: '20px' }}>
+                {success &&
+                    <Alert severity="success">{msg}</Alert>
+                }
+                <p><span className='bold'>Cliente:</span> {emprestimo.cliente.nome}</p>
+                <p><span className='bold'>Livro:</span> {emprestimo.livro.titulo}</p>
+                <p><span className='bold'>Data de Empréstimo:</span> {format(dataEmprestimo, "dd/MM/yyyy")}</p>
+                <p><span className='bold'>Data de Devolução:</span> {format(dataDevl, "dd/MM/yyyy")}</p>
+                <p>
+                    <span className='bold'>Dias atrasados:</span> {diasAtrasados === '0' ? diasAtrasados : <span className="red">{diasAtrasados}</span>}
+                    {pagmRealizado ? '' : <Botao size="small" onClick={calcularMulta} className='calcMultaBtn'>Calcular Multa</Botao>}
+                </p>
+                <div><span className='bold'>Status:</span> {status}</div>
+                <div className='devlBtn'>
+                    <Botao disabled={!pagmRealizado} onClick={confirmaDevolucao}>Confirmar Devolução</Botao>
+                    <Botao disabled={!pagmRealizado} onClick={handleClickRenovar}>Renovar Empréstimo</Botao>
+                </div>
             </Paper>
-            <ConfirmacaoPagamentoPopup 
+            <ConfirmacaoPagamentoPopup
                 title='Confirmar pagamento da multa?'
                 message={<span>Total: R$ <span className='valor'>{multa}</span>. Após confirmar, não é possível desfazer essa ação.</span>}
-                onConfirm={confirmaPagamento} 
-                handleClose={handleClosePagmDialog} 
+                onConfirm={confirmaPagamento}
+                handleClose={handleClosePagmDialog}
                 open={openPagmDialog}
             />
-            <ModalRenovacao 
-              open={openRenovacaoModal}
-              handleClose={handleCloseRenovacaoModal}
-              emprestimo={emprestimo}
+            <ModalRenovacao
+                open={openRenovacaoModal}
+                handleClose={handleCloseRenovacaoModal}
+                emprestimo={emprestimo}
             />
         </section>
-     );
+    );
 }
 
 export default EmprestimoDetails;
