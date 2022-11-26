@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import {MdAccountBox, MdOutlineMenu} from 'react-icons/md'
+import { MdAccountBox, MdOutlineMenu } from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './MenuResponsivo.scss'
@@ -63,16 +63,16 @@ function MenuResponsivo() {
     setAnchorElNav(null);
   };
   /* ------------------------ */
-  
+
   useEffect(() => {
     // verificando se o usuário está logado para decidir se mostra a barra completa ou não
-    if(auth?.role/*true*/) {
+    if (auth?.role/*true*/) {
       setPages(protectedPages)
     } else {
       setPages(publicPages)
     }
   }, [auth]);
-  
+
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -141,7 +141,7 @@ function MenuResponsivo() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Link to={page.to} style={{textDecoration: 'none'}}>
+                  <Link to={page.to} style={{ textDecoration: 'none' }}>
                     <Typography textAlign="center">{page.name}</Typography>
                   </Link>
                 </MenuItem>
@@ -182,10 +182,10 @@ function MenuResponsivo() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center'}}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center' }}>
             <DarkmodeToggle />
             <LanguageSelector />
-            {auth?.role ? 
+            {auth?.role ?
               (
                 <div>
                   <div className='user'>
@@ -197,15 +197,15 @@ function MenuResponsivo() {
                       onClick={handleMenu}
                       color="inherit"
                     >
-                      <MdAccountBox size={40}/>
+                      <MdAccountBox size={40} />
                     </IconButton>
                     <div>
-                      <span className='user__name'>{auth.username}</span><br/>
+                      <span className='user__name'>{auth.username}</span><br />
                       <span className='user__role'>
                         {auth.role[0] === 2205 ? 'Administrador' : 'Bibliotecário'}
                       </span>
                     </div>
-                    
+
                   </div>
                   <Menu
                     id="menu-appbar"
@@ -226,10 +226,10 @@ function MenuResponsivo() {
                   </Menu>
                 </div>
               )
-                :
-              ( 
+              :
+              (
                 <Link to='/login' className='no_style'>
-                  <Button color="inherit" sx={{fontWeight: 'bold', color: 'white'}}>Login</Button>
+                  <Button color="inherit" sx={{ fontWeight: 'bold', color: 'white' }}>Login</Button>
                 </Link>
               )
             }
