@@ -16,7 +16,7 @@ export const CadastroLivroSchema = Yup.object().shape({
         then: Yup.string()
             .min(10, 'Mínimo 10 caracteres').max(13, 'Máximo 13 caracteres').required('Pelo menos um é obrigatório.')
     }),
-    issn:  Yup.string().when('isbn', {
+    issn: Yup.string().when('isbn', {
         is: ((isbn: string) => !isbn || isbn == ''),
         then: Yup.string()
             .required('Pelo menos um é obrigatório.')
@@ -48,7 +48,7 @@ export interface LivroFormValues {
 
 function FormCadastroDeLivros() {
     const [feedback, setFeedback] = useState(false);
-    const [msg, setMsg] = useState({resp: '', severity: ''});
+    const [msg, setMsg] = useState({ resp: '', severity: '' });
     let initialValues: LivroFormValues = {
         isbn: '',
         issn: '',
@@ -64,14 +64,14 @@ function FormCadastroDeLivros() {
     }
 
     // função que envia os dados do livro para o servidor
-    const enviarDados = async (dados: any, {resetForm}: any) => {
+    const enviarDados = async (dados: any, { resetForm }: any) => {
         try {
             const response = await cadastrarLivro(dados)
-            setMsg({resp: response, severity: 'success'})
+            setMsg({ resp: response, severity: 'success' })
             setFeedback(true)
             resetForm({})
         } catch (error: any) {
-            setMsg({resp: error?.response?.data, severity: 'error'})
+            setMsg({ resp: error?.response?.data, severity: 'error' })
             setFeedback(true)
         }
     }
@@ -93,9 +93,9 @@ function FormCadastroDeLivros() {
                     values,
                     errors,
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)}>
+                    <Form noValidate onSubmit={handleSubmit} onChange={() => setFeedback(false)} className='form'>
                         <div className='campo1'>
-                            <div className='campoISBN'> 
+                            <div className='campoISBN'>
                                 <Field
                                     component={TextField}
                                     name='isbn'
@@ -106,8 +106,8 @@ function FormCadastroDeLivros() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className='campoISSN'> 
-                                <Field 
+                            <div className='campoISSN'>
+                                <Field
                                     component={TextField}
                                     name='issn'
                                     type='text'
@@ -117,7 +117,7 @@ function FormCadastroDeLivros() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <Field 
+                            <Field
                                 component={TextField}
                                 name='doi'
                                 type='text'
@@ -128,8 +128,8 @@ function FormCadastroDeLivros() {
                             />
                         </div>
                         <div className='campo2'>
-                            <div className='campoAutor'> 
-                                <Field 
+                            <div className='campoAutor'>
+                                <Field
                                     component={TextField}
                                     name='autor'
                                     type='text'
@@ -140,7 +140,7 @@ function FormCadastroDeLivros() {
                                 />
                             </div>
                             <div className='campoTitulo'>
-                                <Field 
+                                <Field
                                     component={TextField}
                                     name='titulo'
                                     type='text'
@@ -150,7 +150,7 @@ function FormCadastroDeLivros() {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <Field 
+                            <Field
                                 component={TextField}
                                 name='numeroDePaginas'
                                 type='number'
@@ -162,7 +162,7 @@ function FormCadastroDeLivros() {
                         </div>
                         <div className='campo3'>
                             <div className='campoEditora'>
-                                <Field 
+                                <Field
                                     component={TextField}
                                     name='editora'
                                     type='text'
@@ -173,7 +173,7 @@ function FormCadastroDeLivros() {
                                 />
                             </div>
                             <div className='campoAno'>
-                                <Field 
+                                <Field
                                     component={TextField}
                                     name='anoEdicao'
                                     type='number'
@@ -190,15 +190,15 @@ function FormCadastroDeLivros() {
                                 name="idioma"
                                 label={t("registration.language")}
                                 size='small'
-                                sx={{width: 140}}
+                                sx={{ width: 200 }}
                             >
                                 <MenuItem value={'PORTUGUES'}> {t("registration.portuguese")} </MenuItem>
                                 <MenuItem value={'ESPANHOL'}> {t("registration.spanish")} </MenuItem>
                                 <MenuItem value={'INGLES'}> {t("registration.english")} </MenuItem>
                             </Field>
                         </div>
-                        <div className='campoDescricao'> 
-                            <Field 
+                        <div className='campoDescricao'>
+                            <Field
                                 component={TextField}
                                 name='descricao'
                                 type='text'
@@ -208,7 +208,7 @@ function FormCadastroDeLivros() {
                                 rows={4}
                                 value={values.descricao}
                                 onChange={handleChange}
-                                sx={{width: 650}}
+                                sx={{ width: 650 }}
                             />
                         </div>
                         <input type="hidden" name="estadoLivro" value={values.estadoLivro} />
@@ -217,7 +217,7 @@ function FormCadastroDeLivros() {
                 )}
             </Formik>
         </section>
-     );
+    );
 }
 
 export default FormCadastroDeLivros;
