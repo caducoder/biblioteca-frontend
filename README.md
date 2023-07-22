@@ -1,6 +1,19 @@
 # Sistema de Gerenciamento de Biblioteca - Frontend
 
+O sistema foi desenvolvido como parte do projeto final para a disciplina de 5PJS (Projeto de Sistemas), apresentando um inovador gerenciador de biblioteca construído com a poderosa combinação de Java e React.
+
+Com um conjunto completo de funcionalidades, o sistema oferece controle eficiente de empréstimos e devoluções de exemplares, permitindo aos usuários uma experiência fluente e organizada durante suas interações com a biblioteca. Além disso, os funcionários têm à sua disposição uma plataforma confiável para gerenciar e monitorar os processos de empréstimo e devolução, garantindo a eficiência e a precisão das operações.
+
 ![](./src/assets/Screenshot.png)
+
+## Funcionalidades
+
+- Temas dark e light
+- Download e upload de PDFs
+- Geração de comprovante em PDF
+- Seleção de idioma: Inglês e Português
+- Controle de empréstimos, devoluções e renovações
+- Cadastro de funcionários e clientes
 
 ## Tecnologias Utilizadas
 
