@@ -137,7 +137,7 @@ export default function Fichario() {
             '\n',
             {
                table: {
-                  widths: ['*', 'auto', '*', '*'],
+                  widths: ['*', 'auto', 200, '*'],
                   headerRows: 1,
                   body: [
                      [{ text: 'Nome', style: 'tableHeader' }, { text: 'CPF', style: 'tableHeader' }, { text: 'E-mail', style: 'tableHeader' }, { text: 'Telefone', style: 'tableHeader' }],
@@ -289,7 +289,7 @@ export default function Fichario() {
                                        })}
                                     </TableRow>
                                  );
-                              }) 
+                              })
                               : <TableRow><TableCell colSpan={7} sx={{ textAlign: 'center' }}> {t("binder.warning")} </TableCell></TableRow>
                               : (clientes
                                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
